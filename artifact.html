@@ -304,6 +304,45 @@ ul { list-style: none; }
 .qcard__q { font-size: clamp(17px, 3vw, 23px); font-weight: 800; line-height: 1.35; margin-bottom: 6px; }
 .qcard__hint { color: var(--ink-soft); font-size: 14px; margin-bottom: 18px; }
 
+/* Category tag + explanation box (Quiz) */
+.cat-tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: color-mix(in srgb, var(--orange) 16%, transparent); color: var(--orange); border: 1px solid color-mix(in srgb, var(--orange) 40%, transparent); font-size: 12px; font-weight: 800; margin-bottom: 12px; }
+.whybox { margin-top: 14px; padding: 16px; border-radius: var(--r-md); background: var(--glass-2); border: 1px solid var(--glass-brd); font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+.whybox strong { color: var(--orange); }
+
+/* Connect terms ↔ definitions */
+.connect { display: grid; grid-template-columns: 1fr 1.35fr; gap: 12px; }
+.connect__col { display: flex; flex-direction: column; gap: 10px; }
+.connect__lbl { font-size: 12px; font-weight: 800; color: var(--ink-mute); text-transform: uppercase; letter-spacing: .5px; text-align: center; margin-bottom: 2px; }
+.conn-item {
+  padding: 14px 12px; border-radius: var(--r-md); font-weight: 700; font-size: 14px; line-height: 1.35;
+  background: var(--glass-2); border: 1.5px solid var(--glass-brd); text-align: center; min-height: 54px;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform var(--t-fast) var(--ease), border-color var(--t-fast), background var(--t-fast), box-shadow var(--t-fast);
+}
+.conn-item--def { font-weight: 600; font-size: 13.5px; color: var(--ink-soft); }
+.conn-item:hover:not(.done) { transform: translateY(-2px); border-color: var(--blue); }
+.conn-item:active { transform: scale(0.97); }
+.conn-item.sel { border-color: var(--blue); background: color-mix(in srgb, var(--blue) 22%, transparent); box-shadow: var(--glow-blue); }
+.conn-item.done { border-color: #2ec77a; background: color-mix(in srgb, #2ec77a 20%, transparent); color: var(--ink); opacity: .85; pointer-events: none; }
+.conn-item.err { border-color: #ff5d5d; background: color-mix(in srgb, #ff5d5d 18%, transparent); animation: shake 0.4s; }
+@media (max-width: 420px){ .connect { grid-template-columns: 1fr 1.25fr; gap: 8px; } .conn-item { font-size: 13px; padding: 12px 8px; } }
+
+/* Rapid true / false */
+.tf-card {
+  min-height: 190px; display: grid; place-items: center; text-align: center;
+  padding: clamp(22px, 5vw, 40px); border-radius: var(--r-lg);
+  background: var(--card); border: 1.5px solid var(--glass-brd); box-shadow: var(--shadow-1);
+  margin-bottom: 18px; transition: transform var(--t-fast), box-shadow var(--t-fast), border-color var(--t-fast);
+}
+.tf-card__q { font-size: clamp(18px, 4vw, 26px); font-weight: 800; line-height: 1.4; }
+.tf-card.tf-ok { border-color: #2ec77a; box-shadow: 0 0 0 3px rgba(46,199,122,.35); animation: pop 0.35s var(--ease-back); }
+.tf-card.tf-no { border-color: #ff5d5d; box-shadow: 0 0 0 3px rgba(255,93,93,.35); animation: shake 0.4s; }
+.tf-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 460px; margin: 0 auto; }
+.tf-btns .btn { padding: 20px; font-size: 20px; font-weight: 900; }
+.tf-true { background: linear-gradient(135deg, #1E5BD6, #4d82e6); color: #fff; box-shadow: var(--shadow-1), var(--glow-blue); }
+.tf-false { background: linear-gradient(135deg, #F97316, #fb8f42); color: #fff; box-shadow: var(--shadow-1), var(--glow-orange); }
+.tf-streak { text-align: center; margin-top: 14px; font-weight: 800; color: var(--orange); min-height: 22px; font-size: 15px; }
+
 /* Options */
 .opts { display: grid; gap: 12px; }
 .opt {
@@ -675,120 +714,248 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
 
 <script>
 /* ============================================================
-   BASTA PLAY · data.js  (المحتوى بالعربية)
-   محتوى الألعاب: الأوضاع، الألغاز، الذاكرة، السرعة، الاستراتيجية،
-   الأوسمة، الرتب. متاح عبر window.BASTA_DATA
+   BASTA PLAY · data.js  (محتوى احترافي — تسويق للكبار)
+   بنك أسئلة تسويقي كبير + أوضاع معرفية متعددة.
+   متاح عبر window.BASTA_DATA
    ============================================================ */
 (function () {
   "use strict";
 
   const MODES = [
-    { id: "puzzle",   title: "لغز التسويق",        icon: "🧩", tint: "#1E5BD6",
-      desc: "حلّ تحدّيات العلامة والتسويق — رتّب المراحل، طابِق المفاهيم، واكشف الاستراتيجية الصحيحة.",
-      tag: "منطق", best: "puzzleBest" },
-    { id: "memory",   title: "تحدّي الذاكرة",      icon: "🧠", tint: "#F97316",
-      desc: "راقب تسلسل عناصر العلامة وهي تُضيء، ثم أعِد إنتاجه من ذاكرتك بدقّة تامّة.",
-      tag: "تركيز", best: "memoryBest" },
-    { id: "speed",    title: "تحدّي السرعة",       icon: "⚡", tint: "#1E5BD6",
-      desc: "ردّة فعل خاطفة. اضغط على العنصر الصحيح قبل أن يسبقك الوقت.",
-      tag: "سرعة", best: "speedBest" },
-    { id: "strategy", title: "تحدّي الاستراتيجية", icon: "♟️", tint: "#F97316",
+    { id: "quiz",     title: "بنك الأسئلة",        icon: "🎓", tint: "#1E5BD6",
+      desc: "عشرات الأسئلة المتخصّصة في التسويق — علامة، رقمي، تحليلات، إعلانات ومحتوى.",
+      tag: "معرفة" },
+    { id: "connect",  title: "وصل المصطلحات",      icon: "🔗", tint: "#F97316",
+      desc: "صِل كل مصطلح تسويقي بتعريفه الصحيح. اختبار حقيقي لعمقك المعرفي.",
+      tag: "وصل" },
+    { id: "order",    title: "رتّب المراحل",        icon: "🧱", tint: "#1E5BD6",
+      desc: "أعِد ترتيب مراحل القمع والحملات والاستراتيجيات في تسلسلها الصحيح.",
+      tag: "ترتيب" },
+    { id: "rapid",    title: "سرعة المعرفة",        icon: "⚡", tint: "#F97316",
+      desc: "صحّ أم خطأ؟ عبارات تسويقية سريعة ضدّ الساعة — تحدٍّ للبديهة والدقّة.",
+      tag: "سرعة" },
+    { id: "strategy", title: "تحدّي الاستراتيجية", icon: "♟️", tint: "#1E5BD6",
       desc: "سيناريوهات تسويقية واقعية. اختر القرار الأذكى واصنع الأثر.",
-      tag: "قرار", best: "strategyBest" },
-    { id: "match", title: "لعبة المطابقة", icon: "🃏", tint: "#1E5BD6",
-      desc: "اقلب البطاقات وطابِق أزواج العناصر التسويقية بأقلّ عدد حركات وأسرع وقت.",
-      tag: "ذكاء", best: "matchBest" }
+      tag: "قرار" }
   ];
 
-  /* أيقونات تسويقية أنيقة (تغذية بصرية) تُستخدم في الذاكرة والسرعة والمطابقة */
-  const ICONS = [
-    { icon: "🚀", name: "الإطلاق",   grad: "linear-gradient(135deg,#1E5BD6,#4d82e6)", glow: "0 0 26px rgba(30,91,214,.7)" },
-    { icon: "🎯", name: "الاستهداف", grad: "linear-gradient(135deg,#F97316,#fb8f42)", glow: "0 0 26px rgba(249,115,22,.7)" },
-    { icon: "💡", name: "الفكرة",     grad: "linear-gradient(135deg,#f59e0b,#F97316)", glow: "0 0 26px rgba(245,158,11,.7)" },
-    { icon: "📈", name: "النموّ",     grad: "linear-gradient(135deg,#1a4fbd,#1E5BD6)", glow: "0 0 26px rgba(26,79,189,.7)" },
-    { icon: "📣", name: "الحملة",     grad: "linear-gradient(135deg,#F97316,#ff9a5a)", glow: "0 0 26px rgba(249,115,22,.7)" },
-    { icon: "⭐", name: "العلامة",    grad: "linear-gradient(135deg,#4d82e6,#7aa3ee)", glow: "0 0 26px rgba(77,130,230,.7)" },
-    { icon: "🏆", name: "النجاح",     grad: "linear-gradient(135deg,#1E5BD6,#1a4fbd)", glow: "0 0 26px rgba(30,91,214,.7)" },
-    { icon: "❤️", name: "الولاء",     grad: "linear-gradient(135deg,#fb8f42,#F97316)", glow: "0 0 26px rgba(251,143,66,.7)" },
-    { icon: "📱", name: "السوشيال",   grad: "linear-gradient(135deg,#4d82e6,#1E5BD6)", glow: "0 0 26px rgba(77,130,230,.7)" },
-    { icon: "✨", name: "الإبداع",    grad: "linear-gradient(135deg,#f59e0b,#fb8f42)", glow: "0 0 26px rgba(245,158,11,.7)" }
+  /* ============================================================
+     بنك الأسئلة (اختيار من متعدّد) — احترافي، مصنّف حسب المجال
+     ============================================================ */
+  const QBANK = [
+    { cat: "العلامة", q: "ما المقصود بـ«تموضع العلامة» (Brand Positioning)؟",
+      options: ["المكانة التي تحتلّها العلامة في ذهن العميل مقارنةً بالمنافسين", "الموقع الجغرافي للمتجر", "ترتيب المنتجات على الرفّ", "عدد فروع الشركة"], answer: 0,
+      why: "التموضع فكري لا مكاني: هو الصورة والمكانة التي تشغلها علامتك في ذهن الجمهور." },
+    { cat: "التحليلات", q: "ماذا يقيس مؤشّر CTR؟",
+      options: ["نسبة النقر إلى الظهور", "تكلفة اكتساب العميل", "معدّل الارتداد", "العائد على الإنفاق"], answer: 0,
+      why: "CTR = عدد النقرات ÷ عدد مرّات الظهور، ويعكس جاذبية الإعلان أو الرابط." },
+    { cat: "الإعلانات", q: "اختصار CPC يعني…",
+      options: ["تكلفة النقرة", "تكلفة الألف ظهور", "تكلفة التحويل", "معدّل التحويل"], answer: 0,
+      why: "CPC (Cost Per Click) هي تكلفة كل نقرة على الإعلان." },
+    { cat: "التحليلات", q: "«معدّل الارتداد» (Bounce Rate) المرتفع يشير غالباً إلى…",
+      options: ["مغادرة الزوّار دون تفاعل", "ارتفاع المبيعات", "ولاء عالٍ", "سرعة تحميل ممتازة"], answer: 0,
+      why: "ارتفاعه يعني أن الزائر غادر بعد صفحة واحدة دون تفاعل — إشارة لمشكلة في المحتوى أو الملاءمة." },
+    { cat: "السيو", q: "أيّ ممّا يلي من عوامل تحسين محركات البحث «داخل الصفحة» (On-page)؟",
+      options: ["الكلمات المفتاحية والعناوين والوصف", "الروابط الخلفية", "إعلانات جوجل المدفوعة", "منشورات إنستغرام"], answer: 0,
+      why: "عوامل On-page تخصّ محتوى الصفحة نفسها: العناوين، الكلمات، الوصف، بنية النص." },
+    { cat: "المحتوى", q: "مبدأ «القيمة قبل البيع» في تسويق المحتوى يعني…",
+      options: ["تقديم فائدة حقيقية للجمهور قبل طلب الشراء", "خفض الأسعار باستمرار", "الإكثار من الإعلانات", "نسخ محتوى المنافسين"], answer: 0,
+      why: "تسويق المحتوى يبني الثقة بتقديم قيمة أولاً، فيأتي البيع نتيجةً طبيعية." },
+    { cat: "السوشيال", q: "أفضل مقياس لجودة التفاعل على منصّة اجتماعية هو…",
+      options: ["معدّل التفاعل (Engagement Rate)", "عدد المتابعين فقط", "عدد المنشورات", "عمر الحساب"], answer: 0,
+      why: "معدّل التفاعل ينسب التفاعل إلى حجم الجمهور، فيعكس الجودة لا مجرّد الحجم." },
+    { cat: "الاستراتيجية", q: "تحليل SWOT يشمل…",
+      options: ["القوة والضعف والفرص والتهديدات", "المنتج والسعر والمكان والترويج", "الوعي والاهتمام والرغبة والفعل", "البحث والتصميم والإطلاق"], answer: 0,
+      why: "SWOT = Strengths, Weaknesses, Opportunities, Threats." },
+    { cat: "الاستراتيجية", q: "عناصر المزيج التسويقي 4Ps هي…",
+      options: ["المنتج والسعر والمكان والترويج", "الناس والعملية والدليل المادي", "القوة والضعف والفرص", "الوعي والولاء والتفضيل"], answer: 0,
+      why: "4Ps = Product, Price, Place, Promotion." },
+    { cat: "البيع", q: "«قمع المبيعات» (Sales Funnel) يمثّل…",
+      options: ["رحلة العميل من الوعي حتى الشراء", "هيكل فريق المبيعات", "نظام المحاسبة", "جدول الأسعار"], answer: 0,
+      why: "القمع يصف تناقص عدد العملاء عبر مراحل: وعي ← اهتمام ← قرار ← شراء." },
+    { cat: "التحليلات", q: "مؤشّر ROAS يقيس…",
+      options: ["العائد على الإنفاق الإعلاني", "عدد المتابعين", "سرعة الموقع", "رضا الموظفين"], answer: 0,
+      why: "ROAS = الإيراد المتحقّق ÷ الإنفاق الإعلاني." },
+    { cat: "التحليلات", q: "اختصار CAC يعني…",
+      options: ["تكلفة اكتساب العميل", "قيمة العميل مدى الحياة", "معدّل النقر", "العائد على الاستثمار"], answer: 0,
+      why: "CAC = إجمالي تكلفة التسويق والمبيعات ÷ عدد العملاء الجدد." },
+    { cat: "التحليلات", q: "قيمة العميل مدى الحياة (LTV) مفيدة لأنها…",
+      options: ["تقدّر إجمالي ما ينفقه العميل طوال علاقته بالعلامة", "تقيس سرعة الموقع", "تحسب عدد الزيارات", "تحدّد لون الشعار"], answer: 0,
+      why: "مقارنة LTV بـ CAC تكشف ربحية اكتساب العميل على المدى الطويل." },
+    { cat: "العلامة", q: "«هوية العلامة» (Brand Identity) تشمل…",
+      options: ["الشعار والألوان والنبرة والقيم", "رقم السجلّ التجاري", "راتب المدير", "موقع المكتب"], answer: 0,
+      why: "الهوية هي مجموع العناصر التي تعبّر عن شخصية العلامة بصرياً ولفظياً." },
+    { cat: "المحتوى", q: "الصيغة AIDA تُستخدم أساساً في…",
+      options: ["كتابة الرسائل الإعلانية المقنعة", "برمجة المواقع", "المحاسبة", "إدارة المخزون"], answer: 0,
+      why: "AIDA = Attention, Interest, Desire, Action — إطار لكتابة رسائل تحفّز الفعل." },
+    { cat: "السوشيال", q: "«المؤثّر الجزئي» (Micro-influencer) يتميّز عادةً بـ…",
+      options: ["جمهور أصغر لكن أعلى تفاعلاً وثقة", "ملايين المتابعين", "إعلانات تلفزيونية", "ميزانية ضخمة"], answer: 0,
+      why: "قربه من جمهوره المتخصّص يمنحه ثقة وتفاعلاً أعلى نسبياً." },
+    { cat: "الرقمي", q: "«إعادة الاستهداف» (Retargeting) تعني…",
+      options: ["مخاطبة من تفاعل سابقاً مع علامتك", "استهداف جمهور جديد تماماً", "إيقاف الإعلانات", "حذف الجمهور"], answer: 0,
+      why: "تعيد تذكير المهتمّين الذين لم يكملوا التحويل، فترفع فرص الإتمام." },
+    { cat: "الإعلانات", q: "اختبار A/B يُستخدم لـ…",
+      options: ["مقارنة نسختين لمعرفة الأفضل أداءً", "مضاعفة الميزانية", "نسخ إعلان المنافس", "تغيير الشعار"], answer: 0,
+      why: "بتغيير عنصر واحد بين نسختين تعرف أيّهما يحقّق نتيجة أفضل بالبيانات." },
+    { cat: "السيو", q: "«الكلمات المفتاحية طويلة الذيل» (Long-tail) تتميّز بـ…",
+      options: ["تحديد أدقّ ونيّة شراء أعلى ومنافسة أقلّ", "بحث ضخم ومنافسة عالية", "أنها بلا قيمة", "أنها للصور فقط"], answer: 0,
+      why: "عباراتها المحدّدة تجذب جمهوراً أقلّ عدداً لكنه أقرب للشراء." },
+    { cat: "سلوك المستهلك", q: "«الدليل الاجتماعي» (Social Proof) يعني…",
+      options: ["تأثّر الناس بآراء وتجارب الآخرين", "دليل استخدام المنتج", "شهادة جودة حكومية", "عقد التوظيف"], answer: 0,
+      why: "التقييمات والشهادات وأعداد المستخدمين ترفع الثقة وتدفع للقرار." },
+    { cat: "الاستراتيجية", q: "«الجمهور المستهدف» يُحدَّد أساساً عبر…",
+      options: ["الديموغرافيا والاهتمامات والسلوك", "لون الشعار", "حجم المكتب", "اسم الشركة"], answer: 0,
+      why: "التقسيم الدقيق للجمهور يرفع ملاءمة الرسالة وكفاءة الإنفاق." },
+    { cat: "الرقمي", q: "التسويق عبر البريد الإلكتروني يتفوّق غالباً في…",
+      options: ["العائد على الاستثمار وبناء العلاقة", "الوصول العضوي على تيك توك", "تحسين محركات البحث", "تصميم المتاجر"], answer: 0,
+      why: "قناة مملوكة تخاطب جمهوراً وافق مسبقاً، فترتفع كفاءتها وعائدها." },
+    { cat: "المحتوى", q: "«تقويم المحتوى» (Content Calendar) يساعد على…",
+      options: ["التخطيط والاتّساق في النشر", "حساب الضرائب", "تصميم المنتج", "توظيف الفريق"], answer: 0,
+      why: "ينظّم المواضيع والمواعيد والقنوات فيحافظ على انتظام الحضور." },
+    { cat: "التحليلات", q: "«معدّل التحويل» (Conversion Rate) هو…",
+      options: ["نسبة من أتمّوا الإجراء المطلوب من إجمالي الزوّار", "عدد المتابعين", "سعر المنتج", "عدد المنشورات"], answer: 0,
+      why: "يقيس فاعلية تحويل الزيارات إلى إجراءات (شراء، تسجيل، تواصل)." },
+    { cat: "العلامة", q: "«صوت العلامة» (Brand Voice) يعني…",
+      options: ["الأسلوب واللهجة الثابتة في كل الرسائل", "مقطع صوتي في الإعلان", "رقم الهاتف", "شعار الشركة"], answer: 0,
+      why: "ثبات النبرة عبر القنوات يجعل العلامة مميّزة ومألوفة." },
+    { cat: "الإعلانات", q: "اختصار CPM يعني…",
+      options: ["تكلفة الألف ظهور", "تكلفة النقرة", "تكلفة التحويل", "معدّل التفاعل"], answer: 0,
+      why: "CPM (Cost Per Mille) = تكلفة كل ألف ظهور للإعلان." },
+    { cat: "السوشيال", q: "«الوصول العضوي» يختلف عن «المدفوع» بأنه…",
+      options: ["بلا إنفاق إعلاني مباشر", "أسرع دائماً", "مضمون النتائج", "للصور فقط"], answer: 0,
+      why: "العضوي يعتمد على المحتوى والمشاركة الطبيعية دون دفع مقابل الظهور." },
+    { cat: "الاستراتيجية", q: "«القيمة المقترحة الفريدة» (UVP) تجيب عن سؤال…",
+      options: ["لماذا يختارك العميل دون المنافسين", "أين يقع مكتبك", "متى تفتح أبوابك", "من هو مديرك"], answer: 0,
+      why: "UVP تلخّص الميزة التي تجعل علامتك الخيار الأفضل لجمهورها." },
+    { cat: "سلوك المستهلك", q: "«نقطة الألم» (Pain Point) هي…",
+      options: ["مشكلة يعاني منها العميل ويحلّها منتجك", "سعر المنتج", "لون العبوة", "اسم العلامة"], answer: 0,
+      why: "فهم نقاط الألم يوجّه الرسالة نحو الحلّ الذي يبحث عنه العميل." },
+    { cat: "الرقمي", q: "«صفحة الهبوط» (Landing Page) الفعّالة تركّز على…",
+      options: ["هدف واحد ودعوة واضحة لاتخاذ إجراء", "أكبر عدد من الروابط", "نصوص طويلة بلا هدف", "صور فقط"], answer: 0,
+      why: "التركيز على هدف واحد يقلّل التشتّت ويرفع معدّل التحويل." },
+    { cat: "التحليلات", q: "مؤشّرات الأداء الرئيسية (KPIs) يجب أن تكون…",
+      options: ["قابلة للقياس ومرتبطة بالهدف", "غامضة وعامة", "ثابتة لا تتغيّر أبداً", "سرّية عن الفريق"], answer: 0,
+      why: "بلا قياس واضح ومرتبط بالهدف لا يمكن تقييم الأداء أو تحسينه." },
+    { cat: "المحتوى", q: "«إعادة توظيف المحتوى» (Repurposing) تعني…",
+      options: ["تحويل محتوى ناجح إلى صيغ متعددة", "حذف المحتوى القديم", "نسخ محتوى الغير", "إيقاف النشر"], answer: 0,
+      why: "مقال ناجح يصبح فيديو، انفوجرافيك، ومنشورات — يوسّع الأثر بأقلّ جهد." },
+    { cat: "العلامة", q: "«تجربة العلامة» (Brand Experience) تشمل…",
+      options: ["كل نقاط تواصل العميل مع العلامة", "الشعار فقط", "الإعلان التلفزيوني فقط", "سعر المنتج فقط"], answer: 0,
+      why: "من الإعلان إلى خدمة ما بعد البيع — كل تفاعل يشكّل انطباع العميل." },
+    { cat: "الاستراتيجية", q: "الهدف الأساسي لتسويق المحتوى هو…",
+      options: ["جذب الجمهور وبناء الثقة بقيمة مستمرة", "البيع الفوري القسري", "خفض الجودة", "الإزعاج بالإعلانات"], answer: 0,
+      why: "المحتوى يبني علاقة طويلة الأمد تُثمر تحويلات مستدامة." },
+    { cat: "السوشيال", q: "أفضل وقت للنشر يُعرف من…",
+      options: ["تحليلات نشاط جمهورك", "تخمين شخصي", "منتصف الليل دائماً", "تقليد المنافس حرفياً"], answer: 0,
+      why: "بيانات المنصّة تكشف متى يكون جمهورك أكثر نشاطاً وتفاعلاً." },
+    { cat: "سلوك المستهلك", q: "«رحلة العميل» (Customer Journey) تصف…",
+      options: ["المراحل التي يمرّ بها العميل مع العلامة", "خريطة المكتب", "هيكل الرواتب", "جدول الإجازات"], answer: 0,
+      why: "رسم الرحلة يكشف نقاط التحسين في كل مرحلة تواصل." },
+    { cat: "الرقمي", q: "«التسويق بالعمولة» (Affiliate) يعتمد على…",
+      options: ["مكافأة شركاء مقابل نتائج يحقّقونها", "شراء متابعين وهميين", "إعلانات تلفزيونية", "خصم دائم للجميع"], answer: 0,
+      why: "الدفع مقابل الأداء (بيع/عميل) يجعل التكلفة مرتبطة بالنتيجة." },
+    { cat: "العلامة", q: "«اتّساق العلامة» مهمّ لأنه…",
+      options: ["يبني التمييز والثقة عبر الزمن", "يرفع الإيجار", "يقلّل عدد الموظفين", "يستدعي تغيير الشعار كثيراً"], answer: 0,
+      why: "التكرار المتّسق يرسّخ العلامة في الذاكرة ويعزّز مصداقيتها." },
+    { cat: "الاستراتيجية", q: "أهداف SMART تعني أهدافاً…",
+      options: ["محدّدة وقابلة للقياس والتحقيق وواقعية وزمنية", "غامضة وطموحة بلا خطة", "سرّية عن الفريق", "ثابتة إلى الأبد"], answer: 0,
+      why: "SMART = Specific, Measurable, Achievable, Relevant, Time-bound." },
+    { cat: "الإعلانات", q: "«جودة الإعلان» (Ad Relevance) في المنصّات تؤثّر على…",
+      options: ["التكلفة ومدى الظهور", "لون الشعار", "عدد الموظفين", "اسم الشركة"], answer: 0,
+      why: "كلما زادت ملاءمة الإعلان للجمهور، انخفضت تكلفته وتحسّن ظهوره." }
   ];
 
-  /* ---------- لغز التسويق ----------
-     نوعان: "order" (رتّب المراحل) و "quiz" (اختر الأفضل). */
-  const PUZZLES = [
-    { type: "order", q: "رتّب مسار التسويق (AIDA) بالترتيب الصحيح.",
-      hint: "الرحلة الكلاسيكية التي يسلكها العميل نحو الشراء.",
+  /* ============================================================
+     وصل المصطلحات — مصطلح ↔ تعريف
+     ============================================================ */
+  const TERMS = [
+    { term: "CTR", def: "نسبة النقر إلى الظهور" },
+    { term: "CPC", def: "تكلفة النقرة الواحدة" },
+    { term: "CPM", def: "تكلفة الألف ظهور" },
+    { term: "ROAS", def: "العائد على الإنفاق الإعلاني" },
+    { term: "CAC", def: "تكلفة اكتساب العميل" },
+    { term: "LTV", def: "قيمة العميل مدى الحياة" },
+    { term: "SEO", def: "تحسين محرّكات البحث" },
+    { term: "CTA", def: "دعوة لاتخاذ إجراء" },
+    { term: "KPI", def: "مؤشّر أداء رئيسي" },
+    { term: "UVP", def: "القيمة المقترحة الفريدة" },
+    { term: "التموضع", def: "مكانة العلامة في ذهن العميل" },
+    { term: "قمع المبيعات", def: "رحلة العميل من الوعي حتى الشراء" },
+    { term: "إعادة الاستهداف", def: "مخاطبة من تفاعل سابقاً" },
+    { term: "الدليل الاجتماعي", def: "التأثّر بتجارب وآراء الآخرين" },
+    { term: "معدّل التحويل", def: "نسبة من أتمّوا الإجراء المطلوب" },
+    { term: "معدّل الارتداد", def: "نسبة من غادروا دون تفاعل" },
+    { term: "صفحة الهبوط", def: "صفحة بهدف واحد ودعوة واضحة" },
+    { term: "المؤثّر الجزئي", def: "جمهور صغير عالي التفاعل" },
+    { term: "تسويق المحتوى", def: "جذب الجمهور بقيمة مستمرّة" },
+    { term: "الهوية البصرية", def: "الشعار والألوان والخطوط" }
+  ];
+
+  /* ============================================================
+     رتّب المراحل — تسلسلات تسويقية
+     ============================================================ */
+  const ORDERS = [
+    { q: "رتّب مسار التسويق (AIDA) بالترتيب الصحيح.", hint: "رحلة العميل نحو الشراء.",
       items: ["الوعي", "الاهتمام", "الرغبة", "اتخاذ الإجراء"] },
-    { type: "order", q: "رتّب رحلة بناء العلامة من الأول إلى الأخير.",
-      hint: "كيف تنمو العلامة في ذهن العميل.",
+    { q: "رتّب رحلة بناء العلامة من الأول إلى الأخير.", hint: "كيف تنمو العلامة في الذهن.",
       items: ["الوعي", "التمييز", "التفضيل", "الولاء"] },
-    { type: "order", q: "رتّب دورة حياة الحملة التسويقية بشكل صحيح.",
-      hint: "من الفكرة إلى النتيجة.",
+    { q: "رتّب دورة حياة الحملة التسويقية.", hint: "من الفكرة إلى النتيجة.",
       items: ["البحث", "الاستراتيجية", "الإبداع", "الإطلاق", "القياس"] },
-    { type: "order", q: "رتّب مسار تسويق المحتوى.",
-      hint: "من أعلى القمع إلى أسفله.",
+    { q: "رتّب مسار تسويق المحتوى.", hint: "من أعلى القمع إلى أسفله.",
       items: ["الجذب", "التفاعل", "التحويل", "الإسعاد"] },
-    { type: "quiz", q: "أي عنصر يجعل العلامة سهلة التمييز فوراً في كل نقطة تواصل؟",
-      hint: "الكلمة المفتاح هي الاتّساق.",
-      options: ["منشور واحد ينتشر بسرعة", "هوية بصرية متّسقة", "ميزانية إعلانات كبيرة", "تغيير الشعار باستمرار"],
-      answer: 1 },
-    { type: "quiz", q: "الهدف من «الدعوة لاتخاذ إجراء» (CTA) هو…",
-      hint: "تخبر الجمهور بالخطوة التالية.",
-      options: ["سرد تاريخ الشركة", "تحفيز استجابة فورية", "ذكر كل مزايا المنتج", "ملء الفراغ في التصميم"],
-      answer: 1 },
-    { type: "quiz", q: "ما الذي يوصله شعار العلامة (التاغلاين) القويّ بشكل أساسي؟",
-      hint: "تذكّر شعار بسطة: نصنع التجربة ويستمر الأثر.",
-      options: ["إخلاء المسؤولية القانوني", "وعد العلامة وقيمتها", "عنوان المكتب", "تفاصيل الأسعار"],
-      answer: 1 },
-    { type: "quiz", q: "أي مقياس يعكس نموّ الوعي بالعلامة بأفضل شكل؟",
-      hint: "الأمر يتعلّق بعدد من يعرفونك.",
-      options: ["الوصول ومرّات الظهور", "إيجار المكتب", "عدد الاجتماعات", "كمية الورق المستهلك"],
-      answer: 0 },
-    { type: "order", q: "رتّب هذه المراحل حسب رحلة العميل (من منظور تسويقي).",
-      hint: "من غريب إلى سفير للعلامة.",
+    { q: "رتّب رحلة العميل من منظور تسويقي.", hint: "من غريب إلى سفير.",
       items: ["غريب", "عميل محتمل", "عميل", "مناصر"] },
-    { type: "quiz", q: "في التموضع، «القيمة الفريدة» تجيب عن أي سؤال؟",
-      hint: "هي ما يميّزك عن غيرك.",
-      options: ["أين المكتب؟", "لماذا تختارنا دون غيرنا؟", "متى نفتح أبوابنا؟", "من هو المدير التنفيذي؟"],
-      answer: 1 },
-    { type: "quiz", q: "أي قناة هي الأفضل لبناء ثقة عضويّة طويلة الأمد بالعلامة؟",
-      hint: "بطيئة، متراكمة، ومملوكة لك.",
-      options: ["إعلانات منبثقة مدفوعة", "محتوى متّسق وبناء مجتمع", "مكالمات عشوائية باردة", "رسائل بريد مزعجة"],
-      answer: 1 },
-    { type: "order", q: "رتّب سير العمل في تصميم هوية العلامة.",
-      hint: "من الإنصات إلى التسليم.",
+    { q: "رتّب سير العمل في تصميم هوية العلامة.", hint: "من الإنصات إلى التسليم.",
       items: ["الموجز", "التصوّر", "التصميم", "التنقيح", "التسليم"] },
-    { type: "quiz", q: "ما الفرق الجوهري بين «الوصول» و«التفاعل»؟",
-      hint: "أحدهما كمّي والآخر يعكس الاهتمام.",
-      options: ["لا فرق بينهما", "الوصول: كم شخصاً رأى · التفاعل: كم شخصاً تفاعل", "الوصول أهم دائماً", "التفاعل يقيس عدد المتابعين"],
-      answer: 1 },
-    { type: "quiz", q: "أفضل توقيت للنشر يُحدَّد بناءً على…",
-      hint: "دع البيانات تقود القرار.",
-      options: ["ذوقك الشخصي", "تحليلات نشاط جمهورك", "توقيت المنافسين فقط", "منتصف الليل دائماً"],
-      answer: 1 },
-    { type: "order", q: "رتّب مراحل بناء حملة مدفوعة ناجحة.",
-      hint: "من الهدف إلى التحسين.",
+    { q: "رتّب مراحل بناء حملة مدفوعة ناجحة.", hint: "من الهدف إلى التحسين.",
       items: ["تحديد الهدف", "تحديد الجمهور", "الإبداع", "الإطلاق", "التحسين"] },
-    { type: "quiz", q: "«الهوية الصوتية» للعلامة تعني…",
-      hint: "الطريقة التي «تتكلّم» بها العلامة.",
-      options: ["نبرة صوت المذيع", "أسلوب ولهجة العلامة في كل رسائلها", "الموسيقى في الإعلان فقط", "رقم خدمة العملاء"],
-      answer: 1 },
-    { type: "order", q: "رتّب هرم ولاء العميل من الأوسع للأضيق.",
-      hint: "من الجمهور العام إلى السفراء.",
-      items: ["الجمهور", "المتابعون", "العملاء", "السفراء"] }
+    { q: "رتّب مراحل إطلاق منتج جديد.", hint: "من الفكرة إلى القياس.",
+      items: ["البحث", "بناء المنتج", "الاختبار", "الإطلاق", "القياس"] },
+    { q: "رتّب خطوات تحسين محرّكات البحث (SEO).", hint: "من الكلمات إلى القياس.",
+      items: ["بحث الكلمات", "تحسين الصفحة", "بناء الروابط", "القياس"] },
+    { q: "رتّب خطوات إدارة أزمة على السوشيال.", hint: "من الاعتراف إلى المتابعة.",
+      items: ["الاعتراف", "الاحتواء", "التواصل", "المعالجة", "المتابعة"] }
   ];
 
-  /* ---------- الذاكرة: عناصر تسويقية أنيقة ---------- */
-  const MEMORY_TILES = ICONS.slice(0, 6).map(x => ({ icon: x.icon, grad: x.grad, glow: x.glow, label: x.name }));
+  /* ============================================================
+     سرعة المعرفة — صح / خطأ
+     ============================================================ */
+  const TF = [
+    { s: "مؤشّر CTR يقيس نسبة النقر إلى الظهور.", t: true },
+    { s: "ارتفاع «معدّل الارتداد» مؤشّر إيجابي دائماً.", t: false },
+    { s: "زيادة عدد المتابعين تعني بالضرورة زيادة المبيعات.", t: false },
+    { s: "اختبار A/B يقارن نسختين لمعرفة الأفضل أداءً.", t: true },
+    { s: "اتّساق العلامة يبني الثقة عبر الزمن.", t: true },
+    { s: "استهداف «الجميع» أفضل من تحديد شريحة دقيقة.", t: false },
+    { s: "تحسين محرّكات البحث (SEO) يعطي نتائج فورية خلال ساعات.", t: false },
+    { s: "تسويق المحتوى يقدّم قيمة للجمهور قبل البيع.", t: true },
+    { s: "صفحة الهبوط الجيّدة تحتوي أهدافاً كثيرة متضاربة.", t: false },
+    { s: "CAC هي تكلفة اكتساب العميل.", t: true },
+    { s: "LTV تقيس سرعة تحميل الموقع.", t: false },
+    { s: "دعوة اتخاذ الإجراء (CTA) تحفّز استجابة فورية.", t: true },
+    { s: "البريد الإلكتروني قناة ضعيفة العائد دائماً.", t: false },
+    { s: "المؤثّر الجزئي غالباً أعلى تفاعلاً وثقة.", t: true },
+    { s: "تغيير الشعار باستمرار يقوّي تمييز العلامة.", t: false },
+    { s: "مؤشّرات الأداء (KPIs) يجب أن تكون قابلة للقياس.", t: true },
+    { s: "الوصول العضوي يتطلّب إنفاقاً إعلانياً مباشراً.", t: false },
+    { s: "إعادة الاستهداف تخاطب من تفاعل سابقاً مع العلامة.", t: true },
+    { s: "الجودة أهمّ من الكمّية في المحتوى.", t: true },
+    { s: "ROAS يقيس العائد على الإنفاق الإعلاني.", t: true },
+    { s: "الدليل الاجتماعي يقلّل ثقة العملاء.", t: false },
+    { s: "تقويم المحتوى يساعد على الاتّساق في النشر.", t: true },
+    { s: "«التموضع» هو الموقع الجغرافي للمتجر.", t: false },
+    { s: "القيمة المقترحة الفريدة تجيب: لماذا تختارنا.", t: true },
+    { s: "زيادة تكرار النشر ترفع التفاعل دائماً.", t: false },
+    { s: "معدّل التحويل نسبة من أتمّوا الإجراء المطلوب.", t: true },
+    { s: "CPM تعني تكلفة النقرة.", t: false },
+    { s: "تحليل SWOT يشمل الفرص والتهديدات.", t: true },
+    { s: "الأهداف الغامضة أفضل من أهداف SMART.", t: false },
+    { s: "تجربة العلامة تشمل كل نقاط التواصل مع العميل.", t: true }
+  ];
 
-  /* ---------- السرعة: الأهداف التسويقية ---------- */
-  const SPEED_ELEMENTS = ICONS.slice(0, 6).map(x => ({ icon: x.icon, grad: x.grad, name: x.name }));
-
-  /* ---------- المطابقة: مجموعة الأزواج ---------- */
-  const MATCH_ICONS = ICONS.slice();
-
-  /* ---------- سيناريوهات الاستراتيجية ---------- */
+  /* ============================================================
+     تحدّي الاستراتيجية — سيناريوهات
+     ============================================================ */
   const STRATEGY = [
     { scenario: "علامة قهوة جديدة بميزانية صغيرة لكن قصّتها جميلة. ما أذكى خطوة أولى؟",
       context: "ميزانية محدودة · قصّة قويّة",
@@ -846,11 +1013,11 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
         { t: "أعِد نشر نفس الريل يومياً", pts: 1, why: "إرهاق الجمهور يقتل السحر بسرعة." },
         { t: "انتقل لأسلوب مختلف تماماً", pts: 0, why: "يتخلّى عن رؤية مثبتة." }
       ]},
-    { scenario: "ميزانيتك الإعلانية محدودة، وأمامك قناتان: بحث مدفوع أو سوشيال. كيف تقرّر؟",
+    { scenario: "ميزانيتك الإعلانية محدودة، وأمامك: بحث مدفوع أو سوشيال. كيف تقرّر؟",
       context: "توزيع الميزانية · نيّة الشراء",
       options: [
         { t: "وزّعها بالتساوي دون تفكير", pts: 1, why: "توزيع أعمى لا يراعي هدف الحملة." },
-        { t: "اختر بناءً على نيّة الجمهور: بحث لمن ينوي الشراء، سوشيال للوعي", pts: 3, why: "الأفضل: القناة تتبع الهدف ونيّة العميل." },
+        { t: "اختر بحسب النيّة: بحث لمن ينوي الشراء، سوشيال للوعي", pts: 3, why: "الأفضل: القناة تتبع الهدف ونيّة العميل." },
         { t: "سوشيال دائماً لأنه أرخص", pts: 1, why: "الأرخص ليس دائماً الأعلى عائداً." },
         { t: "أوقف الإعلان وانتظر", pts: 0, why: "تفويت للفرص وتوقّف للنموّ." }
       ]},
@@ -858,15 +1025,15 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
       context: "إدارة السمعة · تفاعل",
       options: [
         { t: "احذف كل تعليق سلبي فوراً", pts: 1, why: "الحذف الجماعي يزيد الغضب ويبدو تستّراً." },
-        { t: "ردّ باحترام، عالِج المشكلة علناً، وانقل التفاصيل للخاص", pts: 3, why: "الأفضل: الشفافية والاحترافية تبنيان الثقة." },
+        { t: "ردّ باحترام، عالِج علناً، وانقل التفاصيل للخاص", pts: 3, why: "الأفضل: الشفافية والاحترافية تبنيان الثقة." },
         { t: "تجاهلها تماماً", pts: 1, why: "الصمت قد يُفسَّر لا مبالاة." },
         { t: "ردّ بحدّة على المنتقدين", pts: 0, why: "يضرّ بالعلامة ويُصعّد الموقف." }
       ]},
-    { scenario: "أطلقت منتجاً جديداً وتريد قياس نجاح الحملة. ما المؤشّر الأهمّ أولاً؟",
+    { scenario: "أطلقت منتجاً وتريد قياس نجاح الحملة. ما المؤشّر الأهمّ أولاً؟",
       context: "قياس · أهداف ذكية",
       options: [
         { t: "عدد الإعجابات فقط", pts: 1, why: "مؤشّر سطحي لا يعكس الأثر التجاري." },
-        { t: "مؤشّرات مرتبطة بالهدف: تحويلات، عائد، تكلفة الاكتساب", pts: 3, why: "الأفضل: قِس ما يخدم هدف العمل مباشرة." },
+        { t: "مؤشّرات مرتبطة بالهدف: تحويلات، عائد، تكلفة اكتساب", pts: 3, why: "الأفضل: قِس ما يخدم هدف العمل مباشرة." },
         { t: "عدد المتابعين الجدد حصراً", pts: 1, why: "مفيد لكنه لا يكفي وحده للحكم." },
         { t: "شعورك العام عن الحملة", pts: 0, why: "القرار يُبنى على البيانات لا الانطباع." }
       ]}
@@ -875,27 +1042,28 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
   /* ---------- الأوسمة ---------- */
   const ACHIEVEMENTS = [
     { id: "first_play",  icon: "🎯", name: "الانطلاقة",      desc: "العب أول جولة لك." },
-    { id: "puzzle_ace",  icon: "🧩", name: "بطل الألغاز",    desc: "أتقِن لغز تسويق كاملاً." },
-    { id: "memory_pro",  icon: "🧠", name: "قصر الذاكرة",    desc: "اوصل للمستوى 6 في الذاكرة." },
-    { id: "speed_demon", icon: "⚡", name: "سرعة البرق",     desc: "سجّل 20+ في تحدّي السرعة." },
+    { id: "quiz_ace",    icon: "🎓", name: "عبقري التسويق",  desc: "أجب عن كل أسئلة جولة بشكل صحيح." },
+    { id: "connect_pro", icon: "🔗", name: "خبير المصطلحات", desc: "أكمِل وصل المصطلحات دون خطأ." },
+    { id: "order_pro",   icon: "🧱", name: "مهندس المراحل",  desc: "رتّب كل المراحل صحيحة في جولة." },
+    { id: "rapid_demon", icon: "⚡", name: "سريع البديهة",   desc: "سجّل 15+ في سرعة المعرفة." },
     { id: "strategist",  icon: "♟️", name: "استراتيجي محترف", desc: "أتقِن تحدّي استراتيجية." },
-    { id: "streak3",     icon: "🔥", name: "مُشتعل",          desc: "حافظ على سلسلة 3 أيام." },
+    { id: "streak3",     icon: "🔥", name: "مُثابر",          desc: "حافظ على سلسلة 3 أيام." },
     { id: "coin100",     icon: "💰", name: "جامع العملات",    desc: "اجمع 100 عملة." },
     { id: "level5",      icon: "⭐", name: "نجم صاعد",        desc: "اوصل إلى المستوى 5." },
     { id: "level10",     icon: "🌟", name: "أسطورة العلامة",  desc: "اوصل إلى المستوى 10." },
     { id: "daily",       icon: "📅", name: "مثابِر يومي",     desc: "أكمِل التحدّي اليومي." },
     { id: "allmodes",    icon: "🏆", name: "الطيف الكامل",    desc: "جرّب كل أوضاع اللعب." },
-    { id: "perfectionist", icon: "💎", name: "إتقان تامّ",    desc: "افُز بـ 10 جولات إجمالاً." }
+    { id: "expert",      icon: "💎", name: "مرجع التسويق",    desc: "افُز بـ 15 جولة إجمالاً." }
   ];
 
   /* ---------- الرتب (حسب المستوى) ---------- */
   const RANKS = [
     { min: 1,  name: "مبتدئ" },
     { min: 3,  name: "مسوّق ناشئ" },
-    { min: 5,  name: "بانِي علامة" },
+    { min: 5,  name: "أخصّائي تسويق" },
     { min: 8,  name: "خبير نموّ" },
     { min: 11, name: "استراتيجي" },
-    { min: 15, name: "مدير إبداعي" },
+    { min: 15, name: "مدير تسويق" },
     { min: 20, name: "أسطورة التسويق" }
   ];
 
@@ -911,7 +1079,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
   }
 
   window.BASTA_DATA = {
-    MODES, PUZZLES, MEMORY_TILES, SPEED_ELEMENTS, MATCH_ICONS, ICONS, STRATEGY,
+    MODES, QBANK, TERMS, ORDERS, TF, STRATEGY,
     ACHIEVEMENTS, RANKS, seededRandom
   };
 })();
@@ -938,7 +1106,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
     music: false,
     achievements: {},     // id -> true
     playedModes: {},      // id -> true
-    bests: { puzzle: 0, memory: 0, speed: 0, strategy: 0, match: 0 },
+    bests: { quiz: 0, connect: 0, order: 0, rapid: 0, strategy: 0 },
     leaderboard: []       // [{name, score, level, mode, ts}]
   };
 
@@ -1036,12 +1204,12 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
     if (state.leaderboard.length) return;
     // Seed with agency-flavoured local rivals so the board never looks empty.
     state.leaderboard = [
-      { name: "شبح الاستوديو", score: 940, level: 9, mode: "strategy", ts: 0, bot: true },
-      { name: "رحّالة البكسل", score: 820, level: 8, mode: "speed",    ts: 0, bot: true },
-      { name: "ناسخ الأفكار",  score: 705, level: 7, mode: "puzzle",   ts: 0, bot: true },
-      { name: "بومة النموّ",   score: 610, level: 6, mode: "memory",   ts: 0, bot: true },
-      { name: "ثعلب العلامة",  score: 480, level: 5, mode: "strategy", ts: 0, bot: true },
-      { name: "حوت النيون",    score: 350, level: 4, mode: "speed",    ts: 0, bot: true }
+      { name: "أبو ريناد",  score: 940, level: 9, mode: "strategy", ts: 0, bot: true },
+      { name: "نورة",       score: 820, level: 8, mode: "quiz",     ts: 0, bot: true },
+      { name: "خالد م.",    score: 705, level: 7, mode: "connect",  ts: 0, bot: true },
+      { name: "ريم العتيبي", score: 610, level: 6, mode: "order",    ts: 0, bot: true },
+      { name: "فيصل",       score: 480, level: 5, mode: "rapid",    ts: 0, bot: true },
+      { name: "سارة",       score: 350, level: 4, mode: "quiz",     ts: 0, bot: true }
     ];
     save();
   }
@@ -1382,8 +1550,8 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
 })();
 
 /* ============================================================
-   BASTA PLAY · games/puzzle.js — Marketing Puzzle
-   Order sequences & pick best answers. window.Games.puzzle
+   BASTA PLAY · games/quiz.js — بنك الأسئلة (اختيار من متعدّد)
+   window.Games.quiz
    ============================================================ */
 (function () {
   "use strict";
@@ -1396,13 +1564,219 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
     return a;
   }
 
-  window.Games.puzzle = {
-    label: "لغز التسويق",
+  window.Games.quiz = {
+    label: "بنك الأسئلة",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
-      const pool = shuffle(BASTA_DATA.PUZZLES, rnd);
-      const rounds = pool.slice(0, opts.count || 5);
+      const rounds = shuffle(BASTA_DATA.QBANK, rnd).slice(0, opts.count || 6);
+      let idx = 0, correct = 0;
+
+      function render() {
+        const item = rounds[idx];
+        // اخلط الخيارات مع تتبّع الإجابة الصحيحة
+        const opt = shuffle(item.options.map((t, i) => ({ t, ok: i === item.answer })), rnd);
+        const pct = Math.round((idx / rounds.length) * 100);
+        mount.innerHTML = `
+          <div class="gscreen">
+            <div class="gtop">
+              <span class="chip">سؤال ${idx + 1}/${rounds.length}</span>
+              <div class="gtop__spacer"></div>
+              <span class="chip chip--score">✓ ${correct}</span>
+            </div>
+            <div class="progressbar"><span style="width:${pct}%"></span></div>
+            <div class="qcard">
+              <div class="cat-tag">${esc(item.cat)}</div>
+              <div class="qcard__q">${esc(item.q)}</div>
+              <div class="opts" id="opts" style="margin-top:16px"></div>
+              <div id="why"></div>
+            </div>
+          </div>`;
+        const box = $("#opts");
+        opt.forEach((o, i) => {
+          const b = document.createElement("button");
+          b.className = "opt"; b.type = "button";
+          b.innerHTML = `<span class="opt__key">${String.fromCharCode(65 + i)}</span><span>${esc(o.t)}</span>`;
+          b.addEventListener("click", () => choose(o, b, box, item));
+          box.appendChild(b);
+        });
+      }
+
+      function choose(o, btn, box, item) {
+        const btns = box.querySelectorAll(".opt");
+        btns.forEach(b => b.disabled = true);
+        if (o.ok) { btn.classList.add("correct"); correct++; Sound.fx("correct"); }
+        else {
+          btn.classList.add("wrong"); Sound.fx("wrong");
+          btns.forEach(b => { if (b.querySelector("span:last-child").textContent === item.options[item.answer]) b.classList.add("correct"); });
+        }
+        const why = $("#why");
+        why.innerHTML = `<div class="whybox"><strong style="color:var(--orange)">الشرح:</strong> ${esc(item.why)}
+          <div style="margin-top:12px"><button class="btn btn--primary" id="nextQ">${idx + 1 < rounds.length ? "التالي ←" : "عرض النتيجة ←"}</button></div></div>`;
+        $("#nextQ").addEventListener("click", () => { Sound.fx("click"); next(); });
+      }
+
+      function next() {
+        idx++;
+        if (idx >= rounds.length) return finish();
+        render();
+      }
+
+      function finish() {
+        const perfect = correct === rounds.length;
+        done({
+          mode: "quiz", won: correct >= Math.ceil(rounds.length * 0.6), perfect,
+          score: correct * 100 + (perfect ? 60 : 0),
+          xp: correct * 24 + (perfect ? 40 : 0),
+          coins: correct * 6 + (perfect ? 20 : 0),
+          detail: `${correct} من ${rounds.length} إجابات صحيحة`
+        });
+      }
+
+      render();
+    }
+  };
+})();
+
+/* ============================================================
+   BASTA PLAY · games/connect.js — وصل المصطلحات
+   صِل كل مصطلح بتعريفه الصحيح. window.Games.connect
+   ============================================================ */
+(function () {
+  "use strict";
+  window.Games = window.Games || {};
+  const { $, esc } = window.UI;
+
+  function shuffle(arr, rnd) {
+    const a = arr.slice(); rnd = rnd || Math.random;
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+
+  window.Games.connect = {
+    label: "وصل المصطلحات",
+    start(mount, done, opts) {
+      opts = opts || {};
+      const rnd = opts.rnd || Math.random;
+      const N = opts.count || 5;
+      const pairs = shuffle(BASTA_DATA.TERMS, rnd).slice(0, N).map((p, i) => ({ ...p, id: i }));
+      const terms = shuffle(pairs, rnd);
+      const defs = shuffle(pairs, rnd);
+      let selTerm = null, selDef = null, matched = 0, wrong = 0, lock = false;
+
+      function shell() {
+        mount.innerHTML = `
+          <div class="gscreen">
+            <div class="gtop">
+              <span class="chip">وصل المصطلحات</span>
+              <div class="gtop__spacer"></div>
+              <span class="chip chip--score">${matched}/${N} ✓</span>
+            </div>
+            <div class="progressbar"><span id="cbar" style="width:0%"></span></div>
+            <p class="qcard__hint" style="text-align:center;margin-bottom:14px">اختر مصطلحاً ثم تعريفه الصحيح 🔗</p>
+            <div class="connect">
+              <div class="connect__col" id="colT">
+                <div class="connect__lbl">المصطلح</div>
+              </div>
+              <div class="connect__col" id="colD">
+                <div class="connect__lbl">التعريف</div>
+              </div>
+            </div>
+          </div>`;
+        const colT = $("#colT"), colD = $("#colD");
+        terms.forEach(p => {
+          const b = document.createElement("button");
+          b.className = "conn-item"; b.type = "button"; b.dataset.id = p.id; b.dataset.side = "t";
+          b.textContent = p.term;
+          b.addEventListener("click", () => pick(b, "t"));
+          colT.appendChild(b);
+        });
+        defs.forEach(p => {
+          const b = document.createElement("button");
+          b.className = "conn-item conn-item--def"; b.type = "button"; b.dataset.id = p.id; b.dataset.side = "d";
+          b.textContent = p.def;
+          b.addEventListener("click", () => pick(b, "d"));
+          colD.appendChild(b);
+        });
+      }
+
+      function clearSel() {
+        mount.querySelectorAll(".conn-item.sel").forEach(e => e.classList.remove("sel"));
+        selTerm = null; selDef = null;
+      }
+
+      function pick(el, side) {
+        if (lock || el.classList.contains("done")) return;
+        Sound.fx("tap");
+        if (side === "t") {
+          mount.querySelectorAll('[data-side="t"].sel').forEach(e => e.classList.remove("sel"));
+          selTerm = el; el.classList.add("sel");
+        } else {
+          mount.querySelectorAll('[data-side="d"].sel').forEach(e => e.classList.remove("sel"));
+          selDef = el; el.classList.add("sel");
+        }
+        if (selTerm && selDef) evaluate();
+      }
+
+      function evaluate() {
+        lock = true;
+        const t = selTerm, d = selDef;
+        if (t.dataset.id === d.dataset.id) {
+          t.classList.add("done"); d.classList.add("done");
+          t.classList.remove("sel"); d.classList.remove("sel");
+          Sound.fx("correct");
+          matched++;
+          const chip = mount.querySelector(".chip--score"); if (chip) chip.textContent = `${matched}/${N} ✓`;
+          $("#cbar").style.width = (matched / N * 100) + "%";
+          selTerm = null; selDef = null; lock = false;
+          if (matched === N) setTimeout(finish, 500);
+        } else {
+          wrong++;
+          t.classList.add("err"); d.classList.add("err");
+          Sound.fx("wrong");
+          setTimeout(() => { t.classList.remove("err", "sel"); d.classList.remove("err", "sel"); selTerm = null; selDef = null; lock = false; }, 640);
+        }
+      }
+
+      function finish() {
+        Sound.fx("win");
+        const perfect = wrong === 0;
+        const score = Math.max(120, N * 120 - wrong * 30);
+        done({
+          mode: "connect", won: true, perfect,
+          score,
+          xp: 40 + (perfect ? 40 : 0) + Math.max(0, N * 6 - wrong * 4),
+          coins: 14 + (perfect ? 16 : 0),
+          detail: perfect ? `وصلٌ مثالي — ${N} مصطلحات بلا خطأ` : `${N} مصطلحات · ${wrong} محاولات خاطئة`
+        });
+      }
+
+      shell();
+    }
+  };
+})();
+
+/* ============================================================
+   BASTA PLAY · games/order.js — رتّب المراحل
+   أعِد ترتيب التسلسلات التسويقية. window.Games.order
+   ============================================================ */
+(function () {
+  "use strict";
+  window.Games = window.Games || {};
+  const { $, esc } = window.UI;
+
+  function shuffle(arr, rnd) {
+    const a = arr.slice(); rnd = rnd || Math.random;
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+
+  window.Games.order = {
+    label: "رتّب المراحل",
+    start(mount, done, opts) {
+      opts = opts || {};
+      const rnd = opts.rnd || Math.random;
+      const rounds = shuffle(BASTA_DATA.ORDERS, rnd).slice(0, opts.count || 4);
       let idx = 0, correct = 0;
 
       function render() {
@@ -1411,60 +1785,26 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
         mount.innerHTML = `
           <div class="gscreen">
             <div class="gtop">
-              <span class="chip">لغز ${idx + 1}/${rounds.length}</span>
+              <span class="chip">مرحلة ${idx + 1}/${rounds.length}</span>
               <div class="gtop__spacer"></div>
               <span class="chip chip--score">✓ ${correct}</span>
             </div>
             <div class="progressbar"><span style="width:${pct}%"></span></div>
-            <div class="qcard" id="qc"></div>
+            <div class="qcard">
+              <div class="qcard__q">${esc(p.q)}</div>
+              <div class="qcard__hint">💡 ${esc(p.hint)} — اضغط العناصر بالترتيب.</div>
+              <div class="seq__slot-lbl">ترتيبك</div>
+              <div class="slots" id="slots" aria-live="polite"></div>
+              <div class="seq__slot-lbl">الخيارات</div>
+              <div class="seq" id="bank"></div>
+            </div>
           </div>`;
-        if (p.type === "order") renderOrder(p); else renderQuiz(p);
-      }
-
-      function renderQuiz(p) {
-        const qc = $("#qc");
-        qc.innerHTML = `
-          <div class="qcard__q">${esc(p.q)}</div>
-          <div class="qcard__hint">💡 ${esc(p.hint)}</div>
-          <div class="opts" id="opts"></div>`;
-        // (اختيار من متعدّد)
-        const box = $("#opts");
-        p.options.forEach((o, i) => {
-          const b = document.createElement("button");
-          b.className = "opt"; b.type = "button";
-          b.innerHTML = `<span class="opt__key">${String.fromCharCode(65 + i)}</span><span>${esc(o)}</span>`;
-          b.addEventListener("click", () => choose(i, p, box));
-          box.appendChild(b);
-        });
-      }
-
-      function choose(i, p, box) {
-        const btns = box.querySelectorAll(".opt");
-        btns.forEach(b => b.disabled = true);
-        if (i === p.answer) {
-          btns[i].classList.add("correct"); correct++; Sound.fx("correct");
-        } else {
-          btns[i].classList.add("wrong"); btns[p.answer].classList.add("correct"); Sound.fx("wrong");
-        }
-        setTimeout(next, 850);
-      }
-
-      function renderOrder(p) {
-        const qc = $("#qc");
-        const shuffled = shuffle(p.items, rnd);
-        // avoid an already-correct shuffle
+        const bank = $("#bank"), slots = $("#slots");
+        let shuffled = shuffle(p.items, rnd);
         if (shuffled.join() === p.items.join() && p.items.length > 1) shuffled.reverse();
         const placed = [];
-        qc.innerHTML = `
-          <div class="qcard__q">${esc(p.q)}</div>
-          <div class="qcard__hint">💡 ${esc(p.hint)} — اضغط العناصر بالترتيب.</div>
-          <div class="seq__slot-lbl">ترتيبك</div>
-          <div class="slots" id="slots" aria-live="polite"></div>
-          <div class="seq__slot-lbl">الخيارات</div>
-          <div class="seq" id="bank"></div>`;
-        const bank = $("#bank"), slots = $("#slots");
 
-        shuffled.forEach((label, i) => {
+        shuffled.forEach((label) => {
           const t = document.createElement("button");
           t.className = "token answer"; t.type = "button"; t.dataset.label = label;
           t.innerHTML = `<span>${esc(label)}</span>`;
@@ -1475,19 +1815,17 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
             const chip = document.createElement("button");
             chip.className = "token"; chip.type = "button";
             chip.innerHTML = `<span class="num">${placed.length}</span><span>${esc(label)}</span>`;
-            chip.addEventListener("click", () => { // undo
+            chip.addEventListener("click", () => {
               const li = placed.indexOf(label);
               if (li > -1) placed.splice(li, 1);
               chip.remove(); t.classList.remove("placed");
-              renumber();
+              slots.querySelectorAll(".num").forEach((n, i) => n.textContent = i + 1);
             });
             slots.appendChild(chip);
             if (placed.length === p.items.length) check(p, slots, bank);
           });
           bank.appendChild(t);
         });
-
-        function renumber() { slots.querySelectorAll(".num").forEach((n, i) => n.textContent = i + 1); }
       }
 
       function check(p, slots, bank) {
@@ -1499,7 +1837,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
         });
         bank.querySelectorAll(".token").forEach(t => t.disabled = true);
         if (ok) { correct++; Sound.fx("win"); } else Sound.fx("wrong");
-        setTimeout(next, 1100);
+        setTimeout(next, 1150);
       }
 
       function next() {
@@ -1510,13 +1848,12 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
 
       function finish() {
         const perfect = correct === rounds.length;
-        const score = correct * 100 + (perfect ? 50 : 0);
         done({
-          mode: "puzzle", won: correct >= Math.ceil(rounds.length / 2),
-          perfect, score, correct, total: rounds.length,
-          xp: correct * 22 + (perfect ? 40 : 0),
-          coins: correct * 6 + (perfect ? 20 : 0),
-          detail: `حللت ${correct} من ${rounds.length} ألغاز`
+          mode: "order", won: correct >= Math.ceil(rounds.length / 2), perfect,
+          score: correct * 130 + (perfect ? 50 : 0),
+          xp: correct * 26 + (perfect ? 40 : 0),
+          coins: correct * 7 + (perfect ? 18 : 0),
+          detail: `${correct} من ${rounds.length} مراحل صحيحة`
         });
       }
 
@@ -1526,226 +1863,99 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
 })();
 
 /* ============================================================
-   BASTA PLAY · games/memory.js — Memory Challenge
-   Watch a brand-tile sequence, reproduce it. window.Games.memory
-   ============================================================ */
-(function () {
-  "use strict";
-  window.Games = window.Games || {};
-  const { $ } = window.UI;
-
-  window.Games.memory = {
-    label: "تحدّي الذاكرة",
-    start(mount, done, opts) {
-      opts = opts || {};
-      const rnd = opts.rnd || Math.random;
-      const TILES = BASTA_DATA.MEMORY_TILES;
-      let seq = [];
-      let input = [];
-      let round = 1;
-      let accepting = false;
-      let alive = true;
-      const startLen = opts.startLen || 3;
-
-      function shell() {
-        mount.innerHTML = `
-          <div class="gscreen speedwrap">
-            <div class="gtop">
-              <span class="chip chip--score">الجولة ${round}</span>
-              <div class="gtop__spacer"></div>
-              <span class="chip">الطول ${seq.length || startLen}</span>
-            </div>
-            <p class="qcard__hint" id="mstatus" style="text-align:center;margin-bottom:14px">راقب جيداً…</p>
-            <div class="mgrid" id="mgrid"></div>
-          </div>`;
-        const grid = $("#mgrid");
-        grid.style.gridTemplateColumns = "repeat(3, 1fr)";
-        TILES.forEach((t, i) => {
-          const b = document.createElement("button");
-          b.className = "mtile"; b.type = "button"; b.dataset.i = i;
-          b.style.setProperty("--grad", t.grad);
-          b.style.setProperty("--glow", t.glow);
-          b.setAttribute("aria-label", t.label);
-          b.innerHTML = `<span class="mtile__ico">${t.icon}</span>`;
-          b.addEventListener("click", () => tap(i, b));
-          grid.appendChild(b);
-        });
-      }
-
-      function status(msg) { const s = $("#mstatus"); if (s) s.textContent = msg; }
-
-      function nextRound() {
-        input = [];
-        seq.push(Math.floor(rnd() * TILES.length));
-        shell();
-        status("راقب جيداً…");
-        playback();
-      }
-
-      function playback() {
-        accepting = false;
-        let i = 0;
-        const gap = Math.max(360, 620 - seq.length * 20);
-        const iv = setInterval(() => {
-          if (!alive) { clearInterval(iv); return; }
-          if (i > 0) unlight(seq[i - 1]);
-          if (i >= seq.length) {
-            clearInterval(iv);
-            setTimeout(() => { if (alive) { accepting = true; status("دورك — أعِد التسلسل"); } }, 260);
-            return;
-          }
-          light(seq[i]); Sound.fx("reveal");
-          i++;
-        }, gap);
-      }
-
-      function light(i) { const el = mount.querySelector(`.mtile[data-i="${i}"]`); if (el) el.classList.add("lit"); }
-      function unlight(i) { const el = mount.querySelector(`.mtile[data-i="${i}"]`); if (el) el.classList.remove("lit"); }
-
-      function tap(i, el) {
-        if (!accepting || !alive) return;
-        el.classList.add("lit"); Sound.fx("tap");
-        setTimeout(() => el.classList.remove("lit"), 180);
-        input.push(i);
-        const pos = input.length - 1;
-        if (input[pos] !== seq[pos]) return fail(el);
-        el.classList.add("ok"); setTimeout(() => el.classList.remove("ok"), 380);
-        if (input.length === seq.length) {
-          accepting = false;
-          Sound.fx("correct");
-          round++;
-          status("ممتاز! الجولة التالية…");
-          setTimeout(() => { if (alive) nextRound(); }, 820);
-        }
-      }
-
-      function fail(el) {
-        accepting = false; alive = false;
-        el.classList.add("err"); Sound.fx("lose");
-        status("انكسر التسلسل!");
-        // reveal correct next tile briefly
-        setTimeout(finish, 900);
-      }
-
-      function finish() {
-        const reached = seq.length - (alive ? 0 : 1); // last shown length successfully repeated
-        const level = Math.max(0, reached);
-        const won = level >= startLen + 1;
-        done({
-          mode: "memory", won,
-          score: level * 60,
-          level,
-          reachedLen: level,
-          xp: level * 18,
-          coins: level * 5,
-          detail: `تذكّرت تسلسلاً من ${level}`
-        });
-      }
-
-      nextRound();
-
-      // return a stop hook for router cleanup
-      return { stop() { alive = false; } };
-    }
-  };
-})();
-
-/* ============================================================
-   BASTA PLAY · games/speed.js — Speed Challenge
-   React fast: tap the target brand element. window.Games.speed
+   BASTA PLAY · games/rapid.js — سرعة المعرفة (صح / خطأ)
+   عبارات تسويقية سريعة ضدّ الساعة. window.Games.rapid
    ============================================================ */
 (function () {
   "use strict";
   window.Games = window.Games || {};
   const { $, esc } = window.UI;
 
-  window.Games.speed = {
-    label: "تحدّي السرعة",
+  function shuffle(arr, rnd) {
+    const a = arr.slice(); rnd = rnd || Math.random;
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+
+  window.Games.rapid = {
+    label: "سرعة المعرفة",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
-      const EL = BASTA_DATA.SPEED_ELEMENTS;
       const DURATION = opts.time || 30;
-      let score = 0, misses = 0, best = 0;
-      let timeLeft = DURATION;
-      let target = null;
-      let alive = true;
-      let timer = null;
+      const deck = shuffle(BASTA_DATA.TF, rnd);
+      let i = 0, score = 0, streak = 0, best = 0, timeLeft = DURATION, alive = true, timer = null;
 
       function shell() {
         mount.innerHTML = `
           <div class="gscreen speedwrap">
             <div class="gtop">
-              <span class="chip chip--timer" id="stimer">⏱ ${DURATION}ث</span>
+              <span class="chip chip--timer" id="rtimer">⏱ ${DURATION}ث</span>
               <div class="gtop__spacer"></div>
-              <span class="chip chip--score" id="sscore">النقاط 0</span>
+              <span class="chip chip--score" id="rscore">النقاط 0</span>
             </div>
-            <div class="progressbar"><span id="sbar" style="width:100%"></span></div>
-            <div class="speed-target" id="starget"></div>
-            <div class="sgrid" id="sgrid"></div>
+            <div class="progressbar"><span id="rbar" style="width:100%"></span></div>
+            <div class="tf-card" id="tfcard"></div>
+            <div class="tf-btns">
+              <button class="btn tf-true" id="btnTrue">✔ صح</button>
+              <button class="btn tf-false" id="btnFalse">✘ خطأ</button>
+            </div>
+            <p class="tf-streak" id="rstreak"></p>
           </div>`;
+        $("#btnTrue").addEventListener("click", () => answer(true));
+        $("#btnFalse").addEventListener("click", () => answer(false));
+        showCard();
       }
 
-      function newTarget() {
-        target = EL[Math.floor(rnd() * EL.length)];
-        // Build 9 cells, ensure at least one target
-        const cells = [];
-        const targetPos = Math.floor(rnd() * 9);
-        for (let i = 0; i < 9; i++) {
-          cells.push(i === targetPos ? target : EL[Math.floor(rnd() * EL.length)]);
-        }
-        const grid = $("#sgrid"); grid.innerHTML = "";
-        cells.forEach((c) => {
-          const b = document.createElement("button");
-          b.className = "scell"; b.type = "button";
-          b.style.background = c.grad;
-          b.innerHTML = `<span class="scell__ico">${c.icon}</span>`;
-          b.setAttribute("aria-label", c.name);
-          b.addEventListener("click", () => hit(c, b));
-          grid.appendChild(b);
-        });
-        const st = $("#starget");
-        st.innerHTML = `اضغط على <b style="background:${target.grad}">${target.icon} ${esc(target.name)}</b>`;
+      function showCard() {
+        const item = deck[i % deck.length];
+        const c = $("#tfcard");
+        c.className = "tf-card";
+        c.innerHTML = `<span class="tf-card__q">${esc(item.s)}</span>`;
       }
 
-      function hit(c, b) {
+      function answer(val) {
         if (!alive) return;
-        if (c.icon === target.icon && c.name === target.name) {
-          score++; Sound.fx("correct");
-          b.classList.add("hit");
-          $("#sscore").textContent = "النقاط " + score;
-          newTarget();
+        const item = deck[i % deck.length];
+        const c = $("#tfcard");
+        if (val === item.t) {
+          score++; streak++; best = Math.max(best, streak);
+          Sound.fx("correct");
+          c.classList.add("tf-ok");
+          $("#rscore").textContent = "النقاط " + score;
+          $("#rstreak").textContent = streak >= 3 ? "🔥 سلسلة " + streak : "";
         } else {
-          misses++; Sound.fx("wrong");
-          b.classList.add("miss");
-          timeLeft = Math.max(0, timeLeft - 1); // penalty
-          const chip = $("#stimer"); chip.classList.add("warn"); setTimeout(() => chip.classList.remove("warn"), 400);
-          setTimeout(() => b.classList.remove("miss"), 350);
+          streak = 0; Sound.fx("wrong");
+          c.classList.add("tf-no");
+          timeLeft = Math.max(0, timeLeft - 2);
+          const chip = $("#rtimer"); chip.classList.add("warn"); setTimeout(() => chip.classList.remove("warn"), 400);
+          $("#rstreak").textContent = "";
         }
+        i++;
+        setTimeout(() => { if (alive) showCard(); }, 240);
       }
 
       function tick() {
         timeLeft--;
-        const chip = $("#stimer"); if (chip) chip.textContent = "⏱ " + timeLeft + "ث";
-        const bar = $("#sbar"); if (bar) bar.style.width = (timeLeft / DURATION * 100) + "%";
+        const chip = $("#rtimer"); if (chip) chip.textContent = "⏱ " + timeLeft + "ث";
+        const bar = $("#rbar"); if (bar) bar.style.width = (timeLeft / DURATION * 100) + "%";
         if (timeLeft <= 5 && timeLeft > 0) Sound.fx("tick");
-        if (timeLeft <= 0) return finish();
+        if (timeLeft <= 0) finish();
       }
 
       function finish() {
         alive = false; clearInterval(timer); Sound.fx(score >= 10 ? "win" : "lose");
         done({
-          mode: "speed", won: score >= 10,
-          score, misses,
-          xp: score * 12,
+          mode: "rapid", won: score >= 10,
+          score: score * 10 + best * 5,
+          xp: score * 12 + best * 4,
           coins: score * 4,
-          detail: `${score} ضغطة صحيحة · ${misses} خطأ`
+          detail: `${score} إجابة صحيحة · أطول سلسلة ${best}`
         });
       }
 
-      shell(); newTarget();
+      shell();
       timer = setInterval(() => { if (alive) tick(); }, 1000);
-
       return { stop() { alive = false; clearInterval(timer); } };
     }
   };
@@ -1849,117 +2059,6 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
 })();
 
 /* ============================================================
-   BASTA PLAY · games/match.js — لعبة المطابقة (Match Pairs)
-   اقلب البطاقات وطابِق أزواج العناصر التسويقية. window.Games.match
-   ============================================================ */
-(function () {
-  "use strict";
-  window.Games = window.Games || {};
-  const { $ } = window.UI;
-
-  function shuffle(arr, rnd) {
-    const a = arr.slice(); rnd = rnd || Math.random;
-    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-    return a;
-  }
-
-  window.Games.match = {
-    label: "لعبة المطابقة",
-    start(mount, done, opts) {
-      opts = opts || {};
-      const rnd = opts.rnd || Math.random;
-      const PAIRS = opts.pairs || 8;                 // 8 أزواج = 16 بطاقة
-      const pool = shuffle(BASTA_DATA.MATCH_ICONS, rnd).slice(0, PAIRS);
-      let deck = shuffle(pool.concat(pool).map((c, i) => ({ ...c, uid: i })), rnd);
-
-      let first = null, lock = false, matched = 0, moves = 0, time = 0, alive = true, timer = null;
-
-      function shell() {
-        mount.innerHTML = `
-          <div class="gscreen">
-            <div class="gtop">
-              <span class="chip chip--timer" id="mtime">⏱ 0ث</span>
-              <div class="gtop__spacer"></div>
-              <span class="chip">الحركات <b id="mmoves" style="margin-inline-start:4px">0</b></span>
-              <span class="chip chip--score">الأزواج <b id="mpairs" style="margin-inline-start:4px">0/${PAIRS}</b></span>
-            </div>
-            <div class="progressbar"><span id="mbar" style="width:0%"></span></div>
-            <p class="qcard__hint" style="text-align:center;margin-bottom:14px">اقلب بطاقتين وطابِق العنصر نفسه ✨</p>
-            <div class="match-grid" id="mgridw"></div>
-          </div>`;
-        const g = $("#mgridw");
-        const cols = PAIRS <= 6 ? 3 : 4;
-        g.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-        deck.forEach((card) => {
-          const el = document.createElement("button");
-          el.className = "mcard"; el.type = "button"; el.dataset.uid = card.uid; el.dataset.icon = card.icon;
-          el.setAttribute("aria-label", "بطاقة");
-          el.innerHTML = `
-            <div class="mcard__inner">
-              <div class="mcard__face mcard__back">بسطة</div>
-              <div class="mcard__face mcard__front" style="background:${card.grad}">
-                <span class="mcard__ico">${card.icon}</span>
-                <span class="mcard__name">${card.name}</span>
-              </div>
-            </div>`;
-          el.addEventListener("click", () => flip(el, card));
-          g.appendChild(el);
-        });
-      }
-
-      function flip(el, card) {
-        if (!alive || lock || el.classList.contains("flip") || el.classList.contains("done")) return;
-        el.classList.add("flip"); Sound.fx("tap");
-        if (!first) { first = { el, card }; return; }
-        // second card
-        moves++; $("#mmoves").textContent = moves;
-        lock = true;
-        if (first.card.icon === card.icon) {
-          setTimeout(() => {
-            first.el.classList.add("done"); el.classList.add("done");
-            first.el.classList.add("pulse"); el.classList.add("pulse");
-            Sound.fx("correct");
-            matched++;
-            $("#mpairs").textContent = matched + "/" + PAIRS;
-            $("#mbar").style.width = (matched / PAIRS * 100) + "%";
-            first = null; lock = false;
-            if (matched === PAIRS) finish();
-          }, 380);
-        } else {
-          Sound.fx("wrong");
-          const a = first.el;
-          setTimeout(() => { a.classList.remove("flip"); el.classList.remove("flip"); first = null; lock = false; }, 780);
-        }
-      }
-
-      function tick() { time++; const t = $("#mtime"); if (t) t.textContent = "⏱ " + time + "ث"; }
-
-      function finish() {
-        alive = false; clearInterval(timer);
-        // نقاط أعلى كلما قلّت الحركات والوقت
-        const perfectMoves = PAIRS;                       // الحدّ الأدنى النظري
-        const eff = Math.max(0, 1 - (moves - perfectMoves) / (PAIRS * 2));
-        const timeBonus = Math.max(0, 1 - time / (PAIRS * 8));
-        const score = Math.round(200 + eff * 500 + timeBonus * 300);
-        const perfect = moves <= perfectMoves + 2;
-        Sound.fx("win");
-        done({
-          mode: "match", won: true, perfect,
-          score,
-          xp: 40 + Math.round(eff * 60) + Math.round(timeBonus * 40),
-          coins: 15 + Math.round(eff * 25),
-          detail: `${PAIRS} أزواج في ${moves} حركة · ${time}ث`
-        });
-      }
-
-      shell();
-      timer = setInterval(() => { if (alive) tick(); }, 1000);
-      return { stop() { alive = false; clearInterval(timer); } };
-    }
-  };
-})();
-
-/* ============================================================
    BASTA PLAY · games/daily.js — Daily Challenge
    Deterministic pick of a mode + seed per calendar day.
    window.Games.daily
@@ -1981,7 +2080,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
     plan() {
       const seed = dateSeed();
       const rnd = BASTA_DATA.seededRandom(seed);
-      const modeIds = ["puzzle", "memory", "speed", "strategy"];
+      const modeIds = ["quiz", "connect", "order", "rapid", "strategy"];
       const modeId = modeIds[Math.floor(rnd() * modeIds.length)];
       const played = Store.get().dailyDate === Store.todayStr();
       return { modeId, seed, played, label: window.Games[modeId].label };
@@ -2011,7 +2110,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
   const { $, $$ } = window.UI;
   let activeGame = null; // يحمل {stop} للتنظيف
 
-  const MODE_AR = { puzzle: "لغز التسويق", memory: "تحدّي الذاكرة", speed: "تحدّي السرعة", strategy: "تحدّي الاستراتيجية", match: "لعبة المطابقة", daily: "التحدّي اليومي" };
+  const MODE_AR = { quiz: "بنك الأسئلة", connect: "وصل المصطلحات", order: "رتّب المراحل", rapid: "سرعة المعرفة", strategy: "تحدّي الاستراتيجية", daily: "التحدّي اليومي" };
 
   /* ---------- شاشة التحميل ---------- */
   function runLoader() {
@@ -2267,9 +2366,10 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
     const s = Store.get();
     const info = Store.levelInfo(s.xp);
     const pop = (id) => { if (Store.unlock(id)) UI.celebrateBadge(id); };
-    if (res.mode === "puzzle" && res.perfect) pop("puzzle_ace");
-    if (res.mode === "memory" && (res.reachedLen || 0) >= 6) pop("memory_pro");
-    if (res.mode === "speed" && res.score >= 20) pop("speed_demon");
+    if (res.mode === "quiz" && res.perfect) pop("quiz_ace");
+    if (res.mode === "connect" && res.perfect) pop("connect_pro");
+    if (res.mode === "order" && res.perfect) pop("order_pro");
+    if (res.mode === "rapid" && res.score >= 150) pop("rapid_demon");
     if (res.mode === "strategy" && res.perfect) pop("strategist");
     if (res.daily) pop("daily");
     if (s.streak >= 3) pop("streak3");
@@ -2277,7 +2377,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
     if (info.level >= 5) pop("level5");
     if (info.level >= 10) pop("level10");
     if (Store.modesPlayedCount() >= Store.modesTotal()) pop("allmodes");
-    if ((s.wins || 0) >= 10) pop("perfectionist");
+    if ((s.wins || 0) >= 15) pop("expert");
   }
 
   /* ---------- الأوسمة ---------- */
@@ -2341,11 +2441,11 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
       </div>
       <div class="sec-head"><h2>أفضل النقاط</h2></div>
       <div class="statstrip stagger" style="grid-template-columns:repeat(auto-fit,minmax(84px,1fr))">
-        <div class="stat"><div class="stat__num c-b">${s.bests.puzzle || 0}</div><div class="stat__lbl">الألغاز</div></div>
-        <div class="stat"><div class="stat__num c-o">${s.bests.memory || 0}</div><div class="stat__lbl">الذاكرة</div></div>
-        <div class="stat"><div class="stat__num c-b">${s.bests.speed || 0}</div><div class="stat__lbl">السرعة</div></div>
-        <div class="stat"><div class="stat__num c-o">${s.bests.strategy || 0}</div><div class="stat__lbl">الاستراتيجية</div></div>
-        <div class="stat"><div class="stat__num c-b">${s.bests.match || 0}</div><div class="stat__lbl">المطابقة</div></div>
+        <div class="stat"><div class="stat__num c-b">${s.bests.quiz || 0}</div><div class="stat__lbl">الأسئلة</div></div>
+        <div class="stat"><div class="stat__num c-o">${s.bests.connect || 0}</div><div class="stat__lbl">الوصل</div></div>
+        <div class="stat"><div class="stat__num c-b">${s.bests.order || 0}</div><div class="stat__lbl">الترتيب</div></div>
+        <div class="stat"><div class="stat__num c-o">${s.bests.rapid || 0}</div><div class="stat__lbl">السرعة</div></div>
+        <div class="stat"><div class="stat__num c-b">${s.bests.strategy || 0}</div><div class="stat__lbl">الاستراتيجية</div></div>
       </div>`;
     $("#b").addEventListener("click", () => nav("home"));
   }
@@ -2357,11 +2457,11 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
       <div class="sec-head" style="margin-top:14px"><h2>❓ كيف تلعب</h2></div>
       <div class="qcard">
         <ul class="rules">
-          <li><b>🧩 لغز التسويق</b> — رتّب مسارات التسويق واختر أفضل الإجابات. اضغط العناصر بالترتيب، أو اختر إجاباً (الأرقام 1–4).</li>
-          <li><b>🧠 تحدّي الذاكرة</b> — راقب عناصر العلامة وهي تُضيء، ثم أعِد التسلسل. يكبر مع كل جولة.</li>
-          <li><b>⚡ تحدّي السرعة</b> — اضغط العنصر المطلوب بأسرع ما يمكن قبل انتهاء الـ 30 ثانية. الضغطة الخاطئة تُكلّفك ثانية.</li>
-          <li><b>♟️ تحدّي الاستراتيجية</b> — اقرأ السيناريو واختر القرار التسويقي الأذكى. وتعلّم من «السبب».</li>
-          <li><b>🃏 لعبة المطابقة</b> — اقلب البطاقات وطابِق أزواج العناصر التسويقية بأقلّ حركات وأسرع وقت.</li>
+          <li><b>🎓 بنك الأسئلة</b> — عشرات الأسئلة المتخصّصة في التسويق مع شرح لكل إجابة. اختر الإجابة (الأرقام 1–4).</li>
+          <li><b>🔗 وصل المصطلحات</b> — اختر مصطلحاً ثم تعريفه الصحيح حتى تكتمل كل الأزواج بلا خطأ.</li>
+          <li><b>🧱 رتّب المراحل</b> — أعِد ترتيب مراحل القمع والحملات والاستراتيجيات في تسلسلها الصحيح.</li>
+          <li><b>⚡ سرعة المعرفة</b> — صحّ أم خطأ؟ عبارات تسويقية سريعة قبل انتهاء الوقت. الخطأ يُكلّفك ثانيتين.</li>
+          <li><b>♟️ تحدّي الاستراتيجية</b> — اقرأ السيناريو واختر القرار التسويقي الأذكى، وتعلّم من «السبب».</li>
           <li><b>📅 التحدّي اليومي</b> — وضع جديد كل يوم مع خبرة وعملات إضافية.</li>
         </ul>
         <p style="margin-top:12px"><b>تكسب:</b> الخبرة ترفع مستواك ورتبتك، والعملات تتراكم، والأوسمة تُفتح مع كل إنجاز. كل شيء يُحفظ تلقائياً على جهازك.</p>

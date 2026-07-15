@@ -20,7 +20,7 @@
     plan() {
       const seed = dateSeed();
       const rnd = BASTA_DATA.seededRandom(seed);
-      const modeIds = ["puzzle", "memory", "speed", "strategy"];
+      const modeIds = ["quiz", "connect", "order", "rapid", "strategy"];
       const modeId = modeIds[Math.floor(rnd() * modeIds.length)];
       const played = Store.get().dailyDate === Store.todayStr();
       return { modeId, seed, played, label: window.Games[modeId].label };

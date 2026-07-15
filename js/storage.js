@@ -20,7 +20,7 @@
     music: false,
     achievements: {},     // id -> true
     playedModes: {},      // id -> true
-    bests: { puzzle: 0, memory: 0, speed: 0, strategy: 0, match: 0 },
+    bests: { quiz: 0, connect: 0, order: 0, rapid: 0, strategy: 0 },
     leaderboard: []       // [{name, score, level, mode, ts}]
   };
 
@@ -118,12 +118,12 @@
     if (state.leaderboard.length) return;
     // Seed with agency-flavoured local rivals so the board never looks empty.
     state.leaderboard = [
-      { name: "شبح الاستوديو", score: 940, level: 9, mode: "strategy", ts: 0, bot: true },
-      { name: "رحّالة البكسل", score: 820, level: 8, mode: "speed",    ts: 0, bot: true },
-      { name: "ناسخ الأفكار",  score: 705, level: 7, mode: "puzzle",   ts: 0, bot: true },
-      { name: "بومة النموّ",   score: 610, level: 6, mode: "memory",   ts: 0, bot: true },
-      { name: "ثعلب العلامة",  score: 480, level: 5, mode: "strategy", ts: 0, bot: true },
-      { name: "حوت النيون",    score: 350, level: 4, mode: "speed",    ts: 0, bot: true }
+      { name: "أبو ريناد",  score: 940, level: 9, mode: "strategy", ts: 0, bot: true },
+      { name: "نورة",       score: 820, level: 8, mode: "quiz",     ts: 0, bot: true },
+      { name: "خالد م.",    score: 705, level: 7, mode: "connect",  ts: 0, bot: true },
+      { name: "ريم العتيبي", score: 610, level: 6, mode: "order",    ts: 0, bot: true },
+      { name: "فيصل",       score: 480, level: 5, mode: "rapid",    ts: 0, bot: true },
+      { name: "سارة",       score: 350, level: 4, mode: "quiz",     ts: 0, bot: true }
     ];
     save();
   }

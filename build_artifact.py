@@ -13,8 +13,8 @@ full  = data_uri("assets/logo-full.jpeg", "image/jpeg")
 
 css_files = ["css/main.css", "css/components.css", "css/animations.css"]
 js_files = ["js/data.js","js/storage.js","js/audio.js","js/ui.js",
-            "js/games/puzzle.js","js/games/memory.js","js/games/speed.js",
-            "js/games/strategy.js","js/games/match.js","js/games/daily.js","js/main.js"]
+            "js/games/quiz.js","js/games/connect.js","js/games/order.js",
+            "js/games/rapid.js","js/games/strategy.js","js/games/daily.js","js/main.js"]
 css = "\n".join(read(f) for f in css_files)
 js  = "\n".join(read(f) for f in js_files)
 
