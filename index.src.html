@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+  <meta name="theme-color" content="#1E5BD6" />
+  <meta name="description" content="Basta Play — a premium interactive marketing game experience by Basta Marketing Agency." />
+  <title>Basta Play · Marketing Game Experience</title>
+
+  <link rel="icon" type="image/png" href="assets/logo-badge.png" />
+  <link rel="apple-touch-icon" href="assets/logo-badge.png" />
+  <link rel="preload" as="image" href="assets/logo-full.jpeg" />
+  <link rel="preload" as="image" href="assets/logo-badge.png" />
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+  <!-- ===================== LOADING SCREEN ===================== -->
+  <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading Basta Play">
+    <div class="loader__aurora" aria-hidden="true"></div>
+    <div class="loader__inner">
+      <div class="loader__logo-wrap">
+        <img src="assets/logo-badge.png" alt="Basta Marketing Agency" class="loader__logo" />
+        <div class="loader__ring" aria-hidden="true"></div>
+      </div>
+      <div class="loader__brand">
+        <span class="loader__title">BASTA<span class="accent">PLAY</span></span>
+        <span class="loader__tag">Marketing Game Experience</span>
+      </div>
+      <div class="loader__bar" aria-hidden="true"><span class="loader__fill"></span></div>
+      <div class="loader__pct" aria-hidden="true">0%</div>
+    </div>
+  </div>
+
+  <!-- ===================== BACKGROUND FX ===================== -->
+  <div class="bg-fx" aria-hidden="true">
+    <span class="orb orb--blue"></span>
+    <span class="orb orb--orange"></span>
+    <span class="orb orb--blue2"></span>
+    <div class="grid-glow"></div>
+  </div>
+  <canvas id="confetti" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- ===================== APP SHELL ===================== -->
+  <div id="app" class="app" hidden>
+    <!-- Top Bar -->
+    <header class="topbar glass">
+      <button class="brand" id="brand-home" aria-label="Basta Play home">
+        <img src="assets/logo-badge.png" alt="Basta Marketing Agency logo" class="brand__logo" />
+        <span class="brand__text">BASTA<span class="accent">PLAY</span></span>
+      </button>
+
+      <div class="hud" id="hud">
+        <div class="hud__item" title="Level" aria-label="Level">
+          <span class="hud__ico" aria-hidden="true">◆</span>
+          <span class="hud__val" id="hud-level">1</span>
+        </div>
+        <div class="hud__item hud__xp" title="Experience">
+          <div class="hud__xpbar"><span id="hud-xpfill" class="hud__xpfill"></span></div>
+          <span class="hud__val" id="hud-xp">0</span>
+        </div>
+        <div class="hud__item hud__coin" title="Coins" aria-label="Coins">
+          <span class="hud__ico coin-ico" aria-hidden="true">●</span>
+          <span class="hud__val" id="hud-coins">0</span>
+        </div>
+      </div>
+
+      <div class="topbar__actions">
+        <button class="icon-btn" id="btn-sound" aria-pressed="true" title="Sound effects" aria-label="Toggle sound effects">
+          <span class="icon-btn__on">🔊</span><span class="icon-btn__off">🔇</span>
+        </button>
+        <button class="icon-btn" id="btn-music" aria-pressed="false" title="Background music" aria-label="Toggle background music">
+          <span class="icon-btn__on">🎵</span><span class="icon-btn__off">🎶</span>
+        </button>
+        <button class="icon-btn" id="btn-theme" title="Theme" aria-label="Toggle dark and light mode">
+          <span class="theme-dark">🌙</span><span class="theme-light">☀️</span>
+        </button>
+        <button class="icon-btn" id="btn-menu" title="Menu" aria-label="Open menu" aria-haspopup="true">☰</button>
+      </div>
+    </header>
+
+    <!-- Slide-out Menu -->
+    <nav class="drawer glass" id="drawer" aria-hidden="true">
+      <button class="drawer__close icon-btn" id="drawer-close" aria-label="Close menu">✕</button>
+      <div class="drawer__profile">
+        <div class="drawer__ava" id="drawer-avatar">B</div>
+        <div>
+          <div class="drawer__name" id="drawer-name">Marketer</div>
+          <div class="drawer__rank" id="drawer-rank">Rookie</div>
+        </div>
+      </div>
+      <ul class="drawer__list">
+        <li><button data-nav="home" class="drawer__link">🏠 Home</button></li>
+        <li><button data-nav="achievements" class="drawer__link">🏅 Achievements</button></li>
+        <li><button data-nav="leaderboard" class="drawer__link">🏆 Leaderboard</button></li>
+        <li><button data-nav="stats" class="drawer__link">📊 My Stats</button></li>
+        <li><button data-nav="how" class="drawer__link">❓ How to Play</button></li>
+      </ul>
+      <button class="drawer__reset" id="btn-reset">Reset Progress</button>
+      <div class="drawer__foot">
+        <img src="assets/logo-full.jpeg" alt="Basta Marketing Agency" class="drawer__brandimg" />
+        <span>نصنع التجربة ويستمر الأثر</span>
+      </div>
+    </nav>
+    <div class="scrim" id="scrim" hidden></div>
+
+    <!-- Main Router View -->
+    <main class="view" id="view" tabindex="-1"></main>
+
+    <footer class="appfoot">
+      <span>Crafted for <strong>Basta Marketing Agency</strong> · نصنع التجربة ويستمر الأثر</span>
+    </footer>
+  </div>
+
+  <!-- ===================== TOAST + MODAL LAYERS ===================== -->
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <div id="modal-root" class="modal-root" hidden>
+    <div class="modal-scrim" data-close></div>
+    <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal__x icon-btn" data-close aria-label="Close">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/games/puzzle.js"></script>
+  <script src="js/games/memory.js"></script>
+  <script src="js/games/speed.js"></script>
+  <script src="js/games/strategy.js"></script>
+  <script src="js/games/daily.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
