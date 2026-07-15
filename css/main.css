@@ -14,8 +14,8 @@
   --orange-400: #fb8f42;
   --white: #ffffff;
 
-  --font: "Segoe UI", "Helvetica Neue", system-ui, -apple-system, Roboto, Arial, sans-serif;
-  --arabic: "Tahoma", "Segoe UI", "Noto Naskh Arabic", serif;
+  --font: "SF Arabic", "Geeza Pro", "Segoe UI", "Tahoma", "Noto Kufi Arabic", "Noto Sans Arabic", "Helvetica Neue", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --arabic: "SF Arabic", "Geeza Pro", "Tahoma", "Noto Naskh Arabic", "Segoe UI", sans-serif;
 
   --r-sm: 12px;
   --r-md: 18px;
@@ -182,7 +182,7 @@ ul { list-style: none; }
 .drawer__name { font-weight: 800; font-size: 17px; }
 .drawer__rank { font-size: 12px; color: var(--orange); font-weight: 700; text-transform: uppercase; letter-spacing: .6px; }
 .drawer__list { display: flex; flex-direction: column; gap: 4px; }
-.drawer__link { width: 100%; text-align: left; padding: 13px 14px; border-radius: 14px; font-weight: 600; font-size: 15px; transition: background var(--t-fast), transform var(--t-fast); }
+.drawer__link { width: 100%; text-align: start; padding: 13px 14px; border-radius: 14px; font-weight: 600; font-size: 15px; transition: background var(--t-fast), transform var(--t-fast); }
 .drawer__link:hover { background: var(--glass-2); transform: translateX(-4px); }
 .drawer__reset { margin-top: auto; padding: 11px; border-radius: 12px; font-weight: 700; color: var(--orange); border: 1px solid var(--orange); background: transparent; transition: background var(--t-fast), color var(--t-fast); }
 .drawer__reset:hover { background: var(--orange); color: #fff; }

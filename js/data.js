@@ -1,181 +1,181 @@
 /* ============================================================
-   BASTA PLAY · data.js
-   All game content: modes, puzzles, memory, speed, strategy,
-   achievements, ranks. Exposed on window.BASTA_DATA
+   BASTA PLAY · data.js  (المحتوى بالعربية)
+   محتوى الألعاب: الأوضاع، الألغاز، الذاكرة، السرعة، الاستراتيجية،
+   الأوسمة، الرتب. متاح عبر window.BASTA_DATA
    ============================================================ */
 (function () {
   "use strict";
 
   const MODES = [
-    { id: "puzzle",   title: "Marketing Puzzle",  icon: "🧩", tint: "#1E5BD6",
-      desc: "Solve branding & marketing challenges — order funnels, match concepts, crack the strategy.",
-      tag: "Logic", best: "puzzleBest" },
-    { id: "memory",   title: "Memory Challenge",  icon: "🧠", tint: "#F97316",
-      desc: "Watch the brand sequence light up, then reproduce it perfectly from memory.",
-      tag: "Focus", best: "memoryBest" },
-    { id: "speed",    title: "Speed Challenge",   icon: "⚡", tint: "#1E5BD6",
-      desc: "React in a flash. Tap the right brand element before the clock beats you.",
-      tag: "Reflex", best: "speedBest" },
-    { id: "strategy", title: "Strategy Challenge",icon: "♟️", tint: "#F97316",
-      desc: "Real marketing scenarios. Pick the smartest decision and build your impact.",
-      tag: "Decision", best: "strategyBest" }
+    { id: "puzzle",   title: "لغز التسويق",        icon: "🧩", tint: "#1E5BD6",
+      desc: "حلّ تحدّيات العلامة والتسويق — رتّب المراحل، طابِق المفاهيم، واكشف الاستراتيجية الصحيحة.",
+      tag: "منطق", best: "puzzleBest" },
+    { id: "memory",   title: "تحدّي الذاكرة",      icon: "🧠", tint: "#F97316",
+      desc: "راقب تسلسل عناصر العلامة وهي تُضيء، ثم أعِد إنتاجه من ذاكرتك بدقّة تامّة.",
+      tag: "تركيز", best: "memoryBest" },
+    { id: "speed",    title: "تحدّي السرعة",       icon: "⚡", tint: "#1E5BD6",
+      desc: "ردّة فعل خاطفة. اضغط على العنصر الصحيح قبل أن يسبقك الوقت.",
+      tag: "سرعة", best: "speedBest" },
+    { id: "strategy", title: "تحدّي الاستراتيجية", icon: "♟️", tint: "#F97316",
+      desc: "سيناريوهات تسويقية واقعية. اختر القرار الأذكى واصنع الأثر.",
+      tag: "قرار", best: "strategyBest" }
   ];
 
-  /* ---------- MARKETING PUZZLE ----------
-     Two puzzle types: "order" (sequence the steps) and "quiz" (best answer). */
+  /* ---------- لغز التسويق ----------
+     نوعان: "order" (رتّب المراحل) و "quiz" (اختر الأفضل). */
   const PUZZLES = [
-    { type: "order", q: "Arrange the AIDA marketing funnel in the correct order.",
-      hint: "The classic path a customer travels toward a purchase.",
-      items: ["Awareness", "Interest", "Desire", "Action"] },
-    { type: "order", q: "Order the brand-building journey from first to last.",
-      hint: "How a brand grows in a customer's mind.",
-      items: ["Awareness", "Recognition", "Preference", "Loyalty"] },
-    { type: "order", q: "Sequence a campaign lifecycle correctly.",
-      hint: "From idea to insight.",
-      items: ["Research", "Strategy", "Creative", "Launch", "Measure"] },
-    { type: "order", q: "Put the content marketing funnel in order.",
-      hint: "Top to bottom of the funnel.",
-      items: ["Attract", "Engage", "Convert", "Delight"] },
-    { type: "quiz", q: "Which element makes a brand instantly recognizable across every touchpoint?",
-      hint: "Consistency is the key word.",
-      options: ["A one-time viral post", "A consistent visual identity", "A large ad budget", "Frequent logo redesigns"],
+    { type: "order", q: "رتّب مسار التسويق (AIDA) بالترتيب الصحيح.",
+      hint: "الرحلة الكلاسيكية التي يسلكها العميل نحو الشراء.",
+      items: ["الوعي", "الاهتمام", "الرغبة", "اتخاذ الإجراء"] },
+    { type: "order", q: "رتّب رحلة بناء العلامة من الأول إلى الأخير.",
+      hint: "كيف تنمو العلامة في ذهن العميل.",
+      items: ["الوعي", "التمييز", "التفضيل", "الولاء"] },
+    { type: "order", q: "رتّب دورة حياة الحملة التسويقية بشكل صحيح.",
+      hint: "من الفكرة إلى النتيجة.",
+      items: ["البحث", "الاستراتيجية", "الإبداع", "الإطلاق", "القياس"] },
+    { type: "order", q: "رتّب مسار تسويق المحتوى.",
+      hint: "من أعلى القمع إلى أسفله.",
+      items: ["الجذب", "التفاعل", "التحويل", "الإسعاد"] },
+    { type: "quiz", q: "أي عنصر يجعل العلامة سهلة التمييز فوراً في كل نقطة تواصل؟",
+      hint: "الكلمة المفتاح هي الاتّساق.",
+      options: ["منشور واحد ينتشر بسرعة", "هوية بصرية متّسقة", "ميزانية إعلانات كبيرة", "تغيير الشعار باستمرار"],
       answer: 1 },
-    { type: "quiz", q: "A 'call to action' (CTA) is designed to…",
-      hint: "It tells the audience what to do next.",
-      options: ["Describe company history", "Prompt an immediate response", "List every product feature", "Fill white space"],
+    { type: "quiz", q: "الهدف من «الدعوة لاتخاذ إجراء» (CTA) هو…",
+      hint: "تخبر الجمهور بالخطوة التالية.",
+      options: ["سرد تاريخ الشركة", "تحفيز استجابة فورية", "ذكر كل مزايا المنتج", "ملء الفراغ في التصميم"],
       answer: 1 },
-    { type: "quiz", q: "What does a strong brand 'tagline' primarily communicate?",
-      hint: "Think about Basta's: نصنع التجربة ويستمر الأثر.",
-      options: ["Legal disclaimers", "The brand's promise & value", "The office address", "Pricing details"],
+    { type: "quiz", q: "ما الذي يوصله شعار العلامة (التاغلاين) القويّ بشكل أساسي؟",
+      hint: "تذكّر شعار بسطة: نصنع التجربة ويستمر الأثر.",
+      options: ["إخلاء المسؤولية القانوني", "وعد العلامة وقيمتها", "عنوان المكتب", "تفاصيل الأسعار"],
       answer: 1 },
-    { type: "quiz", q: "Which metric best measures brand awareness growth?",
-      hint: "It's about how many people know you.",
-      options: ["Reach & impressions", "Office rent", "Number of meetings", "Paper used"],
+    { type: "quiz", q: "أي مقياس يعكس نموّ الوعي بالعلامة بأفضل شكل؟",
+      hint: "الأمر يتعلّق بعدد من يعرفونك.",
+      options: ["الوصول ومرّات الظهور", "إيجار المكتب", "عدد الاجتماعات", "كمية الورق المستهلك"],
       answer: 0 },
-    { type: "order", q: "Order these by the customer journey (marketing perspective).",
-      hint: "Stranger to advocate.",
-      items: ["Stranger", "Lead", "Customer", "Advocate"] },
-    { type: "quiz", q: "In positioning, the 'unique value proposition' answers which question?",
-      hint: "It sets you apart.",
-      options: ["Where is the office?", "Why choose us over others?", "What time do we open?", "Who is the CEO?"],
+    { type: "order", q: "رتّب هذه المراحل حسب رحلة العميل (من منظور تسويقي).",
+      hint: "من غريب إلى سفير للعلامة.",
+      items: ["غريب", "عميل محتمل", "عميل", "مناصر"] },
+    { type: "quiz", q: "في التموضع، «القيمة الفريدة» تجيب عن أي سؤال؟",
+      hint: "هي ما يميّزك عن غيرك.",
+      options: ["أين المكتب؟", "لماذا تختارنا دون غيرنا؟", "متى نفتح أبوابنا؟", "من هو المدير التنفيذي؟"],
       answer: 1 },
-    { type: "quiz", q: "Which channel is best for building long-term organic brand trust?",
-      hint: "Slow, compounding, owned.",
-      options: ["Paid pop-up ads", "Consistent content & community", "Random cold calls", "Spam email blasts"],
+    { type: "quiz", q: "أي قناة هي الأفضل لبناء ثقة عضويّة طويلة الأمد بالعلامة؟",
+      hint: "بطيئة، متراكمة، ومملوكة لك.",
+      options: ["إعلانات منبثقة مدفوعة", "محتوى متّسق وبناء مجتمع", "مكالمات عشوائية باردة", "رسائل بريد مزعجة"],
       answer: 1 },
-    { type: "order", q: "Arrange the design workflow for a brand identity.",
-      hint: "From listening to delivery.",
-      items: ["Brief", "Concept", "Design", "Refine", "Deliver"] }
+    { type: "order", q: "رتّب سير العمل في تصميم هوية العلامة.",
+      hint: "من الإنصات إلى التسليم.",
+      items: ["الموجز", "التصوّر", "التصميم", "التنقيح", "التسليم"] }
   ];
 
-  /* ---------- MEMORY: brand tiles ---------- */
+  /* ---------- الذاكرة: عناصر العلامة ---------- */
   const MEMORY_TILES = [
-    { icon: "▲", fill: "#1E5BD6", glow: "0 0 24px #1E5BD6", label: "Blue arrow" },
-    { icon: "■", fill: "#F97316", glow: "0 0 24px #F97316", label: "Orange block" },
-    { icon: "●", fill: "#4d82e6", glow: "0 0 24px #4d82e6", label: "Sky dot" },
-    { icon: "◆", fill: "#fb8f42", glow: "0 0 24px #fb8f42", label: "Amber diamond" },
-    { icon: "✦", fill: "#1a4fbd", glow: "0 0 24px #1a4fbd", label: "Deep spark" },
-    { icon: "▬", fill: "#F97316", glow: "0 0 24px #F97316", label: "Orange bar" }
+    { icon: "▲", fill: "#1E5BD6", glow: "0 0 24px #1E5BD6", label: "سهم أزرق" },
+    { icon: "■", fill: "#F97316", glow: "0 0 24px #F97316", label: "مربّع برتقالي" },
+    { icon: "●", fill: "#4d82e6", glow: "0 0 24px #4d82e6", label: "نقطة سماوية" },
+    { icon: "◆", fill: "#fb8f42", glow: "0 0 24px #fb8f42", label: "معيّن كهرماني" },
+    { icon: "✦", fill: "#1a4fbd", glow: "0 0 24px #1a4fbd", label: "شرارة عميقة" },
+    { icon: "▬", fill: "#F97316", glow: "0 0 24px #F97316", label: "شريط برتقالي" }
   ];
 
-  /* ---------- SPEED: targets ---------- */
+  /* ---------- السرعة: الأهداف ---------- */
   const SPEED_ELEMENTS = [
-    { icon: "▲", color: "#1E5BD6", name: "Blue Arrow" },
-    { icon: "■", color: "#F97316", name: "Orange Square" },
-    { icon: "●", color: "#4d82e6", name: "Blue Dot" },
-    { icon: "◆", color: "#fb8f42", name: "Orange Gem" },
-    { icon: "★", color: "#1E5BD6", name: "Blue Star" },
-    { icon: "✚", color: "#F97316", name: "Orange Plus" }
+    { icon: "▲", color: "#1E5BD6", name: "السهم الأزرق" },
+    { icon: "■", color: "#F97316", name: "المربّع البرتقالي" },
+    { icon: "●", color: "#4d82e6", name: "النقطة الزرقاء" },
+    { icon: "◆", color: "#fb8f42", name: "الجوهرة البرتقالية" },
+    { icon: "★", color: "#1E5BD6", name: "النجمة الزرقاء" },
+    { icon: "✚", color: "#F97316", name: "الزائد البرتقالي" }
   ];
 
-  /* ---------- STRATEGY scenarios ---------- */
+  /* ---------- سيناريوهات الاستراتيجية ---------- */
   const STRATEGY = [
-    { scenario: "A new coffee brand has a tiny budget but a beautiful story. What's the smartest first move?",
-      context: "Limited budget · strong narrative",
+    { scenario: "علامة قهوة جديدة بميزانية صغيرة لكن قصّتها جميلة. ما أذكى خطوة أولى؟",
+      context: "ميزانية محدودة · قصّة قويّة",
       options: [
-        { t: "Spend it all on one TV ad", pts: 1, why: "High cost, low targeting — risky for a small brand." },
-        { t: "Build organic storytelling on social + micro-influencers", pts: 3, why: "Best fit: leverages the story, targets the right people, and scales affordably." },
-        { t: "Print thousands of flyers", pts: 1, why: "Broad and untargeted; hard to measure impact." },
-        { t: "Wait until the budget grows", pts: 0, why: "Momentum lost — competitors move in." }
+        { t: "إنفاقها كلها على إعلان تلفزيوني واحد", pts: 1, why: "تكلفة عالية واستهداف ضعيف — مخاطرة كبيرة لعلامة صغيرة." },
+        { t: "بناء سرد قصصي عضوي على السوشيال + مؤثّرين صغار", pts: 3, why: "الأنسب: يستثمر القصّة، يستهدف الجمهور الصحيح، وقابل للتوسّع باقتصادية." },
+        { t: "طباعة آلاف المنشورات الورقية", pts: 1, why: "واسعة وغير مستهدفة، ويصعب قياس أثرها." },
+        { t: "الانتظار حتى تكبر الميزانية", pts: 0, why: "تفقد الزخم — والمنافسون يتقدّمون." }
       ]},
-    { scenario: "Engagement dropped 40% after you started posting 5x daily. What do you do?",
-      context: "Over-posting · falling engagement",
+    { scenario: "انخفض التفاعل 40% بعد أن بدأت بالنشر 5 مرّات يومياً. ماذا تفعل؟",
+      context: "إفراط في النشر · تفاعل هابط",
       options: [
-        { t: "Post even more to stay visible", pts: 0, why: "Fatigue is the cause — more volume worsens it." },
-        { t: "Cut to fewer, higher-quality posts and study the analytics", pts: 3, why: "Correct: quality over quantity, driven by data." },
-        { t: "Change the logo", pts: 0, why: "Unrelated to the posting-frequency problem." },
-        { t: "Delete the account and restart", pts: 0, why: "Destroys your audience and history." }
+        { t: "انشر أكثر لتبقى ظاهراً", pts: 0, why: "السبب هو الإرهاق — والمزيد من الكمّ يزيده سوءاً." },
+        { t: "قلّل النشر وركّز على جودة أعلى مع دراسة التحليلات", pts: 3, why: "الصحيح: الجودة قبل الكمّية، بقرارٍ مبنيّ على البيانات." },
+        { t: "غيّر الشعار", pts: 0, why: "لا علاقة له بمشكلة تكرار النشر." },
+        { t: "احذف الحساب وابدأ من جديد", pts: 0, why: "يدمّر جمهورك وسجلّك بالكامل." }
       ]},
-    { scenario: "A competitor copies your campaign style. Best response?",
-      context: "Imitation · brand differentiation",
+    { scenario: "منافس يقلّد أسلوب حملتك. ما أفضل ردّ؟",
+      context: "تقليد · تمايز العلامة",
       options: [
-        { t: "Sue them immediately", pts: 1, why: "Slow, costly, often unwinnable for a 'style'." },
-        { t: "Double down on your unique brand voice & innovate", pts: 3, why: "Best: stay ahead by being unmistakably you." },
-        { t: "Copy their next move", pts: 0, why: "You become the follower and lose identity." },
-        { t: "Ignore the market entirely", pts: 1, why: "Passive; misses a chance to differentiate." }
+        { t: "رفع دعوى قضائية فوراً", pts: 1, why: "بطيء ومكلف، ويصعب كسبه على «الأسلوب»." },
+        { t: "التميّز أكثر بصوت علامتك الفريد والابتكار", pts: 3, why: "الأفضل: ابقَ في المقدّمة بأن تكون أنت بلا مثيل." },
+        { t: "قلّد خطوتهم القادمة", pts: 0, why: "تصبح التابع وتفقد هويّتك." },
+        { t: "تجاهل السوق تماماً", pts: 1, why: "سلبي؛ يفوّت فرصة التمايز." }
       ]},
-    { scenario: "Your ad has great clicks but almost no conversions. Where do you look first?",
-      context: "High CTR · low conversion",
+    { scenario: "إعلانك يحقّق نقرات ممتازة لكن تحويلات شبه معدومة. أين تنظر أولاً؟",
+      context: "نقرات عالية · تحويل منخفض",
       options: [
-        { t: "Increase the ad budget", pts: 0, why: "Amplifies a broken funnel — wastes money." },
-        { t: "Audit the landing page & offer match", pts: 3, why: "Correct: the drop is after the click — fix the destination." },
-        { t: "Change the ad platform", pts: 1, why: "Premature; the ad itself is performing on clicks." },
-        { t: "Add more ad variations", pts: 1, why: "Doesn't address the post-click gap." }
+        { t: "زيادة ميزانية الإعلان", pts: 0, why: "يضخّم قمعاً معطوباً — إهدار للمال." },
+        { t: "مراجعة صفحة الهبوط ومدى توافق العرض", pts: 3, why: "الصحيح: التسرّب يحدث بعد النقرة — أصلِح الوجهة." },
+        { t: "تغيير منصّة الإعلان", pts: 1, why: "سابق لأوانه؛ الإعلان نفسه ناجح بالنقرات." },
+        { t: "إضافة المزيد من نسخ الإعلان", pts: 1, why: "لا يعالج الفجوة بعد النقرة." }
       ]},
-    { scenario: "A client wants to target 'everyone'. What's the professional recommendation?",
-      context: "Targeting · segmentation",
+    { scenario: "عميل يريد استهداف «الجميع». ما التوصية المهنية؟",
+      context: "استهداف · تقسيم الجمهور",
       options: [
-        { t: "Agree — bigger reach is better", pts: 0, why: "Targeting everyone reaches no one effectively." },
-        { t: "Define clear audience segments & a primary persona", pts: 3, why: "Best: focused targeting drives relevance and ROI." },
-        { t: "Only target the cheapest audience", pts: 1, why: "Cost-led, not value-led — weak strategy." },
-        { t: "Let the algorithm decide with no input", pts: 1, why: "Guidance improves algorithmic performance." }
+        { t: "الموافقة — الوصول الأكبر أفضل", pts: 0, why: "استهداف الجميع لا يصل لأحد بفاعلية." },
+        { t: "تحديد شرائح واضحة وشخصية أساسية للجمهور", pts: 3, why: "الأفضل: الاستهداف المركّز يرفع الملاءمة والعائد." },
+        { t: "استهداف الجمهور الأرخص فقط", pts: 1, why: "مبنيّ على التكلفة لا القيمة — استراتيجية ضعيفة." },
+        { t: "ترك الخوارزمية تقرّر بلا أي توجيه", pts: 1, why: "التوجيه يحسّن أداء الخوارزمية." }
       ]},
-    { scenario: "Launch day: a product photo has a typo in the caption, already live for 1 hour.",
-      context: "Crisis · brand trust",
+    { scenario: "يوم الإطلاق: صورة منتج فيها خطأ إملائي في التعليق، ومنشورة منذ ساعة.",
+      context: "أزمة · ثقة بالعلامة",
       options: [
-        { t: "Leave it — nobody will notice", pts: 0, why: "Erodes brand professionalism and trust." },
-        { t: "Quietly fix it and monitor engagement", pts: 3, why: "Best: correct fast, stay calm, keep the launch clean." },
-        { t: "Delete the whole post & the momentum", pts: 1, why: "Loses reach and engagement already earned." },
-        { t: "Post a long public apology", pts: 1, why: "Over-reaction for a minor caption fix." }
+        { t: "اتركه — لن يلاحظه أحد", pts: 0, why: "يضعف احترافية العلامة وثقتها." },
+        { t: "أصلِحه بهدوء وراقب التفاعل", pts: 3, why: "الأفضل: صحّح بسرعة، ابقَ هادئاً، وأبقِ الإطلاق نظيفاً." },
+        { t: "احذف المنشور كلّه وزخمه", pts: 1, why: "تفقد الوصول والتفاعل المكتسب." },
+        { t: "انشر اعتذاراً علنياً طويلاً", pts: 1, why: "ردّة فعل مبالغ فيها لتصحيح تعليق بسيط." }
       ]},
-    { scenario: "You have one strong reel that outperformed everything. What's next?",
-      context: "Winning content · scaling",
+    { scenario: "لديك ريل واحد تفوّق على كل شيء. ما الخطوة التالية؟",
+      context: "محتوى ناجح · التوسّع",
       options: [
-        { t: "Never touch it again", pts: 0, why: "Wastes a proven winner." },
-        { t: "Analyze why it worked, then create a repeatable series", pts: 3, why: "Correct: turn one win into a scalable format." },
-        { t: "Repost the exact same reel daily", pts: 1, why: "Audience fatigue kills the magic quickly." },
-        { t: "Switch to a totally different style", pts: 0, why: "Abandons proven insight." }
+        { t: "لا تلمسه مجدّداً أبداً", pts: 0, why: "إهدار لعملٍ أثبت نجاحه." },
+        { t: "حلّل سبب نجاحه ثم اصنع سلسلة قابلة للتكرار", pts: 3, why: "الصحيح: حوّل نجاحاً واحداً إلى صيغة قابلة للتوسّع." },
+        { t: "أعِد نشر نفس الريل يومياً", pts: 1, why: "إرهاق الجمهور يقتل السحر بسرعة." },
+        { t: "انتقل لأسلوب مختلف تماماً", pts: 0, why: "يتخلّى عن رؤية مثبتة." }
       ]}
   ];
 
-  /* ---------- ACHIEVEMENTS ---------- */
+  /* ---------- الأوسمة ---------- */
   const ACHIEVEMENTS = [
-    { id: "first_play",  icon: "🎯", name: "First Move",    desc: "Play your first game." },
-    { id: "puzzle_ace",  icon: "🧩", name: "Puzzle Ace",    desc: "Perfect a Marketing Puzzle." },
-    { id: "memory_pro",  icon: "🧠", name: "Mind Palace",   desc: "Reach level 6 in Memory." },
-    { id: "speed_demon", icon: "⚡", name: "Speed Demon",   desc: "Score 20+ in Speed Challenge." },
-    { id: "strategist",  icon: "♟️", name: "Master Strategist", desc: "Ace a Strategy Challenge." },
-    { id: "streak3",     icon: "🔥", name: "On Fire",       desc: "Keep a 3-day play streak." },
-    { id: "coin100",     icon: "💰", name: "Coin Collector", desc: "Bank 100 coins." },
-    { id: "level5",      icon: "⭐", name: "Rising Star",    desc: "Reach player level 5." },
-    { id: "level10",     icon: "🌟", name: "Brand Legend",   desc: "Reach player level 10." },
-    { id: "daily",       icon: "📅", name: "Daily Grinder",  desc: "Complete a Daily Challenge." },
-    { id: "allmodes",    icon: "🏆", name: "Full Spectrum",  desc: "Play all four game modes." },
-    { id: "perfectionist", icon: "💎", name: "Perfectionist", desc: "Win 10 games total." }
+    { id: "first_play",  icon: "🎯", name: "الانطلاقة",      desc: "العب أول جولة لك." },
+    { id: "puzzle_ace",  icon: "🧩", name: "بطل الألغاز",    desc: "أتقِن لغز تسويق كاملاً." },
+    { id: "memory_pro",  icon: "🧠", name: "قصر الذاكرة",    desc: "اوصل للمستوى 6 في الذاكرة." },
+    { id: "speed_demon", icon: "⚡", name: "سرعة البرق",     desc: "سجّل 20+ في تحدّي السرعة." },
+    { id: "strategist",  icon: "♟️", name: "استراتيجي محترف", desc: "أتقِن تحدّي استراتيجية." },
+    { id: "streak3",     icon: "🔥", name: "مُشتعل",          desc: "حافظ على سلسلة 3 أيام." },
+    { id: "coin100",     icon: "💰", name: "جامع العملات",    desc: "اجمع 100 عملة." },
+    { id: "level5",      icon: "⭐", name: "نجم صاعد",        desc: "اوصل إلى المستوى 5." },
+    { id: "level10",     icon: "🌟", name: "أسطورة العلامة",  desc: "اوصل إلى المستوى 10." },
+    { id: "daily",       icon: "📅", name: "مثابِر يومي",     desc: "أكمِل التحدّي اليومي." },
+    { id: "allmodes",    icon: "🏆", name: "الطيف الكامل",    desc: "جرّب كل الأوضاع الأربعة." },
+    { id: "perfectionist", icon: "💎", name: "إتقان تامّ",    desc: "افُز بـ 10 جولات إجمالاً." }
   ];
 
-  /* ---------- RANKS (by level) ---------- */
+  /* ---------- الرتب (حسب المستوى) ---------- */
   const RANKS = [
-    { min: 1,  name: "Rookie" },
-    { min: 3,  name: "Junior Marketer" },
-    { min: 5,  name: "Brand Builder" },
-    { min: 8,  name: "Growth Hacker" },
-    { min: 11, name: "Strategist" },
-    { min: 15, name: "Creative Director" },
-    { min: 20, name: "Marketing Legend" }
+    { min: 1,  name: "مبتدئ" },
+    { min: 3,  name: "مسوّق ناشئ" },
+    { min: 5,  name: "بانِي علامة" },
+    { min: 8,  name: "خبير نموّ" },
+    { min: 11, name: "استراتيجي" },
+    { min: 15, name: "مدير إبداعي" },
+    { min: 20, name: "أسطورة التسويق" }
   ];
 
-  /* Seeded RNG (mulberry32) for the Daily Challenge */
+  /* مولّد أرقام شبه عشوائي ببذرة (mulberry32) للتحدّي اليومي */
   function seededRandom(seed) {
     let t = seed >>> 0;
     return function () {

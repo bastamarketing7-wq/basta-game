@@ -14,7 +14,7 @@
   }
 
   window.Games.strategy = {
-    label: "Strategy Challenge",
+    label: "تحدّي الاستراتيجية",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
@@ -27,9 +27,9 @@
         mount.innerHTML = `
           <div class="gscreen">
             <div class="gtop">
-              <span class="chip">Scenario ${idx + 1}/${rounds.length}</span>
+              <span class="chip">السيناريو ${idx + 1}/${rounds.length}</span>
               <div class="gtop__spacer"></div>
-              <span class="chip chip--score">${points} pts</span>
+              <span class="chip chip--score">${points} نقطة</span>
             </div>
             <div class="progressbar"><span style="width:${pct}%"></span></div>
             <div class="qcard">
@@ -66,8 +66,8 @@
         }
         const why = $("#why");
         why.innerHTML = `<div class="qcard" style="margin-top:14px;background:var(--glass-2)">
-          <strong style="color:var(--orange)">Why:</strong> ${esc(o.why)}
-          <div style="margin-top:12px"><button class="btn btn--primary" id="nextS">Next →</button></div></div>`;
+          <strong style="color:var(--orange)">السبب:</strong> ${esc(o.why)}
+          <div style="margin-top:12px"><button class="btn btn--primary" id="nextS">التالي ←</button></div></div>`;
         $("#nextS").addEventListener("click", () => { Sound.fx("click"); next(); });
       }
 
@@ -86,7 +86,7 @@
           points, maxPoints, aces,
           xp: points * 10 + (perfect ? 40 : 0),
           coins: points * 3 + (perfect ? 15 : 0),
-          detail: `${points}/${maxPoints} strategy points · ${aces} best calls`
+          detail: `${points}/${maxPoints} نقطة استراتيجية · ${aces} قرار مثالي`
         });
       }
 

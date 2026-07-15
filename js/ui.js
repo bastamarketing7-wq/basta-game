@@ -170,7 +170,7 @@
     if (lv && lv.leveledUp) {
       Sound.fx("level");
       confetti(90);
-      toast({ icon: "⭐", title: "Level Up!", desc: "You reached level " + lv.to + " · " + rankName(lv.to), kind: "xp", ms: 3200 });
+      toast({ icon: "⭐", title: "ترقية مستوى!", desc: "وصلت إلى المستوى " + lv.to + " · " + rankName(lv.to), kind: "xp", ms: 3200 });
     }
     return lv;
   }
@@ -180,7 +180,7 @@
     if (!a) return;
     Sound.fx("badge");
     confetti(120);
-    toast({ icon: a.icon, title: "Achievement Unlocked", desc: a.name + " — " + a.desc, kind: "badge", ms: 3600 });
+    toast({ icon: a.icon, title: "وسام جديد!", desc: a.name + " — " + a.desc, kind: "badge", ms: 3600 });
   }
 
   window.UI = {

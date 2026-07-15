@@ -14,7 +14,7 @@
   }
 
   window.Games.puzzle = {
-    label: "Marketing Puzzle",
+    label: "لغز التسويق",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
@@ -28,7 +28,7 @@
         mount.innerHTML = `
           <div class="gscreen">
             <div class="gtop">
-              <span class="chip">Puzzle ${idx + 1}/${rounds.length}</span>
+              <span class="chip">لغز ${idx + 1}/${rounds.length}</span>
               <div class="gtop__spacer"></div>
               <span class="chip chip--score">✓ ${correct}</span>
             </div>
@@ -44,6 +44,7 @@
           <div class="qcard__q">${esc(p.q)}</div>
           <div class="qcard__hint">💡 ${esc(p.hint)}</div>
           <div class="opts" id="opts"></div>`;
+        // (اختيار من متعدّد)
         const box = $("#opts");
         p.options.forEach((o, i) => {
           const b = document.createElement("button");
@@ -73,10 +74,10 @@
         const placed = [];
         qc.innerHTML = `
           <div class="qcard__q">${esc(p.q)}</div>
-          <div class="qcard__hint">💡 ${esc(p.hint)} — tap items in order.</div>
-          <div class="seq__slot-lbl">Your sequence</div>
+          <div class="qcard__hint">💡 ${esc(p.hint)} — اضغط العناصر بالترتيب.</div>
+          <div class="seq__slot-lbl">ترتيبك</div>
           <div class="slots" id="slots" aria-live="polite"></div>
-          <div class="seq__slot-lbl">Choices</div>
+          <div class="seq__slot-lbl">الخيارات</div>
           <div class="seq" id="bank"></div>`;
         const bank = $("#bank"), slots = $("#slots");
 
@@ -132,7 +133,7 @@
           perfect, score, correct, total: rounds.length,
           xp: correct * 22 + (perfect ? 40 : 0),
           coins: correct * 6 + (perfect ? 20 : 0),
-          detail: `${correct}/${rounds.length} puzzles solved`
+          detail: `حللت ${correct} من ${rounds.length} ألغاز`
         });
       }
 

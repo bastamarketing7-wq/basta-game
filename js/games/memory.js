@@ -8,7 +8,7 @@
   const { $ } = window.UI;
 
   window.Games.memory = {
-    label: "Memory Challenge",
+    label: "تحدّي الذاكرة",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
@@ -24,11 +24,11 @@
         mount.innerHTML = `
           <div class="gscreen speedwrap">
             <div class="gtop">
-              <span class="chip chip--score">Round ${round}</span>
+              <span class="chip chip--score">الجولة ${round}</span>
               <div class="gtop__spacer"></div>
-              <span class="chip">Length ${seq.length || startLen}</span>
+              <span class="chip">الطول ${seq.length || startLen}</span>
             </div>
-            <p class="qcard__hint" id="mstatus" style="text-align:center;margin-bottom:14px">Watch closely…</p>
+            <p class="qcard__hint" id="mstatus" style="text-align:center;margin-bottom:14px">راقب جيداً…</p>
             <div class="mgrid" id="mgrid"></div>
           </div>`;
         const grid = $("#mgrid");
@@ -51,7 +51,7 @@
         input = [];
         seq.push(Math.floor(rnd() * TILES.length));
         shell();
-        status("Watch closely…");
+        status("راقب جيداً…");
         playback();
       }
 
@@ -64,7 +64,7 @@
           if (i > 0) unlight(seq[i - 1]);
           if (i >= seq.length) {
             clearInterval(iv);
-            setTimeout(() => { if (alive) { accepting = true; status("Your turn — repeat the sequence"); } }, 260);
+            setTimeout(() => { if (alive) { accepting = true; status("دورك — أعِد التسلسل"); } }, 260);
             return;
           }
           light(seq[i]); Sound.fx("reveal");
@@ -87,7 +87,7 @@
           accepting = false;
           Sound.fx("correct");
           round++;
-          status("Perfect! Next round…");
+          status("ممتاز! الجولة التالية…");
           setTimeout(() => { if (alive) nextRound(); }, 820);
         }
       }
@@ -95,7 +95,7 @@
       function fail(el) {
         accepting = false; alive = false;
         el.classList.add("err"); Sound.fx("lose");
-        status("Sequence broken!");
+        status("انكسر التسلسل!");
         // reveal correct next tile briefly
         setTimeout(finish, 900);
       }
@@ -111,7 +111,7 @@
           reachedLen: level,
           xp: level * 18,
           coins: level * 5,
-          detail: `Recalled a sequence of ${level}`
+          detail: `تذكّرت تسلسلاً من ${level}`
         });
       }
 

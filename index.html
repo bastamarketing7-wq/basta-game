@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="dark">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
   <meta name="theme-color" content="#1E5BD6" />
-  <meta name="description" content="Basta Play — a premium interactive marketing game experience by Basta Marketing Agency." />
-  <title>Basta Play · Marketing Game Experience</title>
+  <meta name="description" content="بسطة بلاي — تجربة ألعاب تسويقية تفاعلية مميّزة من وكالة بسطة للتسويق." />
+  <title>بسطة بلاي · تجربة الألعاب التسويقية</title>
 
   <link rel="icon" type="image/png" href="#" data-logo="badge" />
   <link rel="apple-touch-icon" href="#" data-logo="badge" />
@@ -27,8 +27,8 @@
   --orange-400: #fb8f42;
   --white: #ffffff;
 
-  --font: "Segoe UI", "Helvetica Neue", system-ui, -apple-system, Roboto, Arial, sans-serif;
-  --arabic: "Tahoma", "Segoe UI", "Noto Naskh Arabic", serif;
+  --font: "SF Arabic", "Geeza Pro", "Segoe UI", "Tahoma", "Noto Kufi Arabic", "Noto Sans Arabic", "Helvetica Neue", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --arabic: "SF Arabic", "Geeza Pro", "Tahoma", "Noto Naskh Arabic", "Segoe UI", sans-serif;
 
   --r-sm: 12px;
   --r-md: 18px;
@@ -195,7 +195,7 @@ ul { list-style: none; }
 .drawer__name { font-weight: 800; font-size: 17px; }
 .drawer__rank { font-size: 12px; color: var(--orange); font-weight: 700; text-transform: uppercase; letter-spacing: .6px; }
 .drawer__list { display: flex; flex-direction: column; gap: 4px; }
-.drawer__link { width: 100%; text-align: left; padding: 13px 14px; border-radius: 14px; font-weight: 600; font-size: 15px; transition: background var(--t-fast), transform var(--t-fast); }
+.drawer__link { width: 100%; text-align: start; padding: 13px 14px; border-radius: 14px; font-weight: 600; font-size: 15px; transition: background var(--t-fast), transform var(--t-fast); }
 .drawer__link:hover { background: var(--glass-2); transform: translateX(-4px); }
 .drawer__reset { margin-top: auto; padding: 11px; border-radius: 12px; font-weight: 700; color: var(--orange); border: 1px solid var(--orange); background: transparent; transition: background var(--t-fast), color var(--t-fast); }
 .drawer__reset:hover { background: var(--orange); color: #fff; }
@@ -275,7 +275,7 @@ ul { list-style: none; }
 /* ---------- Mode grid ---------- */
 .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
 .mode {
-  position: relative; text-align: left; padding: 22px; border-radius: var(--r-lg);
+  position: relative; text-align: start; padding: 22px; border-radius: var(--r-lg);
   background: var(--card); border: 1px solid var(--glass-brd);
   backdrop-filter: blur(16px) saturate(1.3); overflow: hidden; isolation: isolate;
   transition: transform var(--t-med) var(--ease-back), box-shadow var(--t-med) var(--ease), border-color var(--t-med);
@@ -321,7 +321,7 @@ ul { list-style: none; }
 /* Options */
 .opts { display: grid; gap: 12px; }
 .opt {
-  text-align: left; padding: 16px 18px; border-radius: var(--r-md);
+  text-align: start; padding: 16px 18px; border-radius: var(--r-md);
   background: var(--glass-2); border: 1.5px solid var(--glass-brd);
   font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 12px;
   transition: transform var(--t-fast) var(--ease), border-color var(--t-fast), background var(--t-fast);
@@ -350,7 +350,7 @@ ul { list-style: none; }
 .token.placed { opacity: 0.35; pointer-events: none; }
 .token.answer { border-style: dashed; }
 .slots { min-height: 60px; display: flex; flex-wrap: wrap; gap: 10px; padding: 12px; border-radius: var(--r-md); border: 1.5px dashed var(--glass-brd); background: var(--glass-2); }
-.slots:empty::after { content: "Tap items below in the correct order…"; color: var(--ink-mute); font-size: 13px; font-weight: 600; }
+.slots:empty::after { content: "اضغط العناصر بالأسفل بالترتيب الصحيح…"; color: var(--ink-mute); font-size: 13px; font-weight: 600; }
 
 /* Memory tiles */
 .mgrid { display: grid; gap: clamp(8px, 2vw, 14px); margin: 0 auto; max-width: 440px; }
@@ -558,16 +558,16 @@ ul { list-style: none; }
   </script>
 
   <!-- ===================== LOADING SCREEN ===================== -->
-  <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading Basta Play">
+  <div id="loader" class="loader" role="status" aria-live="polite" aria-label="جارٍ تحميل بسطة بلاي">
     <div class="loader__aurora" aria-hidden="true"></div>
     <div class="loader__inner">
       <div class="loader__logo-wrap">
-        <img src="" data-logo="badge" alt="Basta Marketing Agency" class="loader__logo" />
+        <img src="" data-logo="badge" alt="وكالة بسطة للتسويق" class="loader__logo" />
         <div class="loader__ring" aria-hidden="true"></div>
       </div>
       <div class="loader__brand">
-        <span class="loader__title">BASTA<span class="accent">PLAY</span></span>
-        <span class="loader__tag">Marketing Game Experience</span>
+        <span class="loader__title" dir="ltr">BASTA<span class="accent">PLAY</span></span>
+        <span class="loader__tag">تجربة الألعاب التسويقية</span>
       </div>
       <div class="loader__bar" aria-hidden="true"><span class="loader__fill"></span></div>
       <div class="loader__pct" aria-hidden="true">0%</div>
@@ -587,60 +587,60 @@ ul { list-style: none; }
   <div id="app" class="app" hidden>
     <!-- Top Bar -->
     <header class="topbar glass">
-      <button class="brand" id="brand-home" aria-label="Basta Play home">
-        <img src="" data-logo="badge" alt="Basta Marketing Agency logo" class="brand__logo" />
-        <span class="brand__text">BASTA<span class="accent">PLAY</span></span>
+      <button class="brand" id="brand-home" aria-label="الصفحة الرئيسية لبسطة بلاي">
+        <img src="" data-logo="badge" alt="شعار وكالة بسطة للتسويق" class="brand__logo" />
+        <span class="brand__text" dir="ltr">BASTA<span class="accent">PLAY</span></span>
       </button>
 
       <div class="hud" id="hud">
-        <div class="hud__item" title="Level" aria-label="Level">
+        <div class="hud__item" title="المستوى" aria-label="المستوى">
           <span class="hud__ico" aria-hidden="true">◆</span>
           <span class="hud__val" id="hud-level">1</span>
         </div>
-        <div class="hud__item hud__xp" title="Experience">
+        <div class="hud__item hud__xp" title="الخبرة">
           <div class="hud__xpbar"><span id="hud-xpfill" class="hud__xpfill"></span></div>
           <span class="hud__val" id="hud-xp">0</span>
         </div>
-        <div class="hud__item hud__coin" title="Coins" aria-label="Coins">
+        <div class="hud__item hud__coin" title="العملات" aria-label="العملات">
           <span class="hud__ico coin-ico" aria-hidden="true">●</span>
           <span class="hud__val" id="hud-coins">0</span>
         </div>
       </div>
 
       <div class="topbar__actions">
-        <button class="icon-btn" id="btn-sound" aria-pressed="true" title="Sound effects" aria-label="Toggle sound effects">
+        <button class="icon-btn" id="btn-sound" aria-pressed="true" title="المؤثّرات الصوتية" aria-label="تبديل المؤثّرات الصوتية">
           <span class="icon-btn__on">🔊</span><span class="icon-btn__off">🔇</span>
         </button>
-        <button class="icon-btn" id="btn-music" aria-pressed="false" title="Background music" aria-label="Toggle background music">
+        <button class="icon-btn" id="btn-music" aria-pressed="false" title="الموسيقى الخلفية" aria-label="تبديل الموسيقى الخلفية">
           <span class="icon-btn__on">🎵</span><span class="icon-btn__off">🎶</span>
         </button>
-        <button class="icon-btn" id="btn-theme" title="Theme" aria-label="Toggle dark and light mode">
+        <button class="icon-btn" id="btn-theme" title="السمة" aria-label="تبديل الوضع الداكن والفاتح">
           <span class="theme-dark">🌙</span><span class="theme-light">☀️</span>
         </button>
-        <button class="icon-btn" id="btn-menu" title="Menu" aria-label="Open menu" aria-haspopup="true">☰</button>
+        <button class="icon-btn" id="btn-menu" title="القائمة" aria-label="فتح القائمة" aria-haspopup="true">☰</button>
       </div>
     </header>
 
     <!-- Slide-out Menu -->
     <nav class="drawer glass" id="drawer" aria-hidden="true">
-      <button class="drawer__close icon-btn" id="drawer-close" aria-label="Close menu">✕</button>
+      <button class="drawer__close icon-btn" id="drawer-close" aria-label="إغلاق القائمة">✕</button>
       <div class="drawer__profile">
-        <div class="drawer__ava" id="drawer-avatar">B</div>
+        <div class="drawer__ava" id="drawer-avatar">ب</div>
         <div>
-          <div class="drawer__name" id="drawer-name">Marketer</div>
-          <div class="drawer__rank" id="drawer-rank">Rookie</div>
+          <div class="drawer__name" id="drawer-name">مسوّق</div>
+          <div class="drawer__rank" id="drawer-rank">مبتدئ</div>
         </div>
       </div>
       <ul class="drawer__list">
-        <li><button data-nav="home" class="drawer__link">🏠 Home</button></li>
-        <li><button data-nav="achievements" class="drawer__link">🏅 Achievements</button></li>
-        <li><button data-nav="leaderboard" class="drawer__link">🏆 Leaderboard</button></li>
-        <li><button data-nav="stats" class="drawer__link">📊 My Stats</button></li>
-        <li><button data-nav="how" class="drawer__link">❓ How to Play</button></li>
+        <li><button data-nav="home" class="drawer__link">🏠 الرئيسية</button></li>
+        <li><button data-nav="achievements" class="drawer__link">🏅 الأوسمة</button></li>
+        <li><button data-nav="leaderboard" class="drawer__link">🏆 المتصدّرون</button></li>
+        <li><button data-nav="stats" class="drawer__link">📊 إحصائياتي</button></li>
+        <li><button data-nav="how" class="drawer__link">❓ كيف تلعب</button></li>
       </ul>
-      <button class="drawer__reset" id="btn-reset">Reset Progress</button>
+      <button class="drawer__reset" id="btn-reset">تصفير التقدّم</button>
       <div class="drawer__foot">
-        <img src="" data-logo="full" alt="Basta Marketing Agency" class="drawer__brandimg" />
+        <img src="" data-logo="full" alt="وكالة بسطة للتسويق" class="drawer__brandimg" />
         <span>نصنع التجربة ويستمر الأثر</span>
       </div>
     </nav>
@@ -650,7 +650,7 @@ ul { list-style: none; }
     <main class="view" id="view" tabindex="-1"></main>
 
     <footer class="appfoot">
-      <span>Crafted for <strong>Basta Marketing Agency</strong> · نصنع التجربة ويستمر الأثر</span>
+      <span>صُنع لأجل <strong>وكالة بسطة للتسويق</strong> · نصنع التجربة ويستمر الأثر</span>
     </footer>
   </div>
 
@@ -660,7 +660,7 @@ ul { list-style: none; }
   <div id="modal-root" class="modal-root" hidden>
     <div class="modal-scrim" data-close></div>
     <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <button class="modal__x icon-btn" data-close aria-label="Close">✕</button>
+      <button class="modal__x icon-btn" data-close aria-label="إغلاق">✕</button>
       <div id="modal-body"></div>
     </div>
   </div>
@@ -669,183 +669,183 @@ ul { list-style: none; }
   <script>
 /* ===== js/data.js ===== */
 /* ============================================================
-   BASTA PLAY · data.js
-   All game content: modes, puzzles, memory, speed, strategy,
-   achievements, ranks. Exposed on window.BASTA_DATA
+   BASTA PLAY · data.js  (المحتوى بالعربية)
+   محتوى الألعاب: الأوضاع، الألغاز، الذاكرة، السرعة، الاستراتيجية،
+   الأوسمة، الرتب. متاح عبر window.BASTA_DATA
    ============================================================ */
 (function () {
   "use strict";
 
   const MODES = [
-    { id: "puzzle",   title: "Marketing Puzzle",  icon: "🧩", tint: "#1E5BD6",
-      desc: "Solve branding & marketing challenges — order funnels, match concepts, crack the strategy.",
-      tag: "Logic", best: "puzzleBest" },
-    { id: "memory",   title: "Memory Challenge",  icon: "🧠", tint: "#F97316",
-      desc: "Watch the brand sequence light up, then reproduce it perfectly from memory.",
-      tag: "Focus", best: "memoryBest" },
-    { id: "speed",    title: "Speed Challenge",   icon: "⚡", tint: "#1E5BD6",
-      desc: "React in a flash. Tap the right brand element before the clock beats you.",
-      tag: "Reflex", best: "speedBest" },
-    { id: "strategy", title: "Strategy Challenge",icon: "♟️", tint: "#F97316",
-      desc: "Real marketing scenarios. Pick the smartest decision and build your impact.",
-      tag: "Decision", best: "strategyBest" }
+    { id: "puzzle",   title: "لغز التسويق",        icon: "🧩", tint: "#1E5BD6",
+      desc: "حلّ تحدّيات العلامة والتسويق — رتّب المراحل، طابِق المفاهيم، واكشف الاستراتيجية الصحيحة.",
+      tag: "منطق", best: "puzzleBest" },
+    { id: "memory",   title: "تحدّي الذاكرة",      icon: "🧠", tint: "#F97316",
+      desc: "راقب تسلسل عناصر العلامة وهي تُضيء، ثم أعِد إنتاجه من ذاكرتك بدقّة تامّة.",
+      tag: "تركيز", best: "memoryBest" },
+    { id: "speed",    title: "تحدّي السرعة",       icon: "⚡", tint: "#1E5BD6",
+      desc: "ردّة فعل خاطفة. اضغط على العنصر الصحيح قبل أن يسبقك الوقت.",
+      tag: "سرعة", best: "speedBest" },
+    { id: "strategy", title: "تحدّي الاستراتيجية", icon: "♟️", tint: "#F97316",
+      desc: "سيناريوهات تسويقية واقعية. اختر القرار الأذكى واصنع الأثر.",
+      tag: "قرار", best: "strategyBest" }
   ];
 
-  /* ---------- MARKETING PUZZLE ----------
-     Two puzzle types: "order" (sequence the steps) and "quiz" (best answer). */
+  /* ---------- لغز التسويق ----------
+     نوعان: "order" (رتّب المراحل) و "quiz" (اختر الأفضل). */
   const PUZZLES = [
-    { type: "order", q: "Arrange the AIDA marketing funnel in the correct order.",
-      hint: "The classic path a customer travels toward a purchase.",
-      items: ["Awareness", "Interest", "Desire", "Action"] },
-    { type: "order", q: "Order the brand-building journey from first to last.",
-      hint: "How a brand grows in a customer's mind.",
-      items: ["Awareness", "Recognition", "Preference", "Loyalty"] },
-    { type: "order", q: "Sequence a campaign lifecycle correctly.",
-      hint: "From idea to insight.",
-      items: ["Research", "Strategy", "Creative", "Launch", "Measure"] },
-    { type: "order", q: "Put the content marketing funnel in order.",
-      hint: "Top to bottom of the funnel.",
-      items: ["Attract", "Engage", "Convert", "Delight"] },
-    { type: "quiz", q: "Which element makes a brand instantly recognizable across every touchpoint?",
-      hint: "Consistency is the key word.",
-      options: ["A one-time viral post", "A consistent visual identity", "A large ad budget", "Frequent logo redesigns"],
+    { type: "order", q: "رتّب مسار التسويق (AIDA) بالترتيب الصحيح.",
+      hint: "الرحلة الكلاسيكية التي يسلكها العميل نحو الشراء.",
+      items: ["الوعي", "الاهتمام", "الرغبة", "اتخاذ الإجراء"] },
+    { type: "order", q: "رتّب رحلة بناء العلامة من الأول إلى الأخير.",
+      hint: "كيف تنمو العلامة في ذهن العميل.",
+      items: ["الوعي", "التمييز", "التفضيل", "الولاء"] },
+    { type: "order", q: "رتّب دورة حياة الحملة التسويقية بشكل صحيح.",
+      hint: "من الفكرة إلى النتيجة.",
+      items: ["البحث", "الاستراتيجية", "الإبداع", "الإطلاق", "القياس"] },
+    { type: "order", q: "رتّب مسار تسويق المحتوى.",
+      hint: "من أعلى القمع إلى أسفله.",
+      items: ["الجذب", "التفاعل", "التحويل", "الإسعاد"] },
+    { type: "quiz", q: "أي عنصر يجعل العلامة سهلة التمييز فوراً في كل نقطة تواصل؟",
+      hint: "الكلمة المفتاح هي الاتّساق.",
+      options: ["منشور واحد ينتشر بسرعة", "هوية بصرية متّسقة", "ميزانية إعلانات كبيرة", "تغيير الشعار باستمرار"],
       answer: 1 },
-    { type: "quiz", q: "A 'call to action' (CTA) is designed to…",
-      hint: "It tells the audience what to do next.",
-      options: ["Describe company history", "Prompt an immediate response", "List every product feature", "Fill white space"],
+    { type: "quiz", q: "الهدف من «الدعوة لاتخاذ إجراء» (CTA) هو…",
+      hint: "تخبر الجمهور بالخطوة التالية.",
+      options: ["سرد تاريخ الشركة", "تحفيز استجابة فورية", "ذكر كل مزايا المنتج", "ملء الفراغ في التصميم"],
       answer: 1 },
-    { type: "quiz", q: "What does a strong brand 'tagline' primarily communicate?",
-      hint: "Think about Basta's: نصنع التجربة ويستمر الأثر.",
-      options: ["Legal disclaimers", "The brand's promise & value", "The office address", "Pricing details"],
+    { type: "quiz", q: "ما الذي يوصله شعار العلامة (التاغلاين) القويّ بشكل أساسي؟",
+      hint: "تذكّر شعار بسطة: نصنع التجربة ويستمر الأثر.",
+      options: ["إخلاء المسؤولية القانوني", "وعد العلامة وقيمتها", "عنوان المكتب", "تفاصيل الأسعار"],
       answer: 1 },
-    { type: "quiz", q: "Which metric best measures brand awareness growth?",
-      hint: "It's about how many people know you.",
-      options: ["Reach & impressions", "Office rent", "Number of meetings", "Paper used"],
+    { type: "quiz", q: "أي مقياس يعكس نموّ الوعي بالعلامة بأفضل شكل؟",
+      hint: "الأمر يتعلّق بعدد من يعرفونك.",
+      options: ["الوصول ومرّات الظهور", "إيجار المكتب", "عدد الاجتماعات", "كمية الورق المستهلك"],
       answer: 0 },
-    { type: "order", q: "Order these by the customer journey (marketing perspective).",
-      hint: "Stranger to advocate.",
-      items: ["Stranger", "Lead", "Customer", "Advocate"] },
-    { type: "quiz", q: "In positioning, the 'unique value proposition' answers which question?",
-      hint: "It sets you apart.",
-      options: ["Where is the office?", "Why choose us over others?", "What time do we open?", "Who is the CEO?"],
+    { type: "order", q: "رتّب هذه المراحل حسب رحلة العميل (من منظور تسويقي).",
+      hint: "من غريب إلى سفير للعلامة.",
+      items: ["غريب", "عميل محتمل", "عميل", "مناصر"] },
+    { type: "quiz", q: "في التموضع، «القيمة الفريدة» تجيب عن أي سؤال؟",
+      hint: "هي ما يميّزك عن غيرك.",
+      options: ["أين المكتب؟", "لماذا تختارنا دون غيرنا؟", "متى نفتح أبوابنا؟", "من هو المدير التنفيذي؟"],
       answer: 1 },
-    { type: "quiz", q: "Which channel is best for building long-term organic brand trust?",
-      hint: "Slow, compounding, owned.",
-      options: ["Paid pop-up ads", "Consistent content & community", "Random cold calls", "Spam email blasts"],
+    { type: "quiz", q: "أي قناة هي الأفضل لبناء ثقة عضويّة طويلة الأمد بالعلامة؟",
+      hint: "بطيئة، متراكمة، ومملوكة لك.",
+      options: ["إعلانات منبثقة مدفوعة", "محتوى متّسق وبناء مجتمع", "مكالمات عشوائية باردة", "رسائل بريد مزعجة"],
       answer: 1 },
-    { type: "order", q: "Arrange the design workflow for a brand identity.",
-      hint: "From listening to delivery.",
-      items: ["Brief", "Concept", "Design", "Refine", "Deliver"] }
+    { type: "order", q: "رتّب سير العمل في تصميم هوية العلامة.",
+      hint: "من الإنصات إلى التسليم.",
+      items: ["الموجز", "التصوّر", "التصميم", "التنقيح", "التسليم"] }
   ];
 
-  /* ---------- MEMORY: brand tiles ---------- */
+  /* ---------- الذاكرة: عناصر العلامة ---------- */
   const MEMORY_TILES = [
-    { icon: "▲", fill: "#1E5BD6", glow: "0 0 24px #1E5BD6", label: "Blue arrow" },
-    { icon: "■", fill: "#F97316", glow: "0 0 24px #F97316", label: "Orange block" },
-    { icon: "●", fill: "#4d82e6", glow: "0 0 24px #4d82e6", label: "Sky dot" },
-    { icon: "◆", fill: "#fb8f42", glow: "0 0 24px #fb8f42", label: "Amber diamond" },
-    { icon: "✦", fill: "#1a4fbd", glow: "0 0 24px #1a4fbd", label: "Deep spark" },
-    { icon: "▬", fill: "#F97316", glow: "0 0 24px #F97316", label: "Orange bar" }
+    { icon: "▲", fill: "#1E5BD6", glow: "0 0 24px #1E5BD6", label: "سهم أزرق" },
+    { icon: "■", fill: "#F97316", glow: "0 0 24px #F97316", label: "مربّع برتقالي" },
+    { icon: "●", fill: "#4d82e6", glow: "0 0 24px #4d82e6", label: "نقطة سماوية" },
+    { icon: "◆", fill: "#fb8f42", glow: "0 0 24px #fb8f42", label: "معيّن كهرماني" },
+    { icon: "✦", fill: "#1a4fbd", glow: "0 0 24px #1a4fbd", label: "شرارة عميقة" },
+    { icon: "▬", fill: "#F97316", glow: "0 0 24px #F97316", label: "شريط برتقالي" }
   ];
 
-  /* ---------- SPEED: targets ---------- */
+  /* ---------- السرعة: الأهداف ---------- */
   const SPEED_ELEMENTS = [
-    { icon: "▲", color: "#1E5BD6", name: "Blue Arrow" },
-    { icon: "■", color: "#F97316", name: "Orange Square" },
-    { icon: "●", color: "#4d82e6", name: "Blue Dot" },
-    { icon: "◆", color: "#fb8f42", name: "Orange Gem" },
-    { icon: "★", color: "#1E5BD6", name: "Blue Star" },
-    { icon: "✚", color: "#F97316", name: "Orange Plus" }
+    { icon: "▲", color: "#1E5BD6", name: "السهم الأزرق" },
+    { icon: "■", color: "#F97316", name: "المربّع البرتقالي" },
+    { icon: "●", color: "#4d82e6", name: "النقطة الزرقاء" },
+    { icon: "◆", color: "#fb8f42", name: "الجوهرة البرتقالية" },
+    { icon: "★", color: "#1E5BD6", name: "النجمة الزرقاء" },
+    { icon: "✚", color: "#F97316", name: "الزائد البرتقالي" }
   ];
 
-  /* ---------- STRATEGY scenarios ---------- */
+  /* ---------- سيناريوهات الاستراتيجية ---------- */
   const STRATEGY = [
-    { scenario: "A new coffee brand has a tiny budget but a beautiful story. What's the smartest first move?",
-      context: "Limited budget · strong narrative",
+    { scenario: "علامة قهوة جديدة بميزانية صغيرة لكن قصّتها جميلة. ما أذكى خطوة أولى؟",
+      context: "ميزانية محدودة · قصّة قويّة",
       options: [
-        { t: "Spend it all on one TV ad", pts: 1, why: "High cost, low targeting — risky for a small brand." },
-        { t: "Build organic storytelling on social + micro-influencers", pts: 3, why: "Best fit: leverages the story, targets the right people, and scales affordably." },
-        { t: "Print thousands of flyers", pts: 1, why: "Broad and untargeted; hard to measure impact." },
-        { t: "Wait until the budget grows", pts: 0, why: "Momentum lost — competitors move in." }
+        { t: "إنفاقها كلها على إعلان تلفزيوني واحد", pts: 1, why: "تكلفة عالية واستهداف ضعيف — مخاطرة كبيرة لعلامة صغيرة." },
+        { t: "بناء سرد قصصي عضوي على السوشيال + مؤثّرين صغار", pts: 3, why: "الأنسب: يستثمر القصّة، يستهدف الجمهور الصحيح، وقابل للتوسّع باقتصادية." },
+        { t: "طباعة آلاف المنشورات الورقية", pts: 1, why: "واسعة وغير مستهدفة، ويصعب قياس أثرها." },
+        { t: "الانتظار حتى تكبر الميزانية", pts: 0, why: "تفقد الزخم — والمنافسون يتقدّمون." }
       ]},
-    { scenario: "Engagement dropped 40% after you started posting 5x daily. What do you do?",
-      context: "Over-posting · falling engagement",
+    { scenario: "انخفض التفاعل 40% بعد أن بدأت بالنشر 5 مرّات يومياً. ماذا تفعل؟",
+      context: "إفراط في النشر · تفاعل هابط",
       options: [
-        { t: "Post even more to stay visible", pts: 0, why: "Fatigue is the cause — more volume worsens it." },
-        { t: "Cut to fewer, higher-quality posts and study the analytics", pts: 3, why: "Correct: quality over quantity, driven by data." },
-        { t: "Change the logo", pts: 0, why: "Unrelated to the posting-frequency problem." },
-        { t: "Delete the account and restart", pts: 0, why: "Destroys your audience and history." }
+        { t: "انشر أكثر لتبقى ظاهراً", pts: 0, why: "السبب هو الإرهاق — والمزيد من الكمّ يزيده سوءاً." },
+        { t: "قلّل النشر وركّز على جودة أعلى مع دراسة التحليلات", pts: 3, why: "الصحيح: الجودة قبل الكمّية، بقرارٍ مبنيّ على البيانات." },
+        { t: "غيّر الشعار", pts: 0, why: "لا علاقة له بمشكلة تكرار النشر." },
+        { t: "احذف الحساب وابدأ من جديد", pts: 0, why: "يدمّر جمهورك وسجلّك بالكامل." }
       ]},
-    { scenario: "A competitor copies your campaign style. Best response?",
-      context: "Imitation · brand differentiation",
+    { scenario: "منافس يقلّد أسلوب حملتك. ما أفضل ردّ؟",
+      context: "تقليد · تمايز العلامة",
       options: [
-        { t: "Sue them immediately", pts: 1, why: "Slow, costly, often unwinnable for a 'style'." },
-        { t: "Double down on your unique brand voice & innovate", pts: 3, why: "Best: stay ahead by being unmistakably you." },
-        { t: "Copy their next move", pts: 0, why: "You become the follower and lose identity." },
-        { t: "Ignore the market entirely", pts: 1, why: "Passive; misses a chance to differentiate." }
+        { t: "رفع دعوى قضائية فوراً", pts: 1, why: "بطيء ومكلف، ويصعب كسبه على «الأسلوب»." },
+        { t: "التميّز أكثر بصوت علامتك الفريد والابتكار", pts: 3, why: "الأفضل: ابقَ في المقدّمة بأن تكون أنت بلا مثيل." },
+        { t: "قلّد خطوتهم القادمة", pts: 0, why: "تصبح التابع وتفقد هويّتك." },
+        { t: "تجاهل السوق تماماً", pts: 1, why: "سلبي؛ يفوّت فرصة التمايز." }
       ]},
-    { scenario: "Your ad has great clicks but almost no conversions. Where do you look first?",
-      context: "High CTR · low conversion",
+    { scenario: "إعلانك يحقّق نقرات ممتازة لكن تحويلات شبه معدومة. أين تنظر أولاً؟",
+      context: "نقرات عالية · تحويل منخفض",
       options: [
-        { t: "Increase the ad budget", pts: 0, why: "Amplifies a broken funnel — wastes money." },
-        { t: "Audit the landing page & offer match", pts: 3, why: "Correct: the drop is after the click — fix the destination." },
-        { t: "Change the ad platform", pts: 1, why: "Premature; the ad itself is performing on clicks." },
-        { t: "Add more ad variations", pts: 1, why: "Doesn't address the post-click gap." }
+        { t: "زيادة ميزانية الإعلان", pts: 0, why: "يضخّم قمعاً معطوباً — إهدار للمال." },
+        { t: "مراجعة صفحة الهبوط ومدى توافق العرض", pts: 3, why: "الصحيح: التسرّب يحدث بعد النقرة — أصلِح الوجهة." },
+        { t: "تغيير منصّة الإعلان", pts: 1, why: "سابق لأوانه؛ الإعلان نفسه ناجح بالنقرات." },
+        { t: "إضافة المزيد من نسخ الإعلان", pts: 1, why: "لا يعالج الفجوة بعد النقرة." }
       ]},
-    { scenario: "A client wants to target 'everyone'. What's the professional recommendation?",
-      context: "Targeting · segmentation",
+    { scenario: "عميل يريد استهداف «الجميع». ما التوصية المهنية؟",
+      context: "استهداف · تقسيم الجمهور",
       options: [
-        { t: "Agree — bigger reach is better", pts: 0, why: "Targeting everyone reaches no one effectively." },
-        { t: "Define clear audience segments & a primary persona", pts: 3, why: "Best: focused targeting drives relevance and ROI." },
-        { t: "Only target the cheapest audience", pts: 1, why: "Cost-led, not value-led — weak strategy." },
-        { t: "Let the algorithm decide with no input", pts: 1, why: "Guidance improves algorithmic performance." }
+        { t: "الموافقة — الوصول الأكبر أفضل", pts: 0, why: "استهداف الجميع لا يصل لأحد بفاعلية." },
+        { t: "تحديد شرائح واضحة وشخصية أساسية للجمهور", pts: 3, why: "الأفضل: الاستهداف المركّز يرفع الملاءمة والعائد." },
+        { t: "استهداف الجمهور الأرخص فقط", pts: 1, why: "مبنيّ على التكلفة لا القيمة — استراتيجية ضعيفة." },
+        { t: "ترك الخوارزمية تقرّر بلا أي توجيه", pts: 1, why: "التوجيه يحسّن أداء الخوارزمية." }
       ]},
-    { scenario: "Launch day: a product photo has a typo in the caption, already live for 1 hour.",
-      context: "Crisis · brand trust",
+    { scenario: "يوم الإطلاق: صورة منتج فيها خطأ إملائي في التعليق، ومنشورة منذ ساعة.",
+      context: "أزمة · ثقة بالعلامة",
       options: [
-        { t: "Leave it — nobody will notice", pts: 0, why: "Erodes brand professionalism and trust." },
-        { t: "Quietly fix it and monitor engagement", pts: 3, why: "Best: correct fast, stay calm, keep the launch clean." },
-        { t: "Delete the whole post & the momentum", pts: 1, why: "Loses reach and engagement already earned." },
-        { t: "Post a long public apology", pts: 1, why: "Over-reaction for a minor caption fix." }
+        { t: "اتركه — لن يلاحظه أحد", pts: 0, why: "يضعف احترافية العلامة وثقتها." },
+        { t: "أصلِحه بهدوء وراقب التفاعل", pts: 3, why: "الأفضل: صحّح بسرعة، ابقَ هادئاً، وأبقِ الإطلاق نظيفاً." },
+        { t: "احذف المنشور كلّه وزخمه", pts: 1, why: "تفقد الوصول والتفاعل المكتسب." },
+        { t: "انشر اعتذاراً علنياً طويلاً", pts: 1, why: "ردّة فعل مبالغ فيها لتصحيح تعليق بسيط." }
       ]},
-    { scenario: "You have one strong reel that outperformed everything. What's next?",
-      context: "Winning content · scaling",
+    { scenario: "لديك ريل واحد تفوّق على كل شيء. ما الخطوة التالية؟",
+      context: "محتوى ناجح · التوسّع",
       options: [
-        { t: "Never touch it again", pts: 0, why: "Wastes a proven winner." },
-        { t: "Analyze why it worked, then create a repeatable series", pts: 3, why: "Correct: turn one win into a scalable format." },
-        { t: "Repost the exact same reel daily", pts: 1, why: "Audience fatigue kills the magic quickly." },
-        { t: "Switch to a totally different style", pts: 0, why: "Abandons proven insight." }
+        { t: "لا تلمسه مجدّداً أبداً", pts: 0, why: "إهدار لعملٍ أثبت نجاحه." },
+        { t: "حلّل سبب نجاحه ثم اصنع سلسلة قابلة للتكرار", pts: 3, why: "الصحيح: حوّل نجاحاً واحداً إلى صيغة قابلة للتوسّع." },
+        { t: "أعِد نشر نفس الريل يومياً", pts: 1, why: "إرهاق الجمهور يقتل السحر بسرعة." },
+        { t: "انتقل لأسلوب مختلف تماماً", pts: 0, why: "يتخلّى عن رؤية مثبتة." }
       ]}
   ];
 
-  /* ---------- ACHIEVEMENTS ---------- */
+  /* ---------- الأوسمة ---------- */
   const ACHIEVEMENTS = [
-    { id: "first_play",  icon: "🎯", name: "First Move",    desc: "Play your first game." },
-    { id: "puzzle_ace",  icon: "🧩", name: "Puzzle Ace",    desc: "Perfect a Marketing Puzzle." },
-    { id: "memory_pro",  icon: "🧠", name: "Mind Palace",   desc: "Reach level 6 in Memory." },
-    { id: "speed_demon", icon: "⚡", name: "Speed Demon",   desc: "Score 20+ in Speed Challenge." },
-    { id: "strategist",  icon: "♟️", name: "Master Strategist", desc: "Ace a Strategy Challenge." },
-    { id: "streak3",     icon: "🔥", name: "On Fire",       desc: "Keep a 3-day play streak." },
-    { id: "coin100",     icon: "💰", name: "Coin Collector", desc: "Bank 100 coins." },
-    { id: "level5",      icon: "⭐", name: "Rising Star",    desc: "Reach player level 5." },
-    { id: "level10",     icon: "🌟", name: "Brand Legend",   desc: "Reach player level 10." },
-    { id: "daily",       icon: "📅", name: "Daily Grinder",  desc: "Complete a Daily Challenge." },
-    { id: "allmodes",    icon: "🏆", name: "Full Spectrum",  desc: "Play all four game modes." },
-    { id: "perfectionist", icon: "💎", name: "Perfectionist", desc: "Win 10 games total." }
+    { id: "first_play",  icon: "🎯", name: "الانطلاقة",      desc: "العب أول جولة لك." },
+    { id: "puzzle_ace",  icon: "🧩", name: "بطل الألغاز",    desc: "أتقِن لغز تسويق كاملاً." },
+    { id: "memory_pro",  icon: "🧠", name: "قصر الذاكرة",    desc: "اوصل للمستوى 6 في الذاكرة." },
+    { id: "speed_demon", icon: "⚡", name: "سرعة البرق",     desc: "سجّل 20+ في تحدّي السرعة." },
+    { id: "strategist",  icon: "♟️", name: "استراتيجي محترف", desc: "أتقِن تحدّي استراتيجية." },
+    { id: "streak3",     icon: "🔥", name: "مُشتعل",          desc: "حافظ على سلسلة 3 أيام." },
+    { id: "coin100",     icon: "💰", name: "جامع العملات",    desc: "اجمع 100 عملة." },
+    { id: "level5",      icon: "⭐", name: "نجم صاعد",        desc: "اوصل إلى المستوى 5." },
+    { id: "level10",     icon: "🌟", name: "أسطورة العلامة",  desc: "اوصل إلى المستوى 10." },
+    { id: "daily",       icon: "📅", name: "مثابِر يومي",     desc: "أكمِل التحدّي اليومي." },
+    { id: "allmodes",    icon: "🏆", name: "الطيف الكامل",    desc: "جرّب كل الأوضاع الأربعة." },
+    { id: "perfectionist", icon: "💎", name: "إتقان تامّ",    desc: "افُز بـ 10 جولات إجمالاً." }
   ];
 
-  /* ---------- RANKS (by level) ---------- */
+  /* ---------- الرتب (حسب المستوى) ---------- */
   const RANKS = [
-    { min: 1,  name: "Rookie" },
-    { min: 3,  name: "Junior Marketer" },
-    { min: 5,  name: "Brand Builder" },
-    { min: 8,  name: "Growth Hacker" },
-    { min: 11, name: "Strategist" },
-    { min: 15, name: "Creative Director" },
-    { min: 20, name: "Marketing Legend" }
+    { min: 1,  name: "مبتدئ" },
+    { min: 3,  name: "مسوّق ناشئ" },
+    { min: 5,  name: "بانِي علامة" },
+    { min: 8,  name: "خبير نموّ" },
+    { min: 11, name: "استراتيجي" },
+    { min: 15, name: "مدير إبداعي" },
+    { min: 20, name: "أسطورة التسويق" }
   ];
 
-  /* Seeded RNG (mulberry32) for the Daily Challenge */
+  /* مولّد أرقام شبه عشوائي ببذرة (mulberry32) للتحدّي اليومي */
   function seededRandom(seed) {
     let t = seed >>> 0;
     return function () {
@@ -874,7 +874,7 @@ ul { list-style: none; }
   const KEY = "basta_play_v1";
 
   const DEFAULT = {
-    name: "Marketer",
+    name: "مسوّق",
     xp: 0,
     coins: 0,
     wins: 0,
@@ -979,18 +979,18 @@ ul { list-style: none; }
     if (state.leaderboard.length) return;
     // Seed with agency-flavoured local rivals so the board never looks empty.
     state.leaderboard = [
-      { name: "Studio Ghost", score: 940, level: 9, mode: "strategy", ts: 0, bot: true },
-      { name: "Pixel Nomad",  score: 820, level: 8, mode: "speed",    ts: 0, bot: true },
-      { name: "Copy Cat",     score: 705, level: 7, mode: "puzzle",   ts: 0, bot: true },
-      { name: "Growth Owl",   score: 610, level: 6, mode: "memory",   ts: 0, bot: true },
-      { name: "Brand Fox",    score: 480, level: 5, mode: "strategy", ts: 0, bot: true },
-      { name: "Neon Whale",   score: 350, level: 4, mode: "speed",    ts: 0, bot: true }
+      { name: "شبح الاستوديو", score: 940, level: 9, mode: "strategy", ts: 0, bot: true },
+      { name: "رحّالة البكسل", score: 820, level: 8, mode: "speed",    ts: 0, bot: true },
+      { name: "ناسخ الأفكار",  score: 705, level: 7, mode: "puzzle",   ts: 0, bot: true },
+      { name: "بومة النموّ",   score: 610, level: 6, mode: "memory",   ts: 0, bot: true },
+      { name: "ثعلب العلامة",  score: 480, level: 5, mode: "strategy", ts: 0, bot: true },
+      { name: "حوت النيون",    score: 350, level: 4, mode: "speed",    ts: 0, bot: true }
     ];
     save();
   }
   function addScore(score, mode) {
     const lvl = levelInfo(state.xp).level;
-    state.leaderboard.push({ name: state.name || "You", score, level: lvl, mode, ts: Date.now(), me: true });
+    state.leaderboard.push({ name: state.name || "أنت", score, level: lvl, mode, ts: Date.now(), me: true });
     // keep only best "me" entries + bots; cap 30
     state.leaderboard.sort((a, b) => b.score - a.score);
     state.leaderboard = state.leaderboard.slice(0, 30);
@@ -1309,7 +1309,7 @@ ul { list-style: none; }
     if (lv && lv.leveledUp) {
       Sound.fx("level");
       confetti(90);
-      toast({ icon: "⭐", title: "Level Up!", desc: "You reached level " + lv.to + " · " + rankName(lv.to), kind: "xp", ms: 3200 });
+      toast({ icon: "⭐", title: "ترقية مستوى!", desc: "وصلت إلى المستوى " + lv.to + " · " + rankName(lv.to), kind: "xp", ms: 3200 });
     }
     return lv;
   }
@@ -1319,7 +1319,7 @@ ul { list-style: none; }
     if (!a) return;
     Sound.fx("badge");
     confetti(120);
-    toast({ icon: a.icon, title: "Achievement Unlocked", desc: a.name + " — " + a.desc, kind: "badge", ms: 3600 });
+    toast({ icon: a.icon, title: "وسام جديد!", desc: a.name + " — " + a.desc, kind: "badge", ms: 3600 });
   }
 
   window.UI = {
@@ -1346,7 +1346,7 @@ ul { list-style: none; }
   }
 
   window.Games.puzzle = {
-    label: "Marketing Puzzle",
+    label: "لغز التسويق",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
@@ -1360,7 +1360,7 @@ ul { list-style: none; }
         mount.innerHTML = `
           <div class="gscreen">
             <div class="gtop">
-              <span class="chip">Puzzle ${idx + 1}/${rounds.length}</span>
+              <span class="chip">لغز ${idx + 1}/${rounds.length}</span>
               <div class="gtop__spacer"></div>
               <span class="chip chip--score">✓ ${correct}</span>
             </div>
@@ -1376,6 +1376,7 @@ ul { list-style: none; }
           <div class="qcard__q">${esc(p.q)}</div>
           <div class="qcard__hint">💡 ${esc(p.hint)}</div>
           <div class="opts" id="opts"></div>`;
+        // (اختيار من متعدّد)
         const box = $("#opts");
         p.options.forEach((o, i) => {
           const b = document.createElement("button");
@@ -1405,10 +1406,10 @@ ul { list-style: none; }
         const placed = [];
         qc.innerHTML = `
           <div class="qcard__q">${esc(p.q)}</div>
-          <div class="qcard__hint">💡 ${esc(p.hint)} — tap items in order.</div>
-          <div class="seq__slot-lbl">Your sequence</div>
+          <div class="qcard__hint">💡 ${esc(p.hint)} — اضغط العناصر بالترتيب.</div>
+          <div class="seq__slot-lbl">ترتيبك</div>
           <div class="slots" id="slots" aria-live="polite"></div>
-          <div class="seq__slot-lbl">Choices</div>
+          <div class="seq__slot-lbl">الخيارات</div>
           <div class="seq" id="bank"></div>`;
         const bank = $("#bank"), slots = $("#slots");
 
@@ -1464,7 +1465,7 @@ ul { list-style: none; }
           perfect, score, correct, total: rounds.length,
           xp: correct * 22 + (perfect ? 40 : 0),
           coins: correct * 6 + (perfect ? 20 : 0),
-          detail: `${correct}/${rounds.length} puzzles solved`
+          detail: `حللت ${correct} من ${rounds.length} ألغاز`
         });
       }
 
@@ -1485,7 +1486,7 @@ ul { list-style: none; }
   const { $ } = window.UI;
 
   window.Games.memory = {
-    label: "Memory Challenge",
+    label: "تحدّي الذاكرة",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
@@ -1501,11 +1502,11 @@ ul { list-style: none; }
         mount.innerHTML = `
           <div class="gscreen speedwrap">
             <div class="gtop">
-              <span class="chip chip--score">Round ${round}</span>
+              <span class="chip chip--score">الجولة ${round}</span>
               <div class="gtop__spacer"></div>
-              <span class="chip">Length ${seq.length || startLen}</span>
+              <span class="chip">الطول ${seq.length || startLen}</span>
             </div>
-            <p class="qcard__hint" id="mstatus" style="text-align:center;margin-bottom:14px">Watch closely…</p>
+            <p class="qcard__hint" id="mstatus" style="text-align:center;margin-bottom:14px">راقب جيداً…</p>
             <div class="mgrid" id="mgrid"></div>
           </div>`;
         const grid = $("#mgrid");
@@ -1528,7 +1529,7 @@ ul { list-style: none; }
         input = [];
         seq.push(Math.floor(rnd() * TILES.length));
         shell();
-        status("Watch closely…");
+        status("راقب جيداً…");
         playback();
       }
 
@@ -1541,7 +1542,7 @@ ul { list-style: none; }
           if (i > 0) unlight(seq[i - 1]);
           if (i >= seq.length) {
             clearInterval(iv);
-            setTimeout(() => { if (alive) { accepting = true; status("Your turn — repeat the sequence"); } }, 260);
+            setTimeout(() => { if (alive) { accepting = true; status("دورك — أعِد التسلسل"); } }, 260);
             return;
           }
           light(seq[i]); Sound.fx("reveal");
@@ -1564,7 +1565,7 @@ ul { list-style: none; }
           accepting = false;
           Sound.fx("correct");
           round++;
-          status("Perfect! Next round…");
+          status("ممتاز! الجولة التالية…");
           setTimeout(() => { if (alive) nextRound(); }, 820);
         }
       }
@@ -1572,7 +1573,7 @@ ul { list-style: none; }
       function fail(el) {
         accepting = false; alive = false;
         el.classList.add("err"); Sound.fx("lose");
-        status("Sequence broken!");
+        status("انكسر التسلسل!");
         // reveal correct next tile briefly
         setTimeout(finish, 900);
       }
@@ -1588,7 +1589,7 @@ ul { list-style: none; }
           reachedLen: level,
           xp: level * 18,
           coins: level * 5,
-          detail: `Recalled a sequence of ${level}`
+          detail: `تذكّرت تسلسلاً من ${level}`
         });
       }
 
@@ -1612,7 +1613,7 @@ ul { list-style: none; }
   const { $, esc } = window.UI;
 
   window.Games.speed = {
-    label: "Speed Challenge",
+    label: "تحدّي السرعة",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
@@ -1628,9 +1629,9 @@ ul { list-style: none; }
         mount.innerHTML = `
           <div class="gscreen speedwrap">
             <div class="gtop">
-              <span class="chip chip--timer" id="stimer">⏱ ${DURATION}s</span>
+              <span class="chip chip--timer" id="stimer">⏱ ${DURATION}ث</span>
               <div class="gtop__spacer"></div>
-              <span class="chip chip--score" id="sscore">Score 0</span>
+              <span class="chip chip--score" id="sscore">النقاط 0</span>
             </div>
             <div class="progressbar"><span id="sbar" style="width:100%"></span></div>
             <div class="speed-target" id="starget"></div>
@@ -1657,7 +1658,7 @@ ul { list-style: none; }
           grid.appendChild(b);
         });
         const st = $("#starget");
-        st.innerHTML = `Tap the <b style="background:${target.color}">${esc(target.name)}</b>`;
+        st.innerHTML = `اضغط على <b style="background:${target.color}">${esc(target.name)}</b>`;
       }
 
       function hit(c, b) {
@@ -1665,7 +1666,7 @@ ul { list-style: none; }
         if (c.icon === target.icon && c.color === target.color) {
           score++; Sound.fx("correct");
           b.classList.add("hit");
-          $("#sscore").textContent = "Score " + score;
+          $("#sscore").textContent = "النقاط " + score;
           newTarget();
         } else {
           misses++; Sound.fx("wrong");
@@ -1678,7 +1679,7 @@ ul { list-style: none; }
 
       function tick() {
         timeLeft--;
-        const chip = $("#stimer"); if (chip) chip.textContent = "⏱ " + timeLeft + "s";
+        const chip = $("#stimer"); if (chip) chip.textContent = "⏱ " + timeLeft + "ث";
         const bar = $("#sbar"); if (bar) bar.style.width = (timeLeft / DURATION * 100) + "%";
         if (timeLeft <= 5 && timeLeft > 0) Sound.fx("tick");
         if (timeLeft <= 0) return finish();
@@ -1691,7 +1692,7 @@ ul { list-style: none; }
           score, misses,
           xp: score * 12,
           coins: score * 4,
-          detail: `${score} correct taps · ${misses} misses`
+          detail: `${score} ضغطة صحيحة · ${misses} خطأ`
         });
       }
 
@@ -1721,7 +1722,7 @@ ul { list-style: none; }
   }
 
   window.Games.strategy = {
-    label: "Strategy Challenge",
+    label: "تحدّي الاستراتيجية",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
@@ -1734,9 +1735,9 @@ ul { list-style: none; }
         mount.innerHTML = `
           <div class="gscreen">
             <div class="gtop">
-              <span class="chip">Scenario ${idx + 1}/${rounds.length}</span>
+              <span class="chip">السيناريو ${idx + 1}/${rounds.length}</span>
               <div class="gtop__spacer"></div>
-              <span class="chip chip--score">${points} pts</span>
+              <span class="chip chip--score">${points} نقطة</span>
             </div>
             <div class="progressbar"><span style="width:${pct}%"></span></div>
             <div class="qcard">
@@ -1773,8 +1774,8 @@ ul { list-style: none; }
         }
         const why = $("#why");
         why.innerHTML = `<div class="qcard" style="margin-top:14px;background:var(--glass-2)">
-          <strong style="color:var(--orange)">Why:</strong> ${esc(o.why)}
-          <div style="margin-top:12px"><button class="btn btn--primary" id="nextS">Next →</button></div></div>`;
+          <strong style="color:var(--orange)">السبب:</strong> ${esc(o.why)}
+          <div style="margin-top:12px"><button class="btn btn--primary" id="nextS">التالي ←</button></div></div>`;
         $("#nextS").addEventListener("click", () => { Sound.fx("click"); next(); });
       }
 
@@ -1793,7 +1794,7 @@ ul { list-style: none; }
           points, maxPoints, aces,
           xp: points * 10 + (perfect ? 40 : 0),
           coins: points * 3 + (perfect ? 15 : 0),
-          detail: `${points}/${maxPoints} strategy points · ${aces} best calls`
+          detail: `${points}/${maxPoints} نقطة استراتيجية · ${aces} قرار مثالي`
         });
       }
 
@@ -1839,7 +1840,7 @@ ul { list-style: none; }
         res.daily = true;
         res.coins = Math.round(res.coins * 1.5) + 25; // bonus
         res.xp = Math.round(res.xp * 1.5);
-        res.detail = "Daily · " + res.detail;
+        res.detail = "يومي · " + res.detail;
         Store.patch({ dailyDate: Store.todayStr() });
         done(res);
       }, { rnd, count: 5, time: 30, startLen: 3 });
@@ -1850,15 +1851,17 @@ ul { list-style: none; }
 
 /* ===== js/main.js ===== */
 /* ============================================================
-   BASTA PLAY · main.js — App controller & router
-   Loading, navigation, screens, reward + achievement logic.
+   BASTA PLAY · main.js — متحكّم التطبيق والموجّه
+   التحميل، التنقّل، الشاشات، منطق المكافآت والأوسمة.
    ============================================================ */
 (function () {
   "use strict";
   const { $, $$ } = window.UI;
-  let activeGame = null; // holds {stop} for cleanup
+  let activeGame = null; // يحمل {stop} للتنظيف
 
-  /* ---------- Loading screen ---------- */
+  const MODE_AR = { puzzle: "لغز التسويق", memory: "تحدّي الذاكرة", speed: "تحدّي السرعة", strategy: "تحدّي الاستراتيجية", daily: "التحدّي اليومي" };
+
+  /* ---------- شاشة التحميل ---------- */
   function runLoader() {
     const loader = $("#loader"), fill = $(".loader__fill"), pct = $(".loader__pct"), app = $("#app");
     let p = 0;
@@ -1876,7 +1879,7 @@ ul { list-style: none; }
     }
   }
 
-  /* ---------- Boot / bind ---------- */
+  /* ---------- الإقلاع والربط ---------- */
   function init() {
     const s = Store.get();
     Store.seedLeaderboardIfEmpty();
@@ -1887,20 +1890,19 @@ ul { list-style: none; }
     Sound.setSfx(s.sound);
     bindChrome();
     if (s.music) { $("#btn-music").setAttribute("aria-pressed", "true"); }
-    // ask name once
     if (!localStorage.getItem("basta_named")) askName(); else nav("home");
     window.addEventListener("keydown", globalKeys);
   }
 
   function askName() {
     UI.modal(`
-      <h3>Welcome to Basta Play 👋</h3>
-      <p>The premium marketing game experience. What should we call you on the leaderboard?</p>
-      <div class="field"><label for="pname">Your name</label>
-        <input id="pname" maxlength="18" placeholder="e.g. Basta Pro" value="${UI.esc(Store.get().name === 'Marketer' ? '' : Store.get().name)}"/></div>
-      <button class="btn btn--primary btn--block" id="startBtn">Let's Play →</button>`);
+      <h3>أهلاً بك في بسطة بلاي 👋</h3>
+      <p>تجربة الألعاب التسويقية المميّزة. بأي اسم نناديك في قائمة المتصدّرين؟</p>
+      <div class="field"><label for="pname">اسمك</label>
+        <input id="pname" maxlength="18" placeholder="مثال: بسطة برو" value="${UI.esc(Store.get().name === 'مسوّق' ? '' : Store.get().name)}"/></div>
+      <button class="btn btn--primary btn--block" id="startBtn">لنبدأ اللعب ←</button>`);
     const go = () => {
-      const v = ($("#pname").value || "").trim().slice(0, 18) || "Marketer";
+      const v = ($("#pname").value || "").trim().slice(0, 18) || "مسوّق";
       Store.patch({ name: v });
       localStorage.setItem("basta_named", "1");
       UI.closeModal(); UI.renderHUD(); Sound.fx("win"); UI.confetti(80);
@@ -1946,13 +1948,13 @@ ul { list-style: none; }
   }
 
   function confirmReset() {
-    UI.modal(`<h3>Reset progress?</h3><p>This clears your XP, coins, achievements and leaderboard scores. Your name and settings stay. This can't be undone.</p>
+    UI.modal(`<h3>تصفير التقدّم؟</h3><p>سيؤدّي هذا إلى مسح خبرتك وعملاتك وأوسمتك ونقاطك في المتصدّرين. يبقى اسمك وإعداداتك كما هي. لا يمكن التراجع عن هذا.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn btn--accent" id="doReset">Yes, reset</button>
-        <button class="btn btn--ghost" data-close>Cancel</button></div>`);
+        <button class="btn btn--accent" id="doReset">نعم، صفّر</button>
+        <button class="btn btn--ghost" data-close>إلغاء</button></div>`);
     $("#doReset").addEventListener("click", () => {
       Store.reset(); Store.seedLeaderboardIfEmpty(); UI.renderHUD(); UI.closeModal();
-      UI.toast({ icon: "♻️", title: "Progress reset", desc: "Fresh start — good luck!" });
+      UI.toast({ icon: "♻️", title: "تم تصفير التقدّم", desc: "بداية جديدة — بالتوفيق!" });
       nav("home");
     });
   }
@@ -1960,7 +1962,7 @@ ul { list-style: none; }
   function globalKeys(e) {
     if (e.target.matches("input, textarea")) return;
     if (e.key === "Escape") { if ($("#drawer").classList.contains("open")) toggleDrawer(false); }
-    // number keys select options in games
+    // أرقام لاختيار الخيارات في الألعاب
     if (/^[1-9]$/.test(e.key)) {
       const opts = $$(".opts .opt:not(:disabled), .sgrid .scell, .seq .token:not(.placed)");
       const i = parseInt(e.key) - 1;
@@ -1970,7 +1972,7 @@ ul { list-style: none; }
     if (e.key.toLowerCase() === "t") $("#btn-theme").click();
   }
 
-  /* ---------- Router ---------- */
+  /* ---------- الموجّه ---------- */
   function stopActive() { if (activeGame && activeGame.stop) { try { activeGame.stop(); } catch (e) {} } activeGame = null; }
 
   function nav(route, arg) {
@@ -1990,41 +1992,40 @@ ul { list-style: none; }
   }
   window.__navBasta = nav;
 
-  /* ---------- HOME ---------- */
+  /* ---------- الرئيسية ---------- */
   function home(view) {
     const s = Store.get();
     const info = Store.levelInfo(s.xp);
     const dp = window.Games.daily.plan();
     view.innerHTML = `
       <section class="hero">
-        <span class="hero__badge"><span class="dot"></span> Bastah Marketing Agency · Premium Play</span>
-        <img class="hero__logo" src="${window.LOGO_FULL || 'assets/logo-full.jpeg'}" alt="Basta Marketing Agency logo" />
-        <h1 class="hero__title">Play. Learn. <span class="grad">Market Smarter.</span></h1>
-        <p class="hero__sub">An interactive marketing game experience — puzzles, memory, reflexes and strategy, wrapped in the Basta brand.</p>
+        <span class="hero__badge"><span class="dot"></span> بسطة للتسويق · تجربة مميّزة</span>
+        <img class="hero__logo" src="${window.LOGO_FULL || 'assets/logo-full.jpeg'}" alt="شعار وكالة بسطة للتسويق" />
+        <h1 class="hero__title">العب. تعلّم. <span class="grad">سوّق بذكاء.</span></h1>
+        <p class="hero__sub">تجربة تسويقية تفاعلية — ألغاز وذاكرة وسرعة واستراتيجية، بروح علامة بسطة.</p>
         <p class="hero__ar" dir="rtl">نصنع التجربة ويستمر الأثر</p>
       </section>
 
       <div class="statstrip stagger">
-        <div class="stat"><div class="stat__num c-b">${info.level}</div><div class="stat__lbl">Level</div></div>
-        <div class="stat"><div class="stat__num">${s.xp}</div><div class="stat__lbl">Total XP</div></div>
-        <div class="stat"><div class="stat__num c-o">${s.coins}</div><div class="stat__lbl">Coins</div></div>
-        <div class="stat"><div class="stat__num">${s.streak}🔥</div><div class="stat__lbl">Day Streak</div></div>
+        <div class="stat"><div class="stat__num c-b">${info.level}</div><div class="stat__lbl">المستوى</div></div>
+        <div class="stat"><div class="stat__num">${s.xp}</div><div class="stat__lbl">إجمالي الخبرة</div></div>
+        <div class="stat"><div class="stat__num c-o">${s.coins}</div><div class="stat__lbl">العملات</div></div>
+        <div class="stat"><div class="stat__num">${s.streak}🔥</div><div class="stat__lbl">سلسلة الأيام</div></div>
       </div>
 
-      <div class="sec-head"><h2>Choose your challenge</h2><span class="pill">${Store.modesPlayedCount()}/4 modes tried</span></div>
+      <div class="sec-head"><h2>اختر تحدّيك</h2><span class="pill">${Store.modesPlayedCount()}/4 أوضاع جُرّبت</span></div>
       <div class="modes stagger" id="modes"></div>`;
 
     const wrap = $("#modes");
-    // Daily card first
     const daily = document.createElement("button");
     daily.className = "mode mode--daily"; daily.style.setProperty("--tint", "#F97316");
     daily.innerHTML = `
       <div class="mode__ico">📅</div>
       <div class="mode__body">
-        <div class="mode__title">Daily Challenge ${dp.played ? "✓" : ""}</div>
-        <div class="mode__desc">${dp.played ? "Done for today — come back tomorrow for a new one." : "Today's surprise: <b>" + UI.esc(dp.label) + "</b>. Bonus coins & XP!"}</div>
+        <div class="mode__title">التحدّي اليومي ${dp.played ? "✓" : ""}</div>
+        <div class="mode__desc">${dp.played ? "انتهيت اليوم — عُد غداً لتحدٍّ جديد." : "مفاجأة اليوم: <b>" + UI.esc(MODE_AR[dp.modeId]) + "</b>. عملات وخبرة إضافية!"}</div>
       </div>
-      <div class="mode__cta"><span class="btn ${dp.played ? "btn--ghost" : "btn--accent"}">${dp.played ? "Replay" : "Play Daily"} →</span></div>`;
+      <div class="mode__cta"><span class="btn ${dp.played ? "btn--ghost" : "btn--accent"}">${dp.played ? "أعِد اللعب" : "العب اليومي"} ←</span></div>`;
     daily.addEventListener("click", () => { Sound.fx("click"); startDaily(view); });
     wrap.appendChild(daily);
 
@@ -2037,17 +2038,17 @@ ul { list-style: none; }
         <div class="mode__title">${m.title}</div>
         <div class="mode__desc">${m.desc}</div>
         <div class="mode__foot">
-          <span class="mode__tag">${m.tag}${best ? " · best " + best : ""}</span>
-          <span class="mode__go">Play <span aria-hidden="true">→</span></span>
+          <span class="mode__tag">${m.tag}${best ? " · الأفضل " + best : ""}</span>
+          <span class="mode__go">العب <span aria-hidden="true">←</span></span>
         </div>`;
       el.addEventListener("click", () => { Sound.fx("click"); nav("play", m.id); });
       wrap.appendChild(el);
     });
   }
 
-  /* ---------- GAME LAUNCH ---------- */
+  /* ---------- تشغيل الألعاب ---------- */
   function gameHeader(title, sub) {
-    return `<button class="backbtn" id="gback">← Menu</button>
+    return `<button class="backbtn" id="gback">القائمة ⟲</button>
       <div class="sec-head" style="margin-top:14px"><h2>${UI.esc(title)}</h2>${sub ? `<span class="pill">${UI.esc(sub)}</span>` : ""}</div>`;
   }
 
@@ -2056,7 +2057,7 @@ ul { list-style: none; }
     Store.unlock("first_play") && UI.celebrateBadge("first_play");
     Store.touchStreak();
     const game = window.Games[modeId];
-    view.innerHTML = gameHeader(game.label, isDaily ? "Daily" : "");
+    view.innerHTML = gameHeader(game.label, isDaily ? "يومي" : "");
     const stage = document.createElement("div");
     view.appendChild(stage);
     $("#gback").addEventListener("click", () => { Sound.fx("click"); nav("home"); });
@@ -2069,7 +2070,7 @@ ul { list-style: none; }
     Store.markMode(dp.modeId);
     Store.unlock("first_play") && UI.celebrateBadge("first_play");
     Store.touchStreak();
-    view.innerHTML = gameHeader("Daily Challenge", dp.label);
+    view.innerHTML = gameHeader("التحدّي اليومي", MODE_AR[dp.modeId]);
     const stage = document.createElement("div");
     view.appendChild(stage);
     $("#gback").addEventListener("click", () => { Sound.fx("click"); nav("home"); });
@@ -2077,34 +2078,32 @@ ul { list-style: none; }
     if (handle) activeGame = handle;
   }
 
-  /* ---------- FINISH + REWARDS ---------- */
+  /* ---------- الإنهاء والمكافآت ---------- */
   function finishGame(res, view) {
     activeGame = null;
-    // apply rewards
     UI.grant(res.xp, res.coins);
     if (res.won) { const st = Store.get(); Store.patch({ wins: (st.wins || 0) + 1 }); }
     Store.setBest(res.mode, res.score);
     Store.addScore(res.score, res.mode);
     checkAchievements(res);
 
-    const info = Store.levelInfo(Store.get().xp);
     const won = res.won;
     if (won) { Sound.fx("win"); UI.confetti(160); } else Sound.fx("lose");
 
     view.innerHTML = `
       <div class="qcard result">
         <div class="result__ico">${won ? "🎉" : "💪"}</div>
-        <div class="result__title ${won ? "win" : ""}">${won ? "Great Play!" : "Nice Try!"}</div>
-        <div class="result__sub">${UI.esc(res.detail || "")}${res.daily ? " · Daily bonus applied" : ""}</div>
+        <div class="result__title ${won ? "win" : ""}">${won ? "أداء رائع!" : "محاولة جيّدة!"}</div>
+        <div class="result__sub">${UI.esc(res.detail || "")}${res.daily ? " · مكافأة يومية مُضافة" : ""}</div>
         <div class="result__grid">
-          <div class="reward"><div class="reward__v">${res.score}</div><div class="reward__l">Score</div></div>
-          <div class="reward"><div class="reward__v xp">+${res.xp}</div><div class="reward__l">XP</div></div>
-          <div class="reward"><div class="reward__v coin">+${res.coins}</div><div class="reward__l">Coins</div></div>
+          <div class="reward"><div class="reward__v">${res.score}</div><div class="reward__l">النقاط</div></div>
+          <div class="reward"><div class="reward__v xp">+${res.xp}</div><div class="reward__l">خبرة</div></div>
+          <div class="reward"><div class="reward__v coin">+${res.coins}</div><div class="reward__l">عملات</div></div>
         </div>
         <div class="result__cta">
-          <button class="btn btn--primary btn--lg" id="again">Play Again</button>
-          <button class="btn btn--ghost btn--lg" id="lb">🏆 Leaderboard</button>
-          <button class="btn btn--ghost btn--lg" id="menu">Menu</button>
+          <button class="btn btn--primary btn--lg" id="again">العب مرّة أخرى</button>
+          <button class="btn btn--ghost btn--lg" id="lb">🏆 المتصدّرون</button>
+          <button class="btn btn--ghost btn--lg" id="menu">القائمة</button>
         </div>
       </div>`;
     $("#again").addEventListener("click", () => { Sound.fx("click"); res.daily ? startDaily(view) : nav("play", res.mode); });
@@ -2129,13 +2128,13 @@ ul { list-style: none; }
     if ((s.wins || 0) >= 10) pop("perfectionist");
   }
 
-  /* ---------- ACHIEVEMENTS ---------- */
+  /* ---------- الأوسمة ---------- */
   function achievements(view) {
     const s = Store.get();
     const unlocked = BASTA_DATA.ACHIEVEMENTS.filter(a => s.achievements[a.id]).length;
     view.innerHTML = `
-      <button class="backbtn" id="b">← Menu</button>
-      <div class="sec-head" style="margin-top:14px"><h2>🏅 Achievements</h2><span class="pill">${unlocked}/${BASTA_DATA.ACHIEVEMENTS.length} unlocked</span></div>
+      <button class="backbtn" id="b">القائمة ⟲</button>
+      <div class="sec-head" style="margin-top:14px"><h2>🏅 الأوسمة</h2><span class="pill">${unlocked}/${BASTA_DATA.ACHIEVEMENTS.length} مفتوحة</span></div>
       <div class="badge-grid stagger" id="bg"></div>`;
     $("#b").addEventListener("click", () => nav("home"));
     const bg = $("#bg");
@@ -2151,75 +2150,75 @@ ul { list-style: none; }
     });
   }
 
-  /* ---------- LEADERBOARD ---------- */
+  /* ---------- المتصدّرون ---------- */
   function leaderboard(view) {
     const s = Store.get();
     const rows = s.leaderboard.slice().sort((a, b) => b.score - a.score).slice(0, 15);
     view.innerHTML = `
-      <button class="backbtn" id="b">← Menu</button>
-      <div class="sec-head" style="margin-top:14px"><h2>🏆 Leaderboard</h2><span class="pill">Local · Top ${rows.length}</span></div>
+      <button class="backbtn" id="b">القائمة ⟲</button>
+      <div class="sec-head" style="margin-top:14px"><h2>🏆 المتصدّرون</h2><span class="pill">محلي · أفضل ${rows.length}</span></div>
       <div class="lb stagger" id="lb"></div>`;
     $("#b").addEventListener("click", () => nav("home"));
     const box = $("#lb");
-    if (!rows.length) { box.innerHTML = `<div class="empty"><div class="empty__ico">🏅</div>No scores yet — play a game!</div>`; return; }
+    if (!rows.length) { box.innerHTML = `<div class="empty"><div class="empty__ico">🏅</div>لا نقاط بعد — العب جولة!</div>`; return; }
     rows.forEach((r, i) => {
       const el = document.createElement("div");
       el.className = "lb__row" + (r.me ? " me" : "");
       el.innerHTML = `<div class="lb__rank">${i + 1}</div>
-        <div class="lb__name">${UI.esc(r.name)}${r.me ? " <span class='lb__lvl'>(you)</span>" : ""}<div class="lb__lvl">Lv ${r.level} · ${UI.esc(r.mode)}</div></div>
+        <div class="lb__name">${UI.esc(r.name)}${r.me ? " <span class='lb__lvl'>(أنت)</span>" : ""}<div class="lb__lvl">مستوى ${r.level} · ${UI.esc(MODE_AR[r.mode] || r.mode)}</div></div>
         <div class="lb__score">${r.score}</div>`;
       box.appendChild(el);
     });
   }
 
-  /* ---------- STATS ---------- */
+  /* ---------- الإحصائيات ---------- */
   function stats(view) {
     const s = Store.get();
     const info = Store.levelInfo(s.xp);
     const unlocked = BASTA_DATA.ACHIEVEMENTS.filter(a => s.achievements[a.id]).length;
     view.innerHTML = `
-      <button class="backbtn" id="b">← Menu</button>
-      <div class="sec-head" style="margin-top:14px"><h2>📊 ${UI.esc(s.name)}'s Stats</h2><span class="pill">${UI.rankName(info.level)}</span></div>
+      <button class="backbtn" id="b">القائمة ⟲</button>
+      <div class="sec-head" style="margin-top:14px"><h2>📊 إحصائيات ${UI.esc(s.name)}</h2><span class="pill">${UI.rankName(info.level)}</span></div>
       <div class="statstrip stagger" style="grid-template-columns:repeat(3,1fr)">
-        <div class="stat"><div class="stat__num c-b">${info.level}</div><div class="stat__lbl">Level</div></div>
-        <div class="stat"><div class="stat__num">${s.xp}</div><div class="stat__lbl">Total XP</div></div>
-        <div class="stat"><div class="stat__num c-o">${s.coins}</div><div class="stat__lbl">Coins</div></div>
-        <div class="stat"><div class="stat__num">${s.wins || 0}</div><div class="stat__lbl">Wins</div></div>
-        <div class="stat"><div class="stat__num">${s.streak}</div><div class="stat__lbl">Streak</div></div>
-        <div class="stat"><div class="stat__num">${unlocked}</div><div class="stat__lbl">Badges</div></div>
+        <div class="stat"><div class="stat__num c-b">${info.level}</div><div class="stat__lbl">المستوى</div></div>
+        <div class="stat"><div class="stat__num">${s.xp}</div><div class="stat__lbl">إجمالي الخبرة</div></div>
+        <div class="stat"><div class="stat__num c-o">${s.coins}</div><div class="stat__lbl">العملات</div></div>
+        <div class="stat"><div class="stat__num">${s.wins || 0}</div><div class="stat__lbl">الانتصارات</div></div>
+        <div class="stat"><div class="stat__num">${s.streak}</div><div class="stat__lbl">السلسلة</div></div>
+        <div class="stat"><div class="stat__num">${unlocked}</div><div class="stat__lbl">الأوسمة</div></div>
       </div>
-      <div class="sec-head"><h2>Best scores</h2></div>
+      <div class="sec-head"><h2>أفضل النقاط</h2></div>
       <div class="statstrip stagger" style="grid-template-columns:repeat(4,1fr)">
-        <div class="stat"><div class="stat__num c-b">${s.bests.puzzle || 0}</div><div class="stat__lbl">Puzzle</div></div>
-        <div class="stat"><div class="stat__num c-o">${s.bests.memory || 0}</div><div class="stat__lbl">Memory</div></div>
-        <div class="stat"><div class="stat__num c-b">${s.bests.speed || 0}</div><div class="stat__lbl">Speed</div></div>
-        <div class="stat"><div class="stat__num c-o">${s.bests.strategy || 0}</div><div class="stat__lbl">Strategy</div></div>
+        <div class="stat"><div class="stat__num c-b">${s.bests.puzzle || 0}</div><div class="stat__lbl">الألغاز</div></div>
+        <div class="stat"><div class="stat__num c-o">${s.bests.memory || 0}</div><div class="stat__lbl">الذاكرة</div></div>
+        <div class="stat"><div class="stat__num c-b">${s.bests.speed || 0}</div><div class="stat__lbl">السرعة</div></div>
+        <div class="stat"><div class="stat__num c-o">${s.bests.strategy || 0}</div><div class="stat__lbl">الاستراتيجية</div></div>
       </div>`;
     $("#b").addEventListener("click", () => nav("home"));
   }
 
-  /* ---------- HOW TO PLAY ---------- */
+  /* ---------- كيف تلعب ---------- */
   function howto(view) {
     view.innerHTML = `
-      <button class="backbtn" id="b">← Menu</button>
-      <div class="sec-head" style="margin-top:14px"><h2>❓ How to Play</h2></div>
+      <button class="backbtn" id="b">القائمة ⟲</button>
+      <div class="sec-head" style="margin-top:14px"><h2>❓ كيف تلعب</h2></div>
       <div class="qcard">
         <ul class="rules">
-          <li><b>🧩 Marketing Puzzle</b> — order marketing funnels & pick the best answers. Tap items in sequence, or choose an option (keys 1–4).</li>
-          <li><b>🧠 Memory Challenge</b> — watch the brand tiles light up, then repeat the sequence. It grows each round.</li>
-          <li><b>⚡ Speed Challenge</b> — tap the requested brand element as fast as you can before 30s runs out. Wrong taps cost a second.</li>
-          <li><b>♟️ Strategy Challenge</b> — read the scenario and choose the smartest marketing decision. Learn from the "why".</li>
-          <li><b>📅 Daily Challenge</b> — a fresh mode every day with bonus XP & coins.</li>
+          <li><b>🧩 لغز التسويق</b> — رتّب مسارات التسويق واختر أفضل الإجابات. اضغط العناصر بالترتيب، أو اختر إجاباً (الأرقام 1–4).</li>
+          <li><b>🧠 تحدّي الذاكرة</b> — راقب عناصر العلامة وهي تُضيء، ثم أعِد التسلسل. يكبر مع كل جولة.</li>
+          <li><b>⚡ تحدّي السرعة</b> — اضغط العنصر المطلوب بأسرع ما يمكن قبل انتهاء الـ 30 ثانية. الضغطة الخاطئة تُكلّفك ثانية.</li>
+          <li><b>♟️ تحدّي الاستراتيجية</b> — اقرأ السيناريو واختر القرار التسويقي الأذكى. وتعلّم من «السبب».</li>
+          <li><b>📅 التحدّي اليومي</b> — وضع جديد كل يوم مع خبرة وعملات إضافية.</li>
         </ul>
-        <p style="margin-top:12px"><b>Earn:</b> XP raises your level & rank, coins bank up, and badges unlock as you hit milestones. Everything saves automatically on this device.</p>
-        <p><b>Shortcuts:</b> number keys pick options · <b>M</b> music · <b>T</b> theme · <b>Esc</b> closes dialogs.</p>
-        <button class="btn btn--primary" id="play">Start Playing →</button>
+        <p style="margin-top:12px"><b>تكسب:</b> الخبرة ترفع مستواك ورتبتك، والعملات تتراكم، والأوسمة تُفتح مع كل إنجاز. كل شيء يُحفظ تلقائياً على جهازك.</p>
+        <p><b>اختصارات:</b> الأرقام تختار الإجابات · <b>M</b> الموسيقى · <b>T</b> السمة · <b>Esc</b> يغلق النوافذ.</p>
+        <button class="btn btn--primary" id="play">ابدأ اللعب ←</button>
       </div>`;
     $("#b").addEventListener("click", () => nav("home"));
     $("#play").addEventListener("click", () => nav("home"));
   }
 
-  /* ---------- GO ---------- */
+  /* ---------- انطلاق ---------- */
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", runLoader);
   else runLoader();
 })();

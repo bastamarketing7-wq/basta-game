@@ -8,7 +8,7 @@
   const { $, esc } = window.UI;
 
   window.Games.speed = {
-    label: "Speed Challenge",
+    label: "تحدّي السرعة",
     start(mount, done, opts) {
       opts = opts || {};
       const rnd = opts.rnd || Math.random;
@@ -24,9 +24,9 @@
         mount.innerHTML = `
           <div class="gscreen speedwrap">
             <div class="gtop">
-              <span class="chip chip--timer" id="stimer">⏱ ${DURATION}s</span>
+              <span class="chip chip--timer" id="stimer">⏱ ${DURATION}ث</span>
               <div class="gtop__spacer"></div>
-              <span class="chip chip--score" id="sscore">Score 0</span>
+              <span class="chip chip--score" id="sscore">النقاط 0</span>
             </div>
             <div class="progressbar"><span id="sbar" style="width:100%"></span></div>
             <div class="speed-target" id="starget"></div>
@@ -53,7 +53,7 @@
           grid.appendChild(b);
         });
         const st = $("#starget");
-        st.innerHTML = `Tap the <b style="background:${target.color}">${esc(target.name)}</b>`;
+        st.innerHTML = `اضغط على <b style="background:${target.color}">${esc(target.name)}</b>`;
       }
 
       function hit(c, b) {
@@ -61,7 +61,7 @@
         if (c.icon === target.icon && c.color === target.color) {
           score++; Sound.fx("correct");
           b.classList.add("hit");
-          $("#sscore").textContent = "Score " + score;
+          $("#sscore").textContent = "النقاط " + score;
           newTarget();
         } else {
           misses++; Sound.fx("wrong");
@@ -74,7 +74,7 @@
 
       function tick() {
         timeLeft--;
-        const chip = $("#stimer"); if (chip) chip.textContent = "⏱ " + timeLeft + "s";
+        const chip = $("#stimer"); if (chip) chip.textContent = "⏱ " + timeLeft + "ث";
         const bar = $("#sbar"); if (bar) bar.style.width = (timeLeft / DURATION * 100) + "%";
         if (timeLeft <= 5 && timeLeft > 0) Sound.fx("tick");
         if (timeLeft <= 0) return finish();
@@ -87,7 +87,7 @@
           score, misses,
           xp: score * 12,
           coins: score * 4,
-          detail: `${score} correct taps · ${misses} misses`
+          detail: `${score} ضغطة صحيحة · ${misses} خطأ`
         });
       }
 

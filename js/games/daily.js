@@ -33,7 +33,7 @@
         res.daily = true;
         res.coins = Math.round(res.coins * 1.5) + 25; // bonus
         res.xp = Math.round(res.xp * 1.5);
-        res.detail = "Daily · " + res.detail;
+        res.detail = "يومي · " + res.detail;
         Store.patch({ dailyDate: Store.todayStr() });
         done(res);
       }, { rnd, count: 5, time: 30, startLen: 3 });

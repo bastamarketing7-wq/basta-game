@@ -8,7 +8,7 @@
   const KEY = "basta_play_v1";
 
   const DEFAULT = {
-    name: "Marketer",
+    name: "مسوّق",
     xp: 0,
     coins: 0,
     wins: 0,
@@ -113,18 +113,18 @@
     if (state.leaderboard.length) return;
     // Seed with agency-flavoured local rivals so the board never looks empty.
     state.leaderboard = [
-      { name: "Studio Ghost", score: 940, level: 9, mode: "strategy", ts: 0, bot: true },
-      { name: "Pixel Nomad",  score: 820, level: 8, mode: "speed",    ts: 0, bot: true },
-      { name: "Copy Cat",     score: 705, level: 7, mode: "puzzle",   ts: 0, bot: true },
-      { name: "Growth Owl",   score: 610, level: 6, mode: "memory",   ts: 0, bot: true },
-      { name: "Brand Fox",    score: 480, level: 5, mode: "strategy", ts: 0, bot: true },
-      { name: "Neon Whale",   score: 350, level: 4, mode: "speed",    ts: 0, bot: true }
+      { name: "شبح الاستوديو", score: 940, level: 9, mode: "strategy", ts: 0, bot: true },
+      { name: "رحّالة البكسل", score: 820, level: 8, mode: "speed",    ts: 0, bot: true },
+      { name: "ناسخ الأفكار",  score: 705, level: 7, mode: "puzzle",   ts: 0, bot: true },
+      { name: "بومة النموّ",   score: 610, level: 6, mode: "memory",   ts: 0, bot: true },
+      { name: "ثعلب العلامة",  score: 480, level: 5, mode: "strategy", ts: 0, bot: true },
+      { name: "حوت النيون",    score: 350, level: 4, mode: "speed",    ts: 0, bot: true }
     ];
     save();
   }
   function addScore(score, mode) {
     const lvl = levelInfo(state.xp).level;
-    state.leaderboard.push({ name: state.name || "You", score, level: lvl, mode, ts: Date.now(), me: true });
+    state.leaderboard.push({ name: state.name || "أنت", score, level: lvl, mode, ts: Date.now(), me: true });
     // keep only best "me" entries + bots; cap 30
     state.leaderboard.sort((a, b) => b.score - a.score);
     state.leaderboard = state.leaderboard.slice(0, 30);
