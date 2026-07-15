@@ -7,7 +7,7 @@
   const { $, $$ } = window.UI;
   let activeGame = null; // يحمل {stop} للتنظيف
 
-  const MODE_AR = { puzzle: "لغز التسويق", memory: "تحدّي الذاكرة", speed: "تحدّي السرعة", strategy: "تحدّي الاستراتيجية", daily: "التحدّي اليومي" };
+  const MODE_AR = { puzzle: "لغز التسويق", memory: "تحدّي الذاكرة", speed: "تحدّي السرعة", strategy: "تحدّي الاستراتيجية", match: "لعبة المطابقة", daily: "التحدّي اليومي" };
 
   /* ---------- شاشة التحميل ---------- */
   function runLoader() {
@@ -161,7 +161,7 @@
         <div class="stat"><div class="stat__num">${s.streak}🔥</div><div class="stat__lbl">سلسلة الأيام</div></div>
       </div>
 
-      <div class="sec-head"><h2>اختر تحدّيك</h2><span class="pill">${Store.modesPlayedCount()}/4 أوضاع جُرّبت</span></div>
+      <div class="sec-head"><h2>اختر تحدّيك</h2><span class="pill">${Store.modesPlayedCount()}/${Store.modesTotal()} أوضاع جُرّبت</span></div>
       <div class="modes stagger" id="modes"></div>`;
 
     const wrap = $("#modes");
@@ -272,7 +272,7 @@
     if (s.coins >= 100) pop("coin100");
     if (info.level >= 5) pop("level5");
     if (info.level >= 10) pop("level10");
-    if (Store.modesPlayedCount() >= 4) pop("allmodes");
+    if (Store.modesPlayedCount() >= Store.modesTotal()) pop("allmodes");
     if ((s.wins || 0) >= 10) pop("perfectionist");
   }
 
@@ -336,11 +336,12 @@
         <div class="stat"><div class="stat__num">${unlocked}</div><div class="stat__lbl">الأوسمة</div></div>
       </div>
       <div class="sec-head"><h2>أفضل النقاط</h2></div>
-      <div class="statstrip stagger" style="grid-template-columns:repeat(4,1fr)">
+      <div class="statstrip stagger" style="grid-template-columns:repeat(auto-fit,minmax(84px,1fr))">
         <div class="stat"><div class="stat__num c-b">${s.bests.puzzle || 0}</div><div class="stat__lbl">الألغاز</div></div>
         <div class="stat"><div class="stat__num c-o">${s.bests.memory || 0}</div><div class="stat__lbl">الذاكرة</div></div>
         <div class="stat"><div class="stat__num c-b">${s.bests.speed || 0}</div><div class="stat__lbl">السرعة</div></div>
         <div class="stat"><div class="stat__num c-o">${s.bests.strategy || 0}</div><div class="stat__lbl">الاستراتيجية</div></div>
+        <div class="stat"><div class="stat__num c-b">${s.bests.match || 0}</div><div class="stat__lbl">المطابقة</div></div>
       </div>`;
     $("#b").addEventListener("click", () => nav("home"));
   }
@@ -356,6 +357,7 @@
           <li><b>🧠 تحدّي الذاكرة</b> — راقب عناصر العلامة وهي تُضيء، ثم أعِد التسلسل. يكبر مع كل جولة.</li>
           <li><b>⚡ تحدّي السرعة</b> — اضغط العنصر المطلوب بأسرع ما يمكن قبل انتهاء الـ 30 ثانية. الضغطة الخاطئة تُكلّفك ثانية.</li>
           <li><b>♟️ تحدّي الاستراتيجية</b> — اقرأ السيناريو واختر القرار التسويقي الأذكى. وتعلّم من «السبب».</li>
+          <li><b>🃏 لعبة المطابقة</b> — اقلب البطاقات وطابِق أزواج العناصر التسويقية بأقلّ حركات وأسرع وقت.</li>
           <li><b>📅 التحدّي اليومي</b> — وضع جديد كل يوم مع خبرة وعملات إضافية.</li>
         </ul>
         <p style="margin-top:12px"><b>تكسب:</b> الخبرة ترفع مستواك ورتبتك، والعملات تتراكم، والأوسمة تُفتح مع كل إنجاز. كل شيء يُحفظ تلقائياً على جهازك.</p>

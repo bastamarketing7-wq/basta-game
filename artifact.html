@@ -338,21 +338,47 @@ ul { list-style: none; }
 .slots { min-height: 60px; display: flex; flex-wrap: wrap; gap: 10px; padding: 12px; border-radius: var(--r-md); border: 1.5px dashed var(--glass-brd); background: var(--glass-2); }
 .slots:empty::after { content: "اضغط العناصر بالأسفل بالترتيب الصحيح…"; color: var(--ink-mute); font-size: 13px; font-weight: 600; }
 
-/* Memory tiles */
+/* Memory tiles — polished gradient cards */
 .mgrid { display: grid; gap: clamp(8px, 2vw, 14px); margin: 0 auto; max-width: 440px; }
 .mtile {
-  aspect-ratio: 1; border-radius: var(--r-md); position: relative;
-  background: var(--glass-2); border: 2px solid var(--glass-brd);
-  display: grid; place-items: center; font-size: clamp(22px, 6vw, 34px);
-  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast), background var(--t-fast);
-  color: #fff;
+  aspect-ratio: 1; border-radius: var(--r-md); position: relative; overflow: hidden;
+  background: var(--grad, var(--glass-2)); border: 1px solid rgba(255,255,255,.18);
+  display: grid; place-items: center;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast), filter var(--t-fast);
+  color: #fff; filter: saturate(.85) brightness(.8); box-shadow: var(--shadow-1);
 }
-.mtile:hover { transform: translateY(-3px); }
+.mtile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,.28), transparent 55%); pointer-events: none; }
+.mtile__ico { font-size: clamp(26px, 7vw, 40px); filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); transition: transform var(--t-fast) var(--ease-back); }
+.mtile:hover { transform: translateY(-3px); filter: saturate(1) brightness(.92); }
 .mtile:active { transform: scale(0.94); }
-.mtile.lit { transform: scale(1.06); box-shadow: 0 0 0 4px rgba(255,255,255,.25), var(--glow); background: var(--fill); }
+.mtile.lit { filter: saturate(1.3) brightness(1.28); transform: scale(1.07); box-shadow: 0 0 0 4px rgba(255,255,255,.4), var(--glow); }
+.mtile.lit .mtile__ico { transform: scale(1.15); }
 .mtile.ok { animation: pop 0.4s var(--ease-back); }
-.mtile.err { animation: shake 0.4s; box-shadow: 0 0 0 4px rgba(255,93,93,.5); }
+.mtile.err { animation: shake 0.4s; box-shadow: 0 0 0 4px rgba(255,93,93,.6); }
 .mtile[disabled] { cursor: default; }
+
+/* Match Pairs — flip cards */
+.match-grid { display: grid; gap: clamp(7px, 1.8vw, 12px); margin: 0 auto; max-width: 460px; perspective: 1000px; }
+.mcard { aspect-ratio: 3/4; background: none; border: none; padding: 0; cursor: pointer; }
+.mcard__inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.5s var(--ease-back); }
+.mcard.flip .mcard__inner, .mcard.done .mcard__inner { transform: rotateY(180deg); }
+.mcard__face {
+  position: absolute; inset: 0; border-radius: var(--r-md); backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+.mcard__back {
+  background: linear-gradient(140deg, var(--blue), var(--blue-600)); color: rgba(255,255,255,.9);
+  font-weight: 900; font-size: clamp(13px, 3vw, 17px); letter-spacing: 1px; border: 1px solid rgba(255,255,255,.16);
+}
+.mcard__back::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.25), transparent 55%), repeating-linear-gradient(45deg, rgba(255,255,255,.06) 0 8px, transparent 8px 16px); }
+.mcard__front { transform: rotateY(180deg); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+.mcard__front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,.28), transparent 55%); }
+.mcard__ico { font-size: clamp(26px, 7vw, 40px); filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); z-index: 1; }
+.mcard__name { font-size: clamp(9px, 2.2vw, 12px); font-weight: 800; z-index: 1; opacity: .95; }
+.mcard:hover:not(.done) .mcard__inner { box-shadow: var(--shadow-2); }
+.mcard.done { animation: pop 0.45s var(--ease-back); }
+.mcard.pulse .mcard__front { box-shadow: 0 0 0 3px rgba(255,255,255,.55), 0 0 24px rgba(46,199,122,.6); }
 
 /* Speed grid */
 .speedwrap { text-align: center; }
@@ -364,9 +390,13 @@ ul { list-style: none; }
   display: grid; place-items: center; font-size: 30px; color: #fff; font-weight: 800;
   transition: transform 0.1s var(--ease), box-shadow 0.1s;
 }
+.scell { position: relative; overflow: hidden; box-shadow: var(--shadow-1); }
+.scell::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,.25), transparent 55%); pointer-events: none; }
+.scell__ico { font-size: clamp(28px, 8vw, 40px); filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); z-index: 1; }
 .scell:active { transform: scale(0.9); }
-.scell.hit { animation: pop 0.35s var(--ease-back); }
+.scell.hit { animation: pop 0.35s var(--ease-back); box-shadow: 0 0 0 3px rgba(255,255,255,.4), 0 0 20px rgba(46,199,122,.5); }
 .scell.miss { animation: shake 0.35s; }
+.speed-target b { display: inline-flex; align-items: center; gap: 6px; }
 
 /* Result card */
 .result { text-align: center; padding: clamp(20px, 4vw, 36px); }
@@ -664,7 +694,24 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
       tag: "سرعة", best: "speedBest" },
     { id: "strategy", title: "تحدّي الاستراتيجية", icon: "♟️", tint: "#F97316",
       desc: "سيناريوهات تسويقية واقعية. اختر القرار الأذكى واصنع الأثر.",
-      tag: "قرار", best: "strategyBest" }
+      tag: "قرار", best: "strategyBest" },
+    { id: "match", title: "لعبة المطابقة", icon: "🃏", tint: "#1E5BD6",
+      desc: "اقلب البطاقات وطابِق أزواج العناصر التسويقية بأقلّ عدد حركات وأسرع وقت.",
+      tag: "ذكاء", best: "matchBest" }
+  ];
+
+  /* أيقونات تسويقية أنيقة (تغذية بصرية) تُستخدم في الذاكرة والسرعة والمطابقة */
+  const ICONS = [
+    { icon: "🚀", name: "الإطلاق",   grad: "linear-gradient(135deg,#1E5BD6,#4d82e6)", glow: "0 0 26px rgba(30,91,214,.7)" },
+    { icon: "🎯", name: "الاستهداف", grad: "linear-gradient(135deg,#F97316,#fb8f42)", glow: "0 0 26px rgba(249,115,22,.7)" },
+    { icon: "💡", name: "الفكرة",     grad: "linear-gradient(135deg,#f59e0b,#F97316)", glow: "0 0 26px rgba(245,158,11,.7)" },
+    { icon: "📈", name: "النموّ",     grad: "linear-gradient(135deg,#1a4fbd,#1E5BD6)", glow: "0 0 26px rgba(26,79,189,.7)" },
+    { icon: "📣", name: "الحملة",     grad: "linear-gradient(135deg,#F97316,#ff9a5a)", glow: "0 0 26px rgba(249,115,22,.7)" },
+    { icon: "⭐", name: "العلامة",    grad: "linear-gradient(135deg,#4d82e6,#7aa3ee)", glow: "0 0 26px rgba(77,130,230,.7)" },
+    { icon: "🏆", name: "النجاح",     grad: "linear-gradient(135deg,#1E5BD6,#1a4fbd)", glow: "0 0 26px rgba(30,91,214,.7)" },
+    { icon: "❤️", name: "الولاء",     grad: "linear-gradient(135deg,#fb8f42,#F97316)", glow: "0 0 26px rgba(251,143,66,.7)" },
+    { icon: "📱", name: "السوشيال",   grad: "linear-gradient(135deg,#4d82e6,#1E5BD6)", glow: "0 0 26px rgba(77,130,230,.7)" },
+    { icon: "✨", name: "الإبداع",    grad: "linear-gradient(135deg,#f59e0b,#fb8f42)", glow: "0 0 26px rgba(245,158,11,.7)" }
   ];
 
   /* ---------- لغز التسويق ----------
@@ -711,28 +758,35 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
       answer: 1 },
     { type: "order", q: "رتّب سير العمل في تصميم هوية العلامة.",
       hint: "من الإنصات إلى التسليم.",
-      items: ["الموجز", "التصوّر", "التصميم", "التنقيح", "التسليم"] }
+      items: ["الموجز", "التصوّر", "التصميم", "التنقيح", "التسليم"] },
+    { type: "quiz", q: "ما الفرق الجوهري بين «الوصول» و«التفاعل»؟",
+      hint: "أحدهما كمّي والآخر يعكس الاهتمام.",
+      options: ["لا فرق بينهما", "الوصول: كم شخصاً رأى · التفاعل: كم شخصاً تفاعل", "الوصول أهم دائماً", "التفاعل يقيس عدد المتابعين"],
+      answer: 1 },
+    { type: "quiz", q: "أفضل توقيت للنشر يُحدَّد بناءً على…",
+      hint: "دع البيانات تقود القرار.",
+      options: ["ذوقك الشخصي", "تحليلات نشاط جمهورك", "توقيت المنافسين فقط", "منتصف الليل دائماً"],
+      answer: 1 },
+    { type: "order", q: "رتّب مراحل بناء حملة مدفوعة ناجحة.",
+      hint: "من الهدف إلى التحسين.",
+      items: ["تحديد الهدف", "تحديد الجمهور", "الإبداع", "الإطلاق", "التحسين"] },
+    { type: "quiz", q: "«الهوية الصوتية» للعلامة تعني…",
+      hint: "الطريقة التي «تتكلّم» بها العلامة.",
+      options: ["نبرة صوت المذيع", "أسلوب ولهجة العلامة في كل رسائلها", "الموسيقى في الإعلان فقط", "رقم خدمة العملاء"],
+      answer: 1 },
+    { type: "order", q: "رتّب هرم ولاء العميل من الأوسع للأضيق.",
+      hint: "من الجمهور العام إلى السفراء.",
+      items: ["الجمهور", "المتابعون", "العملاء", "السفراء"] }
   ];
 
-  /* ---------- الذاكرة: عناصر العلامة ---------- */
-  const MEMORY_TILES = [
-    { icon: "▲", fill: "#1E5BD6", glow: "0 0 24px #1E5BD6", label: "سهم أزرق" },
-    { icon: "■", fill: "#F97316", glow: "0 0 24px #F97316", label: "مربّع برتقالي" },
-    { icon: "●", fill: "#4d82e6", glow: "0 0 24px #4d82e6", label: "نقطة سماوية" },
-    { icon: "◆", fill: "#fb8f42", glow: "0 0 24px #fb8f42", label: "معيّن كهرماني" },
-    { icon: "✦", fill: "#1a4fbd", glow: "0 0 24px #1a4fbd", label: "شرارة عميقة" },
-    { icon: "▬", fill: "#F97316", glow: "0 0 24px #F97316", label: "شريط برتقالي" }
-  ];
+  /* ---------- الذاكرة: عناصر تسويقية أنيقة ---------- */
+  const MEMORY_TILES = ICONS.slice(0, 6).map(x => ({ icon: x.icon, grad: x.grad, glow: x.glow, label: x.name }));
 
-  /* ---------- السرعة: الأهداف ---------- */
-  const SPEED_ELEMENTS = [
-    { icon: "▲", color: "#1E5BD6", name: "السهم الأزرق" },
-    { icon: "■", color: "#F97316", name: "المربّع البرتقالي" },
-    { icon: "●", color: "#4d82e6", name: "النقطة الزرقاء" },
-    { icon: "◆", color: "#fb8f42", name: "الجوهرة البرتقالية" },
-    { icon: "★", color: "#1E5BD6", name: "النجمة الزرقاء" },
-    { icon: "✚", color: "#F97316", name: "الزائد البرتقالي" }
-  ];
+  /* ---------- السرعة: الأهداف التسويقية ---------- */
+  const SPEED_ELEMENTS = ICONS.slice(0, 6).map(x => ({ icon: x.icon, grad: x.grad, name: x.name }));
+
+  /* ---------- المطابقة: مجموعة الأزواج ---------- */
+  const MATCH_ICONS = ICONS.slice();
 
   /* ---------- سيناريوهات الاستراتيجية ---------- */
   const STRATEGY = [
@@ -791,6 +845,30 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
         { t: "حلّل سبب نجاحه ثم اصنع سلسلة قابلة للتكرار", pts: 3, why: "الصحيح: حوّل نجاحاً واحداً إلى صيغة قابلة للتوسّع." },
         { t: "أعِد نشر نفس الريل يومياً", pts: 1, why: "إرهاق الجمهور يقتل السحر بسرعة." },
         { t: "انتقل لأسلوب مختلف تماماً", pts: 0, why: "يتخلّى عن رؤية مثبتة." }
+      ]},
+    { scenario: "ميزانيتك الإعلانية محدودة، وأمامك قناتان: بحث مدفوع أو سوشيال. كيف تقرّر؟",
+      context: "توزيع الميزانية · نيّة الشراء",
+      options: [
+        { t: "وزّعها بالتساوي دون تفكير", pts: 1, why: "توزيع أعمى لا يراعي هدف الحملة." },
+        { t: "اختر بناءً على نيّة الجمهور: بحث لمن ينوي الشراء، سوشيال للوعي", pts: 3, why: "الأفضل: القناة تتبع الهدف ونيّة العميل." },
+        { t: "سوشيال دائماً لأنه أرخص", pts: 1, why: "الأرخص ليس دائماً الأعلى عائداً." },
+        { t: "أوقف الإعلان وانتظر", pts: 0, why: "تفويت للفرص وتوقّف للنموّ." }
+      ]},
+    { scenario: "تعليقات سلبية بدأت تظهر على منشور مهمّ. ما التصرّف الاحترافي؟",
+      context: "إدارة السمعة · تفاعل",
+      options: [
+        { t: "احذف كل تعليق سلبي فوراً", pts: 1, why: "الحذف الجماعي يزيد الغضب ويبدو تستّراً." },
+        { t: "ردّ باحترام، عالِج المشكلة علناً، وانقل التفاصيل للخاص", pts: 3, why: "الأفضل: الشفافية والاحترافية تبنيان الثقة." },
+        { t: "تجاهلها تماماً", pts: 1, why: "الصمت قد يُفسَّر لا مبالاة." },
+        { t: "ردّ بحدّة على المنتقدين", pts: 0, why: "يضرّ بالعلامة ويُصعّد الموقف." }
+      ]},
+    { scenario: "أطلقت منتجاً جديداً وتريد قياس نجاح الحملة. ما المؤشّر الأهمّ أولاً؟",
+      context: "قياس · أهداف ذكية",
+      options: [
+        { t: "عدد الإعجابات فقط", pts: 1, why: "مؤشّر سطحي لا يعكس الأثر التجاري." },
+        { t: "مؤشّرات مرتبطة بالهدف: تحويلات، عائد، تكلفة الاكتساب", pts: 3, why: "الأفضل: قِس ما يخدم هدف العمل مباشرة." },
+        { t: "عدد المتابعين الجدد حصراً", pts: 1, why: "مفيد لكنه لا يكفي وحده للحكم." },
+        { t: "شعورك العام عن الحملة", pts: 0, why: "القرار يُبنى على البيانات لا الانطباع." }
       ]}
   ];
 
@@ -806,7 +884,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
     { id: "level5",      icon: "⭐", name: "نجم صاعد",        desc: "اوصل إلى المستوى 5." },
     { id: "level10",     icon: "🌟", name: "أسطورة العلامة",  desc: "اوصل إلى المستوى 10." },
     { id: "daily",       icon: "📅", name: "مثابِر يومي",     desc: "أكمِل التحدّي اليومي." },
-    { id: "allmodes",    icon: "🏆", name: "الطيف الكامل",    desc: "جرّب كل الأوضاع الأربعة." },
+    { id: "allmodes",    icon: "🏆", name: "الطيف الكامل",    desc: "جرّب كل أوضاع اللعب." },
     { id: "perfectionist", icon: "💎", name: "إتقان تامّ",    desc: "افُز بـ 10 جولات إجمالاً." }
   ];
 
@@ -833,7 +911,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
   }
 
   window.BASTA_DATA = {
-    MODES, PUZZLES, MEMORY_TILES, SPEED_ELEMENTS, STRATEGY,
+    MODES, PUZZLES, MEMORY_TILES, SPEED_ELEMENTS, MATCH_ICONS, ICONS, STRATEGY,
     ACHIEVEMENTS, RANKS, seededRandom
   };
 })();
@@ -860,7 +938,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
     music: false,
     achievements: {},     // id -> true
     playedModes: {},      // id -> true
-    bests: { puzzle: 0, memory: 0, speed: 0, strategy: 0 },
+    bests: { puzzle: 0, memory: 0, speed: 0, strategy: 0, match: 0 },
     leaderboard: []       // [{name, score, level, mode, ts}]
   };
 
@@ -926,7 +1004,12 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
   function markMode(id) {
     if (!state.playedModes[id]) { state.playedModes[id] = true; save(); }
   }
-  function modesPlayedCount() { return ["puzzle", "memory", "speed", "strategy"].filter(m => state.playedModes[m]).length; }
+  function coreModeIds() {
+    try { return (window.BASTA_DATA.MODES || []).map(m => m.id); }
+    catch (e) { return ["puzzle", "memory", "speed", "strategy", "match"]; }
+  }
+  function modesPlayedCount() { return coreModeIds().filter(m => state.playedModes[m]).length; }
+  function modesTotal() { return coreModeIds().length; }
 
   function setBest(mode, value) {
     if (value > (state.bests[mode] || 0)) { state.bests[mode] = value; save(); return true; }
@@ -974,7 +1057,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
   window.Store = {
     get, patch, save, reset, load,
     levelInfo, addXp, addCoins, unlock, has,
-    markMode, modesPlayedCount, setBest,
+    markMode, modesPlayedCount, modesTotal, setBest,
     touchStreak, todayStr,
     seedLeaderboardIfEmpty, addScore
   };
@@ -1480,10 +1563,10 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
         TILES.forEach((t, i) => {
           const b = document.createElement("button");
           b.className = "mtile"; b.type = "button"; b.dataset.i = i;
-          b.style.setProperty("--fill", t.fill);
+          b.style.setProperty("--grad", t.grad);
           b.style.setProperty("--glow", t.glow);
           b.setAttribute("aria-label", t.label);
-          b.innerHTML = `<span>${t.icon}</span>`;
+          b.innerHTML = `<span class="mtile__ico">${t.icon}</span>`;
           b.addEventListener("click", () => tap(i, b));
           grid.appendChild(b);
         });
@@ -1615,19 +1698,19 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
         cells.forEach((c) => {
           const b = document.createElement("button");
           b.className = "scell"; b.type = "button";
-          b.style.background = c.color;
-          b.innerHTML = `<span>${c.icon}</span>`;
+          b.style.background = c.grad;
+          b.innerHTML = `<span class="scell__ico">${c.icon}</span>`;
           b.setAttribute("aria-label", c.name);
           b.addEventListener("click", () => hit(c, b));
           grid.appendChild(b);
         });
         const st = $("#starget");
-        st.innerHTML = `اضغط على <b style="background:${target.color}">${esc(target.name)}</b>`;
+        st.innerHTML = `اضغط على <b style="background:${target.grad}">${target.icon} ${esc(target.name)}</b>`;
       }
 
       function hit(c, b) {
         if (!alive) return;
-        if (c.icon === target.icon && c.color === target.color) {
+        if (c.icon === target.icon && c.name === target.name) {
           score++; Sound.fx("correct");
           b.classList.add("hit");
           $("#sscore").textContent = "النقاط " + score;
@@ -1766,6 +1849,117 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
 })();
 
 /* ============================================================
+   BASTA PLAY · games/match.js — لعبة المطابقة (Match Pairs)
+   اقلب البطاقات وطابِق أزواج العناصر التسويقية. window.Games.match
+   ============================================================ */
+(function () {
+  "use strict";
+  window.Games = window.Games || {};
+  const { $ } = window.UI;
+
+  function shuffle(arr, rnd) {
+    const a = arr.slice(); rnd = rnd || Math.random;
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+
+  window.Games.match = {
+    label: "لعبة المطابقة",
+    start(mount, done, opts) {
+      opts = opts || {};
+      const rnd = opts.rnd || Math.random;
+      const PAIRS = opts.pairs || 8;                 // 8 أزواج = 16 بطاقة
+      const pool = shuffle(BASTA_DATA.MATCH_ICONS, rnd).slice(0, PAIRS);
+      let deck = shuffle(pool.concat(pool).map((c, i) => ({ ...c, uid: i })), rnd);
+
+      let first = null, lock = false, matched = 0, moves = 0, time = 0, alive = true, timer = null;
+
+      function shell() {
+        mount.innerHTML = `
+          <div class="gscreen">
+            <div class="gtop">
+              <span class="chip chip--timer" id="mtime">⏱ 0ث</span>
+              <div class="gtop__spacer"></div>
+              <span class="chip">الحركات <b id="mmoves" style="margin-inline-start:4px">0</b></span>
+              <span class="chip chip--score">الأزواج <b id="mpairs" style="margin-inline-start:4px">0/${PAIRS}</b></span>
+            </div>
+            <div class="progressbar"><span id="mbar" style="width:0%"></span></div>
+            <p class="qcard__hint" style="text-align:center;margin-bottom:14px">اقلب بطاقتين وطابِق العنصر نفسه ✨</p>
+            <div class="match-grid" id="mgridw"></div>
+          </div>`;
+        const g = $("#mgridw");
+        const cols = PAIRS <= 6 ? 3 : 4;
+        g.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        deck.forEach((card) => {
+          const el = document.createElement("button");
+          el.className = "mcard"; el.type = "button"; el.dataset.uid = card.uid; el.dataset.icon = card.icon;
+          el.setAttribute("aria-label", "بطاقة");
+          el.innerHTML = `
+            <div class="mcard__inner">
+              <div class="mcard__face mcard__back">بسطة</div>
+              <div class="mcard__face mcard__front" style="background:${card.grad}">
+                <span class="mcard__ico">${card.icon}</span>
+                <span class="mcard__name">${card.name}</span>
+              </div>
+            </div>`;
+          el.addEventListener("click", () => flip(el, card));
+          g.appendChild(el);
+        });
+      }
+
+      function flip(el, card) {
+        if (!alive || lock || el.classList.contains("flip") || el.classList.contains("done")) return;
+        el.classList.add("flip"); Sound.fx("tap");
+        if (!first) { first = { el, card }; return; }
+        // second card
+        moves++; $("#mmoves").textContent = moves;
+        lock = true;
+        if (first.card.icon === card.icon) {
+          setTimeout(() => {
+            first.el.classList.add("done"); el.classList.add("done");
+            first.el.classList.add("pulse"); el.classList.add("pulse");
+            Sound.fx("correct");
+            matched++;
+            $("#mpairs").textContent = matched + "/" + PAIRS;
+            $("#mbar").style.width = (matched / PAIRS * 100) + "%";
+            first = null; lock = false;
+            if (matched === PAIRS) finish();
+          }, 380);
+        } else {
+          Sound.fx("wrong");
+          const a = first.el;
+          setTimeout(() => { a.classList.remove("flip"); el.classList.remove("flip"); first = null; lock = false; }, 780);
+        }
+      }
+
+      function tick() { time++; const t = $("#mtime"); if (t) t.textContent = "⏱ " + time + "ث"; }
+
+      function finish() {
+        alive = false; clearInterval(timer);
+        // نقاط أعلى كلما قلّت الحركات والوقت
+        const perfectMoves = PAIRS;                       // الحدّ الأدنى النظري
+        const eff = Math.max(0, 1 - (moves - perfectMoves) / (PAIRS * 2));
+        const timeBonus = Math.max(0, 1 - time / (PAIRS * 8));
+        const score = Math.round(200 + eff * 500 + timeBonus * 300);
+        const perfect = moves <= perfectMoves + 2;
+        Sound.fx("win");
+        done({
+          mode: "match", won: true, perfect,
+          score,
+          xp: 40 + Math.round(eff * 60) + Math.round(timeBonus * 40),
+          coins: 15 + Math.round(eff * 25),
+          detail: `${PAIRS} أزواج في ${moves} حركة · ${time}ث`
+        });
+      }
+
+      shell();
+      timer = setInterval(() => { if (alive) tick(); }, 1000);
+      return { stop() { alive = false; clearInterval(timer); } };
+    }
+  };
+})();
+
+/* ============================================================
    BASTA PLAY · games/daily.js — Daily Challenge
    Deterministic pick of a mode + seed per calendar day.
    window.Games.daily
@@ -1817,7 +2011,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
   const { $, $$ } = window.UI;
   let activeGame = null; // يحمل {stop} للتنظيف
 
-  const MODE_AR = { puzzle: "لغز التسويق", memory: "تحدّي الذاكرة", speed: "تحدّي السرعة", strategy: "تحدّي الاستراتيجية", daily: "التحدّي اليومي" };
+  const MODE_AR = { puzzle: "لغز التسويق", memory: "تحدّي الذاكرة", speed: "تحدّي السرعة", strategy: "تحدّي الاستراتيجية", match: "لعبة المطابقة", daily: "التحدّي اليومي" };
 
   /* ---------- شاشة التحميل ---------- */
   function runLoader() {
@@ -1971,7 +2165,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
         <div class="stat"><div class="stat__num">${s.streak}🔥</div><div class="stat__lbl">سلسلة الأيام</div></div>
       </div>
 
-      <div class="sec-head"><h2>اختر تحدّيك</h2><span class="pill">${Store.modesPlayedCount()}/4 أوضاع جُرّبت</span></div>
+      <div class="sec-head"><h2>اختر تحدّيك</h2><span class="pill">${Store.modesPlayedCount()}/${Store.modesTotal()} أوضاع جُرّبت</span></div>
       <div class="modes stagger" id="modes"></div>`;
 
     const wrap = $("#modes");
@@ -2082,7 +2276,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
     if (s.coins >= 100) pop("coin100");
     if (info.level >= 5) pop("level5");
     if (info.level >= 10) pop("level10");
-    if (Store.modesPlayedCount() >= 4) pop("allmodes");
+    if (Store.modesPlayedCount() >= Store.modesTotal()) pop("allmodes");
     if ((s.wins || 0) >= 10) pop("perfectionist");
   }
 
@@ -2146,11 +2340,12 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
         <div class="stat"><div class="stat__num">${unlocked}</div><div class="stat__lbl">الأوسمة</div></div>
       </div>
       <div class="sec-head"><h2>أفضل النقاط</h2></div>
-      <div class="statstrip stagger" style="grid-template-columns:repeat(4,1fr)">
+      <div class="statstrip stagger" style="grid-template-columns:repeat(auto-fit,minmax(84px,1fr))">
         <div class="stat"><div class="stat__num c-b">${s.bests.puzzle || 0}</div><div class="stat__lbl">الألغاز</div></div>
         <div class="stat"><div class="stat__num c-o">${s.bests.memory || 0}</div><div class="stat__lbl">الذاكرة</div></div>
         <div class="stat"><div class="stat__num c-b">${s.bests.speed || 0}</div><div class="stat__lbl">السرعة</div></div>
         <div class="stat"><div class="stat__num c-o">${s.bests.strategy || 0}</div><div class="stat__lbl">الاستراتيجية</div></div>
+        <div class="stat"><div class="stat__num c-b">${s.bests.match || 0}</div><div class="stat__lbl">المطابقة</div></div>
       </div>`;
     $("#b").addEventListener("click", () => nav("home"));
   }
@@ -2166,6 +2361,7 @@ window.LOGO_FULL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QDsRXhpZgA
           <li><b>🧠 تحدّي الذاكرة</b> — راقب عناصر العلامة وهي تُضيء، ثم أعِد التسلسل. يكبر مع كل جولة.</li>
           <li><b>⚡ تحدّي السرعة</b> — اضغط العنصر المطلوب بأسرع ما يمكن قبل انتهاء الـ 30 ثانية. الضغطة الخاطئة تُكلّفك ثانية.</li>
           <li><b>♟️ تحدّي الاستراتيجية</b> — اقرأ السيناريو واختر القرار التسويقي الأذكى. وتعلّم من «السبب».</li>
+          <li><b>🃏 لعبة المطابقة</b> — اقلب البطاقات وطابِق أزواج العناصر التسويقية بأقلّ حركات وأسرع وقت.</li>
           <li><b>📅 التحدّي اليومي</b> — وضع جديد كل يوم مع خبرة وعملات إضافية.</li>
         </ul>
         <p style="margin-top:12px"><b>تكسب:</b> الخبرة ترفع مستواك ورتبتك، والعملات تتراكم، والأوسمة تُفتح مع كل إنجاز. كل شيء يُحفظ تلقائياً على جهازك.</p>

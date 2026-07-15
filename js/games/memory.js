@@ -36,10 +36,10 @@
         TILES.forEach((t, i) => {
           const b = document.createElement("button");
           b.className = "mtile"; b.type = "button"; b.dataset.i = i;
-          b.style.setProperty("--fill", t.fill);
+          b.style.setProperty("--grad", t.grad);
           b.style.setProperty("--glow", t.glow);
           b.setAttribute("aria-label", t.label);
-          b.innerHTML = `<span>${t.icon}</span>`;
+          b.innerHTML = `<span class="mtile__ico">${t.icon}</span>`;
           b.addEventListener("click", () => tap(i, b));
           grid.appendChild(b);
         });

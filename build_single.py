@@ -19,7 +19,7 @@ css_files = ["css/main.css", "css/components.css", "css/animations.css"]
 js_files = [
     "js/data.js", "js/storage.js", "js/audio.js", "js/ui.js",
     "js/games/puzzle.js", "js/games/memory.js", "js/games/speed.js",
-    "js/games/strategy.js", "js/games/daily.js", "js/main.js",
+    "js/games/strategy.js", "js/games/match.js", "js/games/daily.js", "js/main.js",
 ]
 
 css = "\n\n".join(f"/* ===== {f} ===== */\n" + read(f) for f in css_files)

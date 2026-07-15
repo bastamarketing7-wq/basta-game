@@ -128,21 +128,47 @@
 .slots { min-height: 60px; display: flex; flex-wrap: wrap; gap: 10px; padding: 12px; border-radius: var(--r-md); border: 1.5px dashed var(--glass-brd); background: var(--glass-2); }
 .slots:empty::after { content: "اضغط العناصر بالأسفل بالترتيب الصحيح…"; color: var(--ink-mute); font-size: 13px; font-weight: 600; }
 
-/* Memory tiles */
+/* Memory tiles — polished gradient cards */
 .mgrid { display: grid; gap: clamp(8px, 2vw, 14px); margin: 0 auto; max-width: 440px; }
 .mtile {
-  aspect-ratio: 1; border-radius: var(--r-md); position: relative;
-  background: var(--glass-2); border: 2px solid var(--glass-brd);
-  display: grid; place-items: center; font-size: clamp(22px, 6vw, 34px);
-  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast), background var(--t-fast);
-  color: #fff;
+  aspect-ratio: 1; border-radius: var(--r-md); position: relative; overflow: hidden;
+  background: var(--grad, var(--glass-2)); border: 1px solid rgba(255,255,255,.18);
+  display: grid; place-items: center;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast), filter var(--t-fast);
+  color: #fff; filter: saturate(.85) brightness(.8); box-shadow: var(--shadow-1);
 }
-.mtile:hover { transform: translateY(-3px); }
+.mtile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,.28), transparent 55%); pointer-events: none; }
+.mtile__ico { font-size: clamp(26px, 7vw, 40px); filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); transition: transform var(--t-fast) var(--ease-back); }
+.mtile:hover { transform: translateY(-3px); filter: saturate(1) brightness(.92); }
 .mtile:active { transform: scale(0.94); }
-.mtile.lit { transform: scale(1.06); box-shadow: 0 0 0 4px rgba(255,255,255,.25), var(--glow); background: var(--fill); }
+.mtile.lit { filter: saturate(1.3) brightness(1.28); transform: scale(1.07); box-shadow: 0 0 0 4px rgba(255,255,255,.4), var(--glow); }
+.mtile.lit .mtile__ico { transform: scale(1.15); }
 .mtile.ok { animation: pop 0.4s var(--ease-back); }
-.mtile.err { animation: shake 0.4s; box-shadow: 0 0 0 4px rgba(255,93,93,.5); }
+.mtile.err { animation: shake 0.4s; box-shadow: 0 0 0 4px rgba(255,93,93,.6); }
 .mtile[disabled] { cursor: default; }
+
+/* Match Pairs — flip cards */
+.match-grid { display: grid; gap: clamp(7px, 1.8vw, 12px); margin: 0 auto; max-width: 460px; perspective: 1000px; }
+.mcard { aspect-ratio: 3/4; background: none; border: none; padding: 0; cursor: pointer; }
+.mcard__inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.5s var(--ease-back); }
+.mcard.flip .mcard__inner, .mcard.done .mcard__inner { transform: rotateY(180deg); }
+.mcard__face {
+  position: absolute; inset: 0; border-radius: var(--r-md); backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+.mcard__back {
+  background: linear-gradient(140deg, var(--blue), var(--blue-600)); color: rgba(255,255,255,.9);
+  font-weight: 900; font-size: clamp(13px, 3vw, 17px); letter-spacing: 1px; border: 1px solid rgba(255,255,255,.16);
+}
+.mcard__back::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.25), transparent 55%), repeating-linear-gradient(45deg, rgba(255,255,255,.06) 0 8px, transparent 8px 16px); }
+.mcard__front { transform: rotateY(180deg); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+.mcard__front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,.28), transparent 55%); }
+.mcard__ico { font-size: clamp(26px, 7vw, 40px); filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); z-index: 1; }
+.mcard__name { font-size: clamp(9px, 2.2vw, 12px); font-weight: 800; z-index: 1; opacity: .95; }
+.mcard:hover:not(.done) .mcard__inner { box-shadow: var(--shadow-2); }
+.mcard.done { animation: pop 0.45s var(--ease-back); }
+.mcard.pulse .mcard__front { box-shadow: 0 0 0 3px rgba(255,255,255,.55), 0 0 24px rgba(46,199,122,.6); }
 
 /* Speed grid */
 .speedwrap { text-align: center; }
@@ -154,9 +180,13 @@
   display: grid; place-items: center; font-size: 30px; color: #fff; font-weight: 800;
   transition: transform 0.1s var(--ease), box-shadow 0.1s;
 }
+.scell { position: relative; overflow: hidden; box-shadow: var(--shadow-1); }
+.scell::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,.25), transparent 55%); pointer-events: none; }
+.scell__ico { font-size: clamp(28px, 8vw, 40px); filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); z-index: 1; }
 .scell:active { transform: scale(0.9); }
-.scell.hit { animation: pop 0.35s var(--ease-back); }
+.scell.hit { animation: pop 0.35s var(--ease-back); box-shadow: 0 0 0 3px rgba(255,255,255,.4), 0 0 20px rgba(46,199,122,.5); }
 .scell.miss { animation: shake 0.35s; }
+.speed-target b { display: inline-flex; align-items: center; gap: 6px; }
 
 /* Result card */
 .result { text-align: center; padding: clamp(20px, 4vw, 36px); }

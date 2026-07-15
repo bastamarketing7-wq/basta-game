@@ -46,19 +46,19 @@
         cells.forEach((c) => {
           const b = document.createElement("button");
           b.className = "scell"; b.type = "button";
-          b.style.background = c.color;
-          b.innerHTML = `<span>${c.icon}</span>`;
+          b.style.background = c.grad;
+          b.innerHTML = `<span class="scell__ico">${c.icon}</span>`;
           b.setAttribute("aria-label", c.name);
           b.addEventListener("click", () => hit(c, b));
           grid.appendChild(b);
         });
         const st = $("#starget");
-        st.innerHTML = `اضغط على <b style="background:${target.color}">${esc(target.name)}</b>`;
+        st.innerHTML = `اضغط على <b style="background:${target.grad}">${target.icon} ${esc(target.name)}</b>`;
       }
 
       function hit(c, b) {
         if (!alive) return;
-        if (c.icon === target.icon && c.color === target.color) {
+        if (c.icon === target.icon && c.name === target.name) {
           score++; Sound.fx("correct");
           b.classList.add("hit");
           $("#sscore").textContent = "النقاط " + score;

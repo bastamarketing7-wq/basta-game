@@ -20,7 +20,7 @@
     music: false,
     achievements: {},     // id -> true
     playedModes: {},      // id -> true
-    bests: { puzzle: 0, memory: 0, speed: 0, strategy: 0 },
+    bests: { puzzle: 0, memory: 0, speed: 0, strategy: 0, match: 0 },
     leaderboard: []       // [{name, score, level, mode, ts}]
   };
 
@@ -86,7 +86,12 @@
   function markMode(id) {
     if (!state.playedModes[id]) { state.playedModes[id] = true; save(); }
   }
-  function modesPlayedCount() { return ["puzzle", "memory", "speed", "strategy"].filter(m => state.playedModes[m]).length; }
+  function coreModeIds() {
+    try { return (window.BASTA_DATA.MODES || []).map(m => m.id); }
+    catch (e) { return ["puzzle", "memory", "speed", "strategy", "match"]; }
+  }
+  function modesPlayedCount() { return coreModeIds().filter(m => state.playedModes[m]).length; }
+  function modesTotal() { return coreModeIds().length; }
 
   function setBest(mode, value) {
     if (value > (state.bests[mode] || 0)) { state.bests[mode] = value; save(); return true; }
@@ -134,7 +139,7 @@
   window.Store = {
     get, patch, save, reset, load,
     levelInfo, addXp, addCoins, unlock, has,
-    markMode, modesPlayedCount, setBest,
+    markMode, modesPlayedCount, modesTotal, setBest,
     touchStreak, todayStr,
     seedLeaderboardIfEmpty, addScore
   };
