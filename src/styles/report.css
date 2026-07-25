@@ -1,0 +1,405 @@
+/* ================================================================
+   تصميم التقرير — 7 صفحات A4 بالضبط، عربي RTL، هوية بسطة.
+   طبقة عرض منفصلة تمامًا عن طبقة التحليل.
+   ================================================================ */
+
+.report {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: center;
+}
+
+.rpage {
+  width: 210mm;
+  min-height: 297mm;
+  background: var(--white);
+  color: var(--ink);
+  padding: 18mm 16mm;
+  position: relative;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* رأس وتذييل موحّد للصفحات الداخلية */
+.rhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 8mm;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8mm;
+}
+.rhead img {
+  height: 34px;
+  width: auto;
+}
+.rhead .t {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+  text-align: left;
+}
+
+.rfoot {
+  margin-top: auto;
+  padding-top: 7mm;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.rpage h2 {
+  font-size: 21px;
+  margin-bottom: 6mm;
+}
+.rpage h3 {
+  font-size: 14px;
+  margin-bottom: 3mm;
+}
+.rpage p,
+.rpage li {
+  font-size: 12.5px;
+  line-height: 1.85;
+}
+
+/* ---------- الصفحة 1: الغلاف ---------- */
+
+.rcover {
+  background: var(--blue);
+  color: var(--white);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20mm;
+}
+.rcover .logo-box {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 9mm 12mm;
+  display: inline-block;
+  margin-bottom: 16mm;
+}
+.rcover .logo-box img {
+  height: 30mm;
+  width: auto;
+  display: block;
+}
+.rcover h1 {
+  font-size: 30px;
+  margin-bottom: 12mm;
+  color: var(--white);
+}
+.rcover .meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+  margin-bottom: 16mm;
+}
+.rcover .meta b {
+  font-weight: 900;
+}
+.rcover .byline {
+  font-size: 14px;
+  font-weight: 900;
+}
+.rcover .rule {
+  width: 100%;
+  height: 4px;
+  background: var(--orange);
+  margin: 10mm 0 6mm;
+  border-radius: 2px;
+}
+.rcover .tag {
+  font-size: 13px;
+  opacity: 0.95;
+}
+.rcover .contact {
+  margin-top: auto;
+  font-size: 11px;
+  opacity: 0.9;
+  direction: ltr;
+}
+
+/* ---------- عناصر مشتركة ---------- */
+
+.rgrid {
+  display: grid;
+  gap: 5mm;
+}
+.rgrid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.rgrid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.rbox {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 5mm;
+}
+.rbox .lbl {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 2mm;
+}
+.rbox .val {
+  font-size: 12.5px;
+  line-height: 1.75;
+}
+
+.rlead {
+  border-inline-start: 3px solid var(--orange);
+  padding-inline-start: 5mm;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+/* الدرجة الكبيرة */
+.rscore {
+  display: flex;
+  align-items: center;
+  gap: 7mm;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 6mm;
+}
+.rscore .num {
+  font-size: 58px;
+  font-weight: 900;
+  color: var(--blue);
+  line-height: 1;
+}
+.rscore .num small {
+  font-size: 18px;
+  color: var(--muted);
+  font-weight: 700;
+}
+.rscore .side {
+  flex: 1;
+}
+
+.rmeter {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2mm 4mm;
+  align-items: center;
+  margin-bottom: 3mm;
+}
+.rmeter .nm {
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.rmeter .st {
+  font-size: 10.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.rmeter .track {
+  grid-column: 1 / -1;
+  height: 6px;
+  background: var(--surface);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.rmeter .track > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--blue);
+}
+.rmeter .track.good > span {
+  background: var(--good);
+}
+.rmeter .track.warn > span {
+  background: var(--warn);
+}
+.rmeter .track.bad > span {
+  background: var(--bad);
+}
+.rmeter .track.na > span {
+  background: var(--line);
+}
+
+/* بطاقات المنصات */
+.rcard {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 4.5mm;
+}
+.rcard h4 {
+  font-size: 12.5px;
+  font-weight: 900;
+  margin-bottom: 2.5mm;
+  color: var(--blue);
+}
+.rcard .row {
+  font-size: 11px;
+  line-height: 1.7;
+  margin-bottom: 1.5mm;
+}
+.rcard .row b {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* قوائم مختصرة */
+.rlist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.rlist li {
+  position: relative;
+  padding-inline-start: 5mm;
+  margin-bottom: 2mm;
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+.rlist li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+/* خطة زمنية */
+.rplan {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 4mm;
+}
+.rplan .hd {
+  font-size: 11.5px;
+  font-weight: 900;
+  color: var(--blue);
+  margin-bottom: 2.5mm;
+  padding-bottom: 2mm;
+  border-bottom: 1px solid var(--line);
+}
+.rplan ol {
+  margin: 0;
+  padding-inline-start: 4.5mm;
+}
+.rplan li {
+  font-size: 11px;
+  line-height: 1.65;
+  margin-bottom: 2mm;
+}
+
+.rtag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+/* الخاتمة */
+.rfinal {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 6mm;
+  text-align: center;
+}
+.rfinal .tagline {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--blue);
+  margin-top: 3mm;
+}
+.rcontact {
+  display: flex;
+  justify-content: center;
+  gap: 6mm;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4mm;
+}
+
+.rna {
+  color: var(--muted);
+  font-size: 11.5px;
+  font-style: normal;
+}
+
+/* ---------- الطباعة و PDF ---------- */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  body {
+    background: var(--white);
+  }
+  .no-print,
+  .topbar,
+  .tabs {
+    display: none !important;
+  }
+  .main {
+    padding: 0;
+    max-width: none;
+  }
+  .report {
+    gap: 0;
+  }
+  .rpage {
+    box-shadow: none;
+    border: 0;
+    width: 210mm;
+    height: 297mm;
+    min-height: 297mm;
+    page-break-after: always;
+    break-after: page;
+  }
+  .rpage:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+  .rcover {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* معاينة على الشاشات الصغيرة: تصغير الصفحة لتناسب العرض */
+@media (max-width: 900px) {
+  .report {
+    align-items: flex-start;
+  }
+  .rpage {
+    transform: scale(0.62);
+    transform-origin: top right;
+    margin-bottom: -105mm;
+  }
+}
+@media (max-width: 560px) {
+  .rpage {
+    transform: scale(0.44);
+    margin-bottom: -160mm;
+  }
+}
